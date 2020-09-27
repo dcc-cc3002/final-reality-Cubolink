@@ -1,14 +1,14 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.Cubolink.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.Cubolink.finalreality.model.weapon.Weapon;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Joaquín Cruz Cancino.
  */
 public interface ICharacter {
 

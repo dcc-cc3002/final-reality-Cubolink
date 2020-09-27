@@ -1,8 +1,9 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.Cubolink.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.Cubolink.finalreality.model.weapon.Weapon;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
+import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * An abstract class that holds the common behaviour of all the characters in the game.
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Joaquín Cruz Cancino.
  */
 public abstract class AbstractCharacter implements ICharacter {
 

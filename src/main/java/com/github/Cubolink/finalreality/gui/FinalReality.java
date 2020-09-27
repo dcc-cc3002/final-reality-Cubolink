@@ -1,4 +1,4 @@
-package com.github.cc3002.finalreality.gui;
+package com.github.Cubolink.finalreality.gui;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * <Complete here with the details of the implemented application>
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Joaquín Cruz Cancino.
  */
 public class FinalReality extends Application {
 

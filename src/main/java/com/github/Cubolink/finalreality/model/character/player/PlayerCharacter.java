@@ -1,7 +1,8 @@
-package com.github.cc3002.finalreality.model.character.player;
+package com.github.Cubolink.finalreality.model.character.player;
 
-import com.github.cc3002.finalreality.model.character.AbstractCharacter;
-import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.Cubolink.finalreality.model.character.AbstractCharacter;
+import com.github.Cubolink.finalreality.model.character.ICharacter;
+
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * A class that holds all the information of a single character of the game.
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Joaquín Cruz Cancino.
  */
 public class PlayerCharacter extends AbstractCharacter {
 
