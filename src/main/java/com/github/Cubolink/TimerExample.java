@@ -1,8 +1,6 @@
 package com.github.Cubolink;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.Weapon;
-import com.github.Cubolink.finalreality.model.weapon.WeaponType;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 

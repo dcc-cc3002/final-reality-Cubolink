@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.Weapon;
-import com.github.Cubolink.finalreality.model.weapon.WeaponType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
