@@ -3,6 +3,9 @@ package com.github.Cubolink.finalreality.model.character;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -23,6 +26,14 @@ public class Enemy extends AbstractCharacter {
       @NotNull final BlockingQueue<ICharacter> turnsQueue) {
     super(turnsQueue, name, CharacterClass.ENEMY);
     this.weight = weight;
+  }
+
+  @Override
+  public void waitTurn(){
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    var enemy = (Enemy) this;
+    scheduledExecutor
+            .schedule(this::addToQueue, enemy.getWeight() / 10, TimeUnit.SECONDS);
   }
 
   /**

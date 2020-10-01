@@ -6,6 +6,6 @@ package com.github.Cubolink.finalreality.model.character.player;
  * @author Ignacio Slater Muñoz.
  * @author Joaquín Cruz Cancino.
  */
-public enum CharacterClass {
-  KNIGHT, ENGINEER, THIEF, BLACK_MAGE, WHITE_MAGE, ENEMY
+public abstract class AbstractCharacterClass {
+
 }

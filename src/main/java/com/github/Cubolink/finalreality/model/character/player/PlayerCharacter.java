@@ -5,6 +5,11 @@ import com.github.Cubolink.finalreality.model.character.ICharacter;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import com.github.Cubolink.finalreality.model.character.IPlayerCharacter;
+import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -13,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ignacio Slater Muñoz.
  * @author Joaquín Cruz Cancino.
  */
-public class PlayerCharacter extends AbstractCharacter {
+public class PlayerCharacter extends AbstractCharacter implements IPlayerCharacter {
 
   /**
    * Creates a new character.
@@ -27,8 +32,27 @@ public class PlayerCharacter extends AbstractCharacter {
    */
   public PlayerCharacter(@NotNull String name,
       @NotNull BlockingQueue<ICharacter> turnsQueue,
-      final CharacterClass characterClass) {
+      final AbstractCharacterClass characterClass) {
     super(turnsQueue, name, characterClass);
+  }
+
+  @Override
+  public void waitTurn() {
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    scheduledExecutor.schedule(this::addToQueue, (int) (equippedWeapon.getWeight() / 10), TimeUnit.SECONDS);
+  }
+
+  public void equip(AbstractWeapon weapon){
+    this.equippedWeapon = weapon;
+  }
+  @Override
+  public AbstractWeapon getEquippedWeapon() {
+    return equippedWeapon;
+  }
+
+  @Override
+  public AbstractCharacterClass getCharacterClass() {
+    return characterClass;
   }
 
   @Override
