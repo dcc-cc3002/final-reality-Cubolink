@@ -8,7 +8,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.Cubolink.finalreality.model.character.IPlayerCharacter;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
 import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,6 +20,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerCharacter extends AbstractCharacter implements IPlayerCharacter {
 
+  // While Player has its Inventory, is the characterClass which store the equipped stuff
+  private final AbstractCharacterClass characterClass;
+  private static final AbstractWeapon[] inventory = new AbstractWeapon[10];
   /**
    * Creates a new character.
    *
@@ -31,9 +34,10 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
    *     the class of this character
    */
   public PlayerCharacter(@NotNull String name,
-      @NotNull BlockingQueue<ICharacter> turnsQueue,
-      final AbstractCharacterClass characterClass) {
-    super(turnsQueue, name, characterClass);
+                         @NotNull BlockingQueue<ICharacter> turnsQueue,
+                         final AbstractCharacterClass characterClass) {
+    super(turnsQueue, name);
+    this.characterClass = characterClass;
   }
 
   @Override
@@ -42,12 +46,19 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
     scheduledExecutor.schedule(this::addToQueue, (int) (equippedWeapon.getWeight() / 10), TimeUnit.SECONDS);
   }
 
+  @Override
+  public int getWeight() {
+    // Do stuff with the inventory and get the total weight
+    return 0;
+  }
+
+  @Override
   public void equip(AbstractWeapon weapon){
-    this.equippedWeapon = weapon;
+    characterClass.equip(weapon);
   }
   @Override
   public AbstractWeapon getEquippedWeapon() {
-    return equippedWeapon;
+    return characterClass.getEquippedWeapon();
   }
 
   @Override

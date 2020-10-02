@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.model.character;
 
-import com.github.Cubolink.finalreality.model.character.player.AbstractCharacterClass;
+import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
 import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,15 +17,18 @@ public abstract class AbstractCharacter implements ICharacter {
 
   protected final BlockingQueue<ICharacter> turnsQueue;
   protected final String name;
-  protected final AbstractCharacterClass characterClass;
+  protected int hp, maxhp;
+  protected int defense, resistance;
+  protected boolean alive;
   protected AbstractWeapon equippedWeapon = null;
+  protected IStatus[] statuses;
   protected ScheduledExecutorService scheduledExecutor;
 
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-      @NotNull String name, AbstractCharacterClass characterClass) {
+      @NotNull String name) {
     this.turnsQueue = turnsQueue;
     this.name = name;
-    this.characterClass = characterClass;
+    this.statuses = new IStatus[3];  // limited number of simultaneous status effects
   }
 
   /**
@@ -36,9 +39,51 @@ public abstract class AbstractCharacter implements ICharacter {
     scheduledExecutor.shutdown();
   }
 
+  protected void addStatus(){
+    // add to statuses
+  }
+
+  abstract public void waitTurn();
+
   @Override
   public String getName() {
     return name;
   }
 
+  @Override
+  public int getHp(){
+    return hp;
+  }
+
+  @Override
+  public boolean is_alive() {
+    if (hp <= 0){
+      alive = false;
+    }
+    return alive;
+  }
+
+  abstract public int getWeight();
+
+  public void takeDamage(int dmg, boolean physical){
+    int real_damage=0;
+    if (physical){
+      if (dmg > defense){
+        real_damage = (dmg - defense);
+      }
+    } else {
+      if (dmg > resistance){
+        real_damage = (dmg - resistance);
+      }
+    }
+    hp -= real_damage;
+  }
+
+  public void heal(int points){
+    if (hp+points <= maxhp){
+      hp += points;
+    } else  if (hp < maxhp){
+      hp = maxhp;
+    }
+  }
 }

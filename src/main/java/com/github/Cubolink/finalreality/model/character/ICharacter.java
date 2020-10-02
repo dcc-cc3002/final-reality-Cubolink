@@ -1,7 +1,5 @@
 package com.github.Cubolink.finalreality.model.character;
 
-import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
-
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
@@ -21,4 +19,14 @@ public interface ICharacter {
    * Returns this character's name.
    */
   String getName();
+
+  /**
+   * @return the Hp
+   */
+  int getHp();
+
+  /**
+   * @return true if the entity is alive, and false otherwise
+   */
+  boolean is_alive();
 }

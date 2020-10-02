@@ -1,6 +1,6 @@
-package com.github.Cubolink.finalreality.model.character;
+package com.github.Cubolink.finalreality.model.character.player;
 
-import com.github.Cubolink.finalreality.model.character.player.AbstractCharacterClass;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
 import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
 
 public interface IPlayerCharacter {

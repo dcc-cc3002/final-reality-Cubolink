@@ -1,6 +1,5 @@
 package com.github.Cubolink.finalreality.model.character;
 
-import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -24,7 +23,7 @@ public class Enemy extends AbstractCharacter {
    */
   public Enemy(@NotNull final String name, final int weight,
       @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    super(turnsQueue, name, CharacterClass.ENEMY);
+    super(turnsQueue, name);
     this.weight = weight;
   }
 
@@ -39,6 +38,7 @@ public class Enemy extends AbstractCharacter {
   /**
    * Returns the weight of this enemy.
    */
+  @Override
   public int getWeight() {
     return weight;
   }

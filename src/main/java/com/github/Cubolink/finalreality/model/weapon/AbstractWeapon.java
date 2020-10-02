@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class AbstractWeapon {
     protected final String name;
-    protected final double physical_damage;
+    protected final int physical_damage;
     protected final double weight;
 
-    public AbstractWeapon(String name, double physical_damage, double weight){
+    public AbstractWeapon(String name, int physical_damage, double weight){
         this.name = name;
         this.physical_damage = physical_damage;
         this.weight = weight;
@@ -16,14 +16,14 @@ public class AbstractWeapon {
     public String getName(){
         return name;
     }
-    public double getDamage(){
+    public int getDamage(){
         return physical_damage;
     }
     public double getWeight(){
         return weight;
     }
 
-    public double getMagical_damage(){
+    public int getMagical_damage(){
         return 0;
     }
 
