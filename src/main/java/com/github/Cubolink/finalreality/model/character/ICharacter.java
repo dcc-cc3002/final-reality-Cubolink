@@ -1,14 +1,11 @@
-package com.github.cc3002.finalreality.model.character;
-
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+package com.github.Cubolink.finalreality.model.character;
 
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Joaquín Cruz Cancino.
  */
 public interface ICharacter {
 
@@ -24,17 +21,12 @@ public interface ICharacter {
   String getName();
 
   /**
-   * Equips a weapon to the character.
+   * @return the Hp
    */
-  void equip(Weapon weapon);
+  int getHp();
 
   /**
-   * Return this character's equipped weapon.
+   * @return true if the entity is alive, and false otherwise
    */
-  Weapon getEquippedWeapon();
-
-  /**
-   * Returns this character's class.
-   */
-  CharacterClass getCharacterClass();
+  boolean is_alive();
 }
