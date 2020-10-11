@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
+import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 
 public class Engineer extends AbstractCharacterClass {
 
@@ -8,12 +8,14 @@ public class Engineer extends AbstractCharacterClass {
         super("Engineer");
     }
 
-    public Engineer(AbstractWeapon weapon, String classname) {
+    public Engineer(GenericWeapon weapon, String classname) {
         super(weapon, classname);
     }
 
     @Override
-    public void equip(AbstractWeapon weapon) {
-        this.equippedWeapon = weapon;
+    public void equip(GenericWeapon weapon) {
+        if (weapon.isWearableByEngineer()){
+            this.equippedWeapon = weapon;
+        }
     }
 }

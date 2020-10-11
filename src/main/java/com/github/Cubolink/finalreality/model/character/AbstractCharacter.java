@@ -1,7 +1,7 @@
 package com.github.Cubolink.finalreality.model.character;
 
 import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
-import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
+import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
@@ -15,20 +15,28 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public abstract class AbstractCharacter implements ICharacter {
 
+  protected ScheduledExecutorService scheduledExecutor;
   protected final BlockingQueue<ICharacter> turnsQueue;
   protected final String name;
-  protected int hp, maxhp;
+  protected final int maxHp;
+  protected int hp;
   protected int defense, resistance;
   protected boolean alive;
-  protected AbstractWeapon equippedWeapon = null;
+  protected boolean attack_enabled;
+  protected GenericWeapon equippedWeapon = new GenericWeapon("Fist", 1, 0);
   protected IStatus[] statuses;
-  protected ScheduledExecutorService scheduledExecutor;
 
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-      @NotNull String name) {
+                              @NotNull String name,
+                              int maxHp, int defense, int resistance) {
     this.turnsQueue = turnsQueue;
     this.name = name;
+    this.maxHp = maxHp;
+    this.hp = maxHp;
+    this.defense = defense;
+    this.resistance = resistance;
     this.statuses = new IStatus[3];  // limited number of simultaneous status effects
+    this.attack_enabled = true;
   }
 
   /**
@@ -39,8 +47,35 @@ public abstract class AbstractCharacter implements ICharacter {
     scheduledExecutor.shutdown();
   }
 
-  protected void addStatus(){
+  /**
+   * @return true if the character has enable the capacity of attacking, and false if not
+   */
+  public boolean isAttack_enabled() {
+    return attack_enabled;
+  }
+
+  /**
+   * enables or disables the capacity of the character to attack
+   * @param attack_enabled the value to set
+   */
+  @Override
+  public void setAttack_enabled(boolean attack_enabled) {
+    this.attack_enabled = attack_enabled;
+  }
+
+  @Override
+  public void addStatus(IStatus status){
     // add to statuses
+  }
+
+  @Override
+  public void dropStatus(IStatus status) {
+    // iterates over the list 'statuses', and if the status is equals to the status on the list, then removes it
+  }
+
+  @Override
+  public void applyStatuses() {
+    // iterates over the list 'statuses', using .effect(this)
   }
 
   abstract public void waitTurn();
@@ -55,35 +90,47 @@ public abstract class AbstractCharacter implements ICharacter {
     return hp;
   }
 
+  /**
+   * @return the weight of the entity
+   */
+  abstract public double getWeight();
+
   @Override
-  public boolean is_alive() {
+  public boolean isAlive() {
     if (hp <= 0){
       alive = false;
     }
     return alive;
   }
 
-  abstract public int getWeight();
+  @Override
+  public abstract void attack(ICharacter character);
 
-  public void takeDamage(int dmg, boolean physical){
-    int real_damage=0;
-    if (physical){
-      if (dmg > defense){
-        real_damage = (dmg - defense);
-      }
-    } else {
-      if (dmg > resistance){
-        real_damage = (dmg - resistance);
-      }
-    }
-    hp -= real_damage;
-  }
-
-  public void heal(int points){
-    if (hp+points <= maxhp){
-      hp += points;
-    } else  if (hp < maxhp){
-      hp = maxhp;
+  @Override
+  public void receiveDamage(int dmg){
+    hp -= dmg;
+    if(!isAlive()){
+      hp = 0;
     }
   }
+
+  @Override
+  public void bePhysicallyAttackedBy(GenericWeapon weapon) {
+    int dmg = weapon.getPhysicalDamage();
+    dmg -= defense;
+    if (dmg>0){
+      receiveDamage(dmg);
+    }
+  }
+
+  @Override
+  public void beMagicallyAttackedBy(GenericWeapon weapon) {
+    int dmg = weapon.getMagicalDamage();
+    dmg -= resistance;
+    if (dmg>0){
+      receiveDamage(dmg);
+    }
+
+  }
+
 }

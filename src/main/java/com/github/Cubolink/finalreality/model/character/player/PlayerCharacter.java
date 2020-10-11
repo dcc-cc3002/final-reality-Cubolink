@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
-import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
+import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,7 +22,7 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
 
   // While Player has its Inventory, is the characterClass which store the equipped stuff
   private final AbstractCharacterClass characterClass;
-  private static final AbstractWeapon[] inventory = new AbstractWeapon[10];
+  private static final GenericWeapon[] inventory = new GenericWeapon[10];
   /**
    * Creates a new character.
    *
@@ -33,31 +33,47 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
    * @param characterClass
    *     the class of this character
    */
-  public PlayerCharacter(@NotNull String name,
-                         @NotNull BlockingQueue<ICharacter> turnsQueue,
+  public PlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
+                         @NotNull String name,
+                         int maxHp, int defense, int resistance,
                          final AbstractCharacterClass characterClass) {
-    super(turnsQueue, name);
+    super(turnsQueue, name, maxHp, defense, resistance);
     this.characterClass = characterClass;
   }
 
   @Override
   public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    scheduledExecutor.schedule(this::addToQueue, (int) (equippedWeapon.getWeight() / 10), TimeUnit.SECONDS);
+    scheduledExecutor.schedule(this::addToQueue, (int) (getEquippedWeapon().getWeight() / 10), TimeUnit.SECONDS);
   }
 
   @Override
-  public int getWeight() {
-    // Do stuff with the inventory and get the total weight
-    return 0;
+  public void attack(ICharacter character) {
+    characterClass.attack(character);
   }
 
   @Override
-  public void equip(AbstractWeapon weapon){
+  public void heal(int points){
+    if (isAlive()){
+      hp += points;
+      if (hp>maxHp){
+        hp = maxHp;
+      }
+    }
+  }
+
+  @Override
+  public double getWeight() {
+    // Do stuff with the equipped inventory and get the total weight
+    return getEquippedWeapon().getWeight();
+  }
+
+  @Override
+  public void equip(GenericWeapon weapon){
     characterClass.equip(weapon);
   }
   @Override
-  public AbstractWeapon getEquippedWeapon() {
+  public GenericWeapon getEquippedWeapon() {
     return characterClass.getEquippedWeapon();
   }
 

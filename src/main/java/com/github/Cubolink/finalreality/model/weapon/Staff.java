@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.model.weapon;
 
-public class Staff extends AbstractWeapon{
+public class Staff extends GenericWeapon{
     protected final int magical_damage;
 
     public Staff(String name, int physical_damage, double weight, int magical_damage) {
@@ -9,7 +9,12 @@ public class Staff extends AbstractWeapon{
     }
 
     @Override
-    public int getMagical_damage(){
+    public int getMagicalDamage(){
         return magical_damage;
+    }
+
+    @Override
+    public boolean isWearableByMage() {
+        return true;
     }
 }

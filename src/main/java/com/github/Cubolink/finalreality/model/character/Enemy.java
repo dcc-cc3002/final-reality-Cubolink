@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,17 +15,20 @@ import org.jetbrains.annotations.NotNull;
  * @author Joaquín Cruz Cancino.
  */
 public class Enemy extends AbstractCharacter {
-
-  private final int weight;
+  private final GenericWeapon weapon;
+  private final double weight;
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
    * play.
    */
-  public Enemy(@NotNull final String name, final int weight,
-      @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    super(turnsQueue, name);
+  public Enemy(@NotNull final BlockingQueue<ICharacter> turnsQueue,
+               @NotNull final String name,
+               int defense, int resistance, int maxHp,
+               final double weight, final int attack_dmg) {
+    super(turnsQueue, name, maxHp, defense, resistance);
     this.weight = weight;
+    this.weapon = new GenericWeapon("Whole Body", attack_dmg, 0);
   }
 
   @Override
@@ -32,14 +36,16 @@ public class Enemy extends AbstractCharacter {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     var enemy = (Enemy) this;
     scheduledExecutor
-            .schedule(this::addToQueue, enemy.getWeight() / 10, TimeUnit.SECONDS);
+            .schedule(this::addToQueue, (int) enemy.getWeight() / 10, TimeUnit.SECONDS);
   }
 
-  /**
-   * Returns the weight of this enemy.
-   */
   @Override
-  public int getWeight() {
+  public void attack(ICharacter character) {
+    character.bePhysicallyAttackedBy(weapon);
+  }
+
+  @Override
+  public double getWeight() {
     return weight;
   }
 
