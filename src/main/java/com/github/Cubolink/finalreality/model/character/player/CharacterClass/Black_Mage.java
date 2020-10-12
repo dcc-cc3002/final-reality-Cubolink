@@ -1,5 +1,6 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
+import java.util.Objects;
 import java.util.Random;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.statuseffects.Burned;
@@ -45,5 +46,19 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
                 character.addStatus(new Burned(equippedWeapon.getMagicalDamage()));
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof Black_Mage)) return false;
+
+        final Black_Mage that = (Black_Mage) o;
+        return getClassname().equals(that.getClassname());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(getClassname());
     }
 }

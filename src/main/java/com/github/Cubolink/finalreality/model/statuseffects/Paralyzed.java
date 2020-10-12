@@ -2,6 +2,8 @@ package com.github.Cubolink.finalreality.model.statuseffects;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 
+import java.util.Objects;
+
 public class Paralyzed implements IStatus {
     private int turns_to_disappear = 1;
 
@@ -23,5 +25,23 @@ public class Paralyzed implements IStatus {
         character.setAttack_enabled(true);
 
         character.dropStatus(this);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Paralyzed)){
+            return false;
+        }
+
+        final Paralyzed paralyzed = (Paralyzed) o;
+        return turns_to_disappear == paralyzed.turns_to_disappear;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hashCode(turns_to_disappear);
     }
 }

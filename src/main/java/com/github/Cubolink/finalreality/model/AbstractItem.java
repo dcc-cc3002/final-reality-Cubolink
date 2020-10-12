@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.model;
 
-public class AbstractItem implements  IItem{
+public abstract class AbstractItem implements  IItem{
     protected final String name;
     protected final double weight;
 

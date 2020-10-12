@@ -2,6 +2,8 @@ package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 
+import java.util.Objects;
+
 public class Engineer extends AbstractCharacterClass {
 
     public Engineer(String classname) {
@@ -17,5 +19,19 @@ public class Engineer extends AbstractCharacterClass {
         if (weapon.isWearableByEngineer()){
             this.equippedWeapon = weapon;
         }
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof Engineer)) return false;
+
+        final Engineer that = (Engineer) o;
+        return getClassname().equals(that.getClassname());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(getClassname());
     }
 }

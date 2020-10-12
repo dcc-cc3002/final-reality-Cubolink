@@ -83,11 +83,6 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(getCharacterClass());
-  }
-
-  @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;
@@ -95,8 +90,13 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
     if (!(o instanceof PlayerCharacter)) {
       return false;
     }
+
     final PlayerCharacter that = (PlayerCharacter) o;
-    return getCharacterClass() == that.getCharacterClass()
-        && getName().equals(that.getName());
+    return getName().equals(that.getName());  // Yup, only the name differentiates a playerCharacter
+  }
+
+  @Override
+  public int hashCode(){
+    return Objects.hash(getName());
   }
 }

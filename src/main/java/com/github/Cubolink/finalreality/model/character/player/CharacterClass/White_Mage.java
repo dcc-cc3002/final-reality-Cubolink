@@ -1,13 +1,12 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.AbstractCharacter;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
-import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.statuseffects.Poisoned;
 import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+
+import java.util.Objects;
 
 public class White_Mage extends AbstractCharacterClass implements IMage{
     private int mana;
@@ -49,5 +48,19 @@ public class White_Mage extends AbstractCharacterClass implements IMage{
             // add status paralyzed to character
             character.addStatus(new Paralyzed());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof White_Mage)) return false;
+
+        final White_Mage that = (White_Mage) o;
+        return getClassname().equals(that.getClassname());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(getClassname());
     }
 }

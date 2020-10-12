@@ -26,8 +26,7 @@ public class GenericWeapon extends AbstractItem implements IWeapon, IWearableIte
         return physical_damage;
     }
 
-    @Override
-    public int getMagicalDamage() {
+    public int getMagicalDamage(){
         return 0;
     }
 
@@ -59,11 +58,11 @@ public class GenericWeapon extends AbstractItem implements IWeapon, IWearableIte
         if (!(o instanceof GenericWeapon)) {
             return false;
         }
-        // I don't know if this instantiates AbstractWeapon. I guess we'll learn it soon.
+
         final GenericWeapon weapon = (GenericWeapon) o;
-        return getPhysicalDamage() == weapon.getPhysicalDamage() &&
-                getWeight() == weapon.getWeight() &&
-                getName().equals(weapon.getName());
+        return getName().equals(weapon.getName())
+                && getPhysicalDamage() == weapon.getPhysicalDamage()
+                && getWeight() == weapon.getWeight();
     }
 
     @Override

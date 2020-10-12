@@ -65,6 +65,7 @@ public abstract class AbstractCharacter implements ICharacter {
 
   @Override
   public void addStatus(IStatus status){
+
     // add to statuses
   }
 

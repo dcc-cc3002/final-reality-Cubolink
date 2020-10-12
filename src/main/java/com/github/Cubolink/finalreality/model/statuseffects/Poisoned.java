@@ -2,6 +2,8 @@ package com.github.Cubolink.finalreality.model.statuseffects;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 
+import java.util.Objects;
+
 public class Poisoned implements IStatus {
     private final int magic_damage;
 
@@ -21,5 +23,23 @@ public class Poisoned implements IStatus {
     @Override
     public void disable_effect(ICharacter character){
         character.dropStatus(this);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Poisoned)){
+            return false;
+        }
+
+        final Poisoned poisoned = (Poisoned) o;
+        return magic_damage == poisoned.magic_damage;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(magic_damage);
     }
 }

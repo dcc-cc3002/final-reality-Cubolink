@@ -14,4 +14,19 @@ public class Bow extends GenericWeapon{
     public boolean isWearableByThief() {
         return true;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Bow)){
+            return false;
+        }
+
+        final Bow bow = (Bow) o;
+        return getName().equals(bow.getName())
+                && getPhysicalDamage() == bow.getPhysicalDamage()
+                && getWeight() == bow.getWeight();
+    }
 }
