@@ -8,6 +8,10 @@ import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 
 
+/**
+ * Black Mage class/job that a character can have.
+ * @see AbstractCharacterClass
+ */
 public class Black_Mage extends AbstractCharacterClass implements IMage{
     private int mana=50;
 
@@ -19,6 +23,9 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         super(classname, weapon);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void equip(GenericWeapon weapon) {
         if (weapon.isWearableByMage()){
@@ -26,7 +33,16 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         }
     }
 
-    public void thunder(ICharacter character){
+    /**
+     * Uses magic on a character if the class have enough mana.
+     * Attacks a character with magical damage.
+     * Spend 15 mana.
+     * It may paralyze the objective character (probability = 30%)
+     * @see Paralyzed
+     *
+     * @param character the character to attack.
+     */
+    public void thunder(ICharacter character) {
         if (mana>=15){
             mana -= 15;
             character.receiveDamage(equippedWeapon.getMagicalDamage());
@@ -37,7 +53,16 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         }
     }
 
-    public void fire(ICharacter character){
+    /**
+     * Uses magic on a character if the class have enough mana.
+     * Recovers 30% of the objective character maximum hp.
+     * Spend 15 mana.
+     * It may burn the objective character (probability = 20%)
+     * @see Burned
+     *
+     * @param character the character to attack.
+     */
+    public void fire(ICharacter character) {
         if (mana>=15){
             mana -= 15;
             character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
@@ -48,17 +73,27 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         }
     }
 
+    /**
+     * Equals definition is set as same object, or instance with name.
+     *
+     * @param o the object to compare equality.
+     * @return true if the objects are equals.
+     */
     @Override
-    public boolean equals(Object o){
-        if (this == o) return true;
-        if (!(o instanceof Black_Mage)) return false;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Black_Mage)) {
+            return false;
+        }
 
         final Black_Mage that = (Black_Mage) o;
         return getClassname().equals(that.getClassname());
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(getClassname());
     }
 }

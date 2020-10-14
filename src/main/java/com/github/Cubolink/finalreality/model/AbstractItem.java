@@ -1,5 +1,8 @@
 package com.github.Cubolink.finalreality.model;
 
+/**
+ * Abstract class with common things that an Item can do.
+ */
 public abstract class AbstractItem implements  IItem{
     protected final String name;
     protected final double weight;
@@ -9,11 +12,17 @@ public abstract class AbstractItem implements  IItem{
         this.weight = weight;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getWeight() {
         return weight;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return name;

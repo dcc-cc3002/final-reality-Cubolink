@@ -22,7 +22,8 @@ public abstract class AbstractCharacter implements ICharacter {
     protected final String name;
     protected final int maxHp;
     protected int hp;
-    protected int defense, resistance;
+    protected final int defense;
+    protected final int resistance;
     protected boolean alive;
     protected boolean attack_enabled;
     protected GenericWeapon equippedWeapon = new GenericWeapon("Fist", 1, 0);
@@ -30,9 +31,16 @@ public abstract class AbstractCharacter implements ICharacter {
     protected Iterator<IStatus> statusIterator;
     protected boolean inIteration = false;
 
+    /**
+     * @param turnsQueue The queue with the characters ready.
+     * @param name The name of the character.
+     * @param maxHp The maximum Hp of the enemy. The Hp if initialized at this value too.
+     * @param defense to resist physicals attacks.
+     * @param resistance to resist magicals attacks.
+     */
     protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                @NotNull String name,
-                                int maxHp, int defense, int resistance) {
+                                final @NotNull String name,
+                                final int maxHp, final int defense, final int resistance) {
         this.turnsQueue = turnsQueue;
         this.name = name;
         this.maxHp = maxHp;
@@ -53,7 +61,7 @@ public abstract class AbstractCharacter implements ICharacter {
     }
 
     /**
-     * @return true if the character has enable the capacity of attacking, and false if not
+     * {@inheritDoc}
      */
     @Override
     public boolean isAttack_enabled() {
@@ -61,22 +69,26 @@ public abstract class AbstractCharacter implements ICharacter {
     }
 
     /**
-     * enables or disables the capacity of the character to attack
-     * @param attack_enabled the value to set
+     * {@inheritDoc}
      */
     @Override
     public void setAttack_enabled(boolean attack_enabled) {
         this.attack_enabled = attack_enabled;
     }
 
+    /**
+     * {@inheritDoc}
+     * Verifies if the status already is on the character before adding it.
+     * If there's a status of the same kind, then the character stays with the worse (longer duration or greater damage).
+     */
     @Override
-    public void addStatus(IStatus status){
+    public void addStatus(IStatus status) {
         IStatus status_i;
         for (int i=0; i<statuses.size(); i++){
             status_i = statuses.get(i);
 
-            if(status_i.almostEquals(status)){  // We have an instance of that kind of state
-                if (status.greaterThan(status_i)){  // the newcomer is greater
+            if ( status_i.almostEquals(status) ) {  // We have an instance of that kind of state
+                if ( status.greaterThan(status_i) ) {  // the newcomer is greater
                     statuses.set(i, status);  // so we replace the weaker
                 }
                 return;
@@ -86,6 +98,9 @@ public abstract class AbstractCharacter implements ICharacter {
         statuses.add(status);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dropStatus(IStatus status) {
         if (inIteration){
@@ -96,6 +111,9 @@ public abstract class AbstractCharacter implements ICharacter {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void applyStatuses() {
         // Must use iterator, because status.effect() may remove one element, so it would be removing while iterating
@@ -103,7 +121,7 @@ public abstract class AbstractCharacter implements ICharacter {
 
         inIteration = true;
         IStatus status_i;
-        while(statusIterator.hasNext()){
+        while(statusIterator.hasNext()) {
             status_i = statusIterator.next();
             status_i.effect(this);
         }
@@ -111,28 +129,44 @@ public abstract class AbstractCharacter implements ICharacter {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     abstract public void waitTurn();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int getHp(){
+    public int getHp() {
         return hp;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMaxHp() {
         return maxHp;
     }
 
     /**
-     * @return the weight of the entity
+     * {@inheritDoc}
      */
     abstract public double getWeight();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAlive() {
         if (hp <= 0){
@@ -141,9 +175,15 @@ public abstract class AbstractCharacter implements ICharacter {
         return alive;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract void attack(ICharacter character);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void receiveDamage(int dmg){
         hp -= dmg;
@@ -152,6 +192,9 @@ public abstract class AbstractCharacter implements ICharacter {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void bePhysicallyAttacked(int physical_damage) {
         physical_damage -= defense;
@@ -160,6 +203,9 @@ public abstract class AbstractCharacter implements ICharacter {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void beMagicallyAttacked(int magical_damage) {
         magical_damage -= resistance;

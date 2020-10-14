@@ -3,6 +3,9 @@ package com.github.Cubolink.finalreality.model.character.player;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
 import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 
+/**
+ * Interface which represent the things that those characters controlled by the player can do, that enemies can't.
+ */
 public interface IPlayerCharacter {
     /**
      * Equips a weapon to the character.

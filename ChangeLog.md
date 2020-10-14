@@ -1,9 +1,17 @@
 ChangeLog
 =========
 
-Version 2.0
+Version 2.0 (Tarea 1)
 -----------
-Write your changes in here
+
+- ()
+- (B.7) Implemented testing of the project, achieving almost 100% coverage.
+- (B.6) Implemented equals and hashCodes for all classes
+- (B.5) Several refactor over the previous structure and added functionalities
+- (B.4) All model implementation and made the Pull Request for Entrega Parcial 1
+- (B.3) Character structure implementation.
+- (B.2) Weapon structure implementation.
+- (B.1) Made some configurations on the project
 
 Version 1.0
 -----------

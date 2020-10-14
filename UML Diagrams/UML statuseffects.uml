@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.github.Cubolink.finalreality.model.statuseffects</OriginalElement>
+  <nodes>
+    <node x="229.0" y="0.0">com.github.Cubolink.finalreality.model.statuseffects.IStatus</node>
+    <node x="0.0" y="169.0">com.github.Cubolink.finalreality.model.statuseffects.Burned</node>
+    <node x="550.0" y="445.0">com.github.Cubolink.finalreality.model.statuseffects.ParalyzedTest</node>
+    <node x="0.0" y="676.0">com.github.Cubolink.finalreality.model.statuseffects.EnumStatus</node>
+    <node x="0.0" y="445.0">com.github.Cubolink.finalreality.model.statuseffects.BurnedTest</node>
+    <node x="458.0" y="169.0">com.github.Cubolink.finalreality.model.statuseffects.Poisoned</node>
+    <node x="275.0" y="445.0">com.github.Cubolink.finalreality.model.statuseffects.PoisonedTest</node>
+    <node x="229.0" y="169.0">com.github.Cubolink.finalreality.model.statuseffects.Paralyzed</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.github.Cubolink.finalreality.model.statuseffects.Burned" target="com.github.Cubolink.finalreality.model.statuseffects.IStatus">
+      <point x="0.0" y="-115.5" />
+      <point x="104.5" y="144.0" />
+      <point x="263.8333333333333" y="144.0" />
+      <point x="-69.66666666666669" y="59.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.statuseffects.Paralyzed" target="com.github.Cubolink.finalreality.model.statuseffects.IStatus">
+      <point x="0.0" y="-115.5" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.statuseffects.Poisoned" target="com.github.Cubolink.finalreality.model.statuseffects.IStatus">
+      <point x="0.0" y="-115.5" />
+      <point x="562.5" y="144.0" />
+      <point x="403.1666666666667" y="144.0" />
+      <point x="69.66666666666669" y="59.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.684964200477327" x="390.0" y="409.0" />
+  <SelectedNodes>
+    <node>com.github.Cubolink.finalreality.model.statuseffects.IStatus</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

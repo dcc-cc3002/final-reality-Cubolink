@@ -24,10 +24,10 @@ class AxeTest {
         var axe2 = new Axe("Hacha sin filo", 0, 5);
         assertNotEquals(axeTest, axe2);
 
-        var axe3 = new Axe(axeTest.getName(), axeTest.physical_damage, axeTest.getWeight());
+        var axe3 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage(), axeTest.getWeight());
         assertEquals(axeTest, axe3);
 
-        var axe4 = new Axe(axeTest.getName(), axeTest.physical_damage+10, axeTest.getWeight());
+        var axe4 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage()+10, axeTest.getWeight());
         assertNotEquals(axeTest, axe4);
 
     }
@@ -43,7 +43,7 @@ class AxeTest {
         var axe2 = new Axe("Hacha sin filo", 0, 5);
         assertNotEquals(axeTest.hashCode(), axe2.hashCode());
 
-        var axe3 = new Axe(axeTest.getName(), axeTest.physical_damage+10, axeTest.getWeight());
+        var axe3 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage()+10, axeTest.getWeight());
         assertNotEquals(axeTest.hashCode(), axe3.hashCode());
 
         var axe4 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage(), axeTest.getWeight());
