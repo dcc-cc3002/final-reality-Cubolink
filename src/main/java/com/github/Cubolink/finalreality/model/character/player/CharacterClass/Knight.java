@@ -10,8 +10,8 @@ public class Knight extends AbstractCharacterClass {
         super(classname);
     }
 
-    public Knight(GenericWeapon weapon, String classname) {
-        super(weapon, classname);
+    public Knight(String classname, GenericWeapon weapon) {
+        super(classname, weapon);
     }
 
     @Override

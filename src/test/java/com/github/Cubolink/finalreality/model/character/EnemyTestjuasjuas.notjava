@@ -1,6 +1,5 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.Cubolink.finalreality.model.character;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import org.junit.jupiter.api.BeforeEach;

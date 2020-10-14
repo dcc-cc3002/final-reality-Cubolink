@@ -14,10 +14,10 @@ public abstract class AbstractCharacterClass implements  ICharacterClass {
     protected String classname;
 
     public AbstractCharacterClass(String classname){
-        this(null, classname);
+        this(classname, null);
     }
 
-    public AbstractCharacterClass(GenericWeapon weapon, String classname){
+    public AbstractCharacterClass(String classname, GenericWeapon weapon){
         this.equippedWeapon = weapon;
         this.classname = classname;
     }
@@ -27,7 +27,7 @@ public abstract class AbstractCharacterClass implements  ICharacterClass {
 
     @Override
     public void attack(ICharacter character){
-        character.bePhysicallyAttackedBy(equippedWeapon);
+        character.bePhysicallyAttacked(equippedWeapon.getPhysicalDamage());
     }
 
     @Override

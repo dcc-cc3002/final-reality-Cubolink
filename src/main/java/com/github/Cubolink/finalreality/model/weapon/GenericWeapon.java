@@ -13,14 +13,6 @@ public class GenericWeapon extends AbstractItem implements IWeapon, IWearableIte
         this.physical_damage = physical_damage;
     }
 
-    public String getName(){
-        return name;
-    }
-
-    public double getWeight(){
-        return weight;
-    }
-
     @Override
     public int getPhysicalDamage() {
         return physical_damage;
@@ -36,7 +28,7 @@ public class GenericWeapon extends AbstractItem implements IWeapon, IWearableIte
     }
 
     @Override
-    public boolean isWearableByKnight() {
+    public boolean isWearableByKnight(){
         return false;
     }
 
@@ -55,18 +47,20 @@ public class GenericWeapon extends AbstractItem implements IWeapon, IWearableIte
         if (this == o) {
             return true;
         }
-        if (!(o instanceof GenericWeapon)) {
-            return false;
-        }
-
+        if (!(o instanceof GenericWeapon)) return false;
         final GenericWeapon weapon = (GenericWeapon) o;
         return getName().equals(weapon.getName())
                 && getPhysicalDamage() == weapon.getPhysicalDamage()
-                && getWeight() == weapon.getWeight();
+                && getWeight() == weapon.getWeight()
+                && isWearableByEngineer() == weapon.isWearableByEngineer()
+                && isWearableByKnight() == weapon.isWearableByKnight()
+                && isWearableByMage() == weapon.isWearableByMage()
+                && isWearableByThief() == weapon.isWearableByThief();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPhysicalDamage(), getWeight());
+        return Objects.hash(getName(), getPhysicalDamage(), getWeight(),
+                isWearableByEngineer(), isWearableByKnight(), isWearableByMage(), isWearableByThief());
     }
 }

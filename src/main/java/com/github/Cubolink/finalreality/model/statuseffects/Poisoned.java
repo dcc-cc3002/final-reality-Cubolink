@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Poisoned implements IStatus {
     private final int magic_damage;
+    private final EnumStatus status = EnumStatus.poisoned;
 
     /**
      * Instantiates Poisoned
@@ -26,6 +27,20 @@ public class Poisoned implements IStatus {
     }
 
     @Override
+    public boolean almostEquals(IStatus status) {
+        if (this == status){
+            return true;
+        }
+        return status instanceof Poisoned;
+    }
+
+    @Override
+    public boolean greaterThan(IStatus status) {
+        final Poisoned that = (Poisoned) status;
+        return (magic_damage > that.magic_damage);
+    }
+
+    @Override
     public boolean equals(Object o){
         if (this == o){
             return true;
@@ -40,6 +55,6 @@ public class Poisoned implements IStatus {
 
     @Override
     public int hashCode() {
-        return Objects.hash(magic_damage);
+        return Objects.hash(magic_damage, status);
     }
 }

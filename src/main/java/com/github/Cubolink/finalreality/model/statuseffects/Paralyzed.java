@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Paralyzed implements IStatus {
     private int turns_to_disappear = 1;
+    private final EnumStatus status = EnumStatus.paralyzed;
 
     @Override
     public void effect(ICharacter character) {
@@ -28,6 +29,20 @@ public class Paralyzed implements IStatus {
     }
 
     @Override
+    public boolean almostEquals(IStatus status) {
+        if (this == status){
+            return true;
+        }
+        return status instanceof Paralyzed;
+    }
+
+    @Override
+    public boolean greaterThan(IStatus status) {
+        final Paralyzed that = (Paralyzed) status;
+        return (turns_to_disappear > that.turns_to_disappear);
+    }
+
+    @Override
     public boolean equals(Object o){
         if (this == o){
             return true;
@@ -42,6 +57,6 @@ public class Paralyzed implements IStatus {
 
     @Override
     public int hashCode(){
-        return Objects.hashCode(turns_to_disappear);
+        return Objects.hash(turns_to_disappear, status);
     }
 }

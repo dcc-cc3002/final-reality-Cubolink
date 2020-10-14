@@ -9,13 +9,13 @@ import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 import java.util.Objects;
 
 public class White_Mage extends AbstractCharacterClass implements IMage{
-    private int mana;
+    private int mana=50;
     public White_Mage(String classname) {
         super(classname);
     }
 
-    public White_Mage(GenericWeapon weapon, String classname) {
-        super(weapon, classname);
+    public White_Mage(String classname, GenericWeapon weapon) {
+        super(classname, weapon);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class White_Mage extends AbstractCharacterClass implements IMage{
     public void cure(PlayerCharacter character){
         if (mana>=15){
             mana -= 15;
-            character.heal(character.getHp());
+            character.heal(character.getMaxHp()*3/10);
         }
     }
 

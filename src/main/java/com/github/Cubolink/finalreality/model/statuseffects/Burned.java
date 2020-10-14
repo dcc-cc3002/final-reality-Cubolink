@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Burned implements IStatus {
     private final int magic_damage;
+    private final EnumStatus status = EnumStatus.burned;
 
     /**
      * Instantiates Burned
@@ -26,6 +27,20 @@ public class Burned implements IStatus {
     }
 
     @Override
+    public boolean almostEquals(IStatus status) {
+        if (this == status){
+            return true;
+        }
+        return status instanceof Burned;
+    }
+
+    @Override
+    public boolean greaterThan(IStatus status) {
+        final Burned that = (Burned) status;
+        return (magic_damage > that.magic_damage);
+    }
+
+    @Override
     public boolean equals(Object o){
         if (this == o){
             return true;
@@ -40,6 +55,6 @@ public class Burned implements IStatus {
 
     @Override
     public int hashCode(){
-        return Objects.hash(magic_damage);
+        return Objects.hash(magic_damage, status);
     }
 }

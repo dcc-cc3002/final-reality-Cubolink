@@ -10,8 +10,8 @@ public class Engineer extends AbstractCharacterClass {
         super("Engineer");
     }
 
-    public Engineer(GenericWeapon weapon, String classname) {
-        super(weapon, classname);
+    public Engineer(String classname, GenericWeapon weapon) {
+        super(classname, weapon);
     }
 
     @Override

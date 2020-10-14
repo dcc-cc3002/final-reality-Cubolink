@@ -1,10 +1,9 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.Cubolink.finalreality.model.character;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import java.util.EnumMap;
@@ -19,6 +18,7 @@ import org.junit.jupiter.api.Test;
  * @author <Your name>
  * @see PlayerCharacter
  */
+
 class PlayerCharacterTest extends AbstractCharacterTest {
 
   private static final String BLACK_MAGE_NAME = "Vivi";

@@ -12,7 +12,9 @@ import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
  */
 public interface ICharacter {
 
-  void setAttack_enabled(boolean attack_enabled);
+    boolean isAttack_enabled();
+
+    void setAttack_enabled(boolean attack_enabled);
 
   /**
    * Add a status effect to the character
@@ -48,6 +50,11 @@ public interface ICharacter {
   int getHp();
 
   /**
+   * @return the Maximum hp that the unit supports
+   */
+  int getMaxHp();
+
+  /**
    * This entity attacks other entity
    * @param character The character which this entity is attacking
    */
@@ -61,15 +68,15 @@ public interface ICharacter {
 
   /**
    * Computes the received damage when being attacked physically, and calls receiveDamage
-   * @param weapon The weapon used to attack this entity
+   * @param physical_damage The base physical damage used to attack this entity
    */
-  void bePhysicallyAttackedBy(GenericWeapon weapon);
+  void bePhysicallyAttacked(int physical_damage);
 
   /**
    * Computes the received damage when being attacked magically, and calls receiveDamage
-   * @param weapon The weapon used to attack this entity
+   * @param magical_damage The base magical damage used to attack this entity
    */
-  void beMagicallyAttackedBy(GenericWeapon weapon);
+  void beMagicallyAttacked(int magical_damage);
 
   /**
    * @return true if the entity is alive, and false otherwise

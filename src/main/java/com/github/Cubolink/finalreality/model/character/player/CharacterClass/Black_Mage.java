@@ -9,14 +9,14 @@ import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 
 
 public class Black_Mage extends AbstractCharacterClass implements IMage{
-    private int mana;
+    private int mana=50;
 
     public Black_Mage(String classname) {
         super(classname);
     }
 
-    public Black_Mage(GenericWeapon weapon, String classname) {
-        super(weapon, classname);
+    public Black_Mage(String classname, GenericWeapon weapon) {
+        super(classname, weapon);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
     public void fire(ICharacter character){
         if (mana>=15){
             mana -= 15;
-            character.beMagicallyAttackedBy(equippedWeapon);
+            character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
             Random R = new Random();
             if (R.nextDouble() < 0.2){
                 character.addStatus(new Burned(equippedWeapon.getMagicalDamage()));

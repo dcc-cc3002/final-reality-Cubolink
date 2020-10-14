@@ -5,7 +5,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -15,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
  * @author Joaquín Cruz Cancino.
  */
 public class Enemy extends AbstractCharacter {
-  private final GenericWeapon weapon;
   private final double weight;
+  private final int attack_damage;
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -24,11 +23,11 @@ public class Enemy extends AbstractCharacter {
    */
   public Enemy(@NotNull final BlockingQueue<ICharacter> turnsQueue,
                @NotNull final String name,
-               int defense, int resistance, int maxHp,
-               final double weight, final int attack_dmg) {
+               int maxHp, int defense, int resistance,
+               final int attack_damage, final double weight) {
     super(turnsQueue, name, maxHp, defense, resistance);
     this.weight = weight;
-    this.weapon = new GenericWeapon("Whole Body", attack_dmg, 0);
+    this.attack_damage = attack_damage;
   }
 
   @Override
@@ -41,7 +40,7 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public void attack(ICharacter character) {
-    character.bePhysicallyAttackedBy(weapon);
+    character.bePhysicallyAttacked(attack_damage);
   }
 
   @Override
@@ -65,6 +64,6 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getName(), getHp(), getWeight());
+    return Objects.hash(getName(), getHp(), getWeight(), attack_damage);
   }
 }

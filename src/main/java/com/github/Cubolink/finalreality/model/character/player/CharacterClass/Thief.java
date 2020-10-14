@@ -10,8 +10,8 @@ public class Thief extends AbstractCharacterClass {
         super(classname);
     }
 
-    public Thief(GenericWeapon weapon, String classname) {
-        super(weapon, classname);
+    public Thief(String classname, GenericWeapon weapon) {
+        super(classname, weapon);
     }
 
     @Override
