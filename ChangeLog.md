@@ -4,7 +4,7 @@ ChangeLog
 Version 2.0 (Tarea 1)
 -----------
 
-- ()
+- (RC.1) Trying to pull request
 - (B.7) Implemented testing of the project, achieving almost 100% coverage.
 - (B.6) Implemented equals and hashCodes for all classes
 - (B.5) Several refactor over the previous structure and added functionalities
