@@ -57,6 +57,7 @@ class EngineerTest {
         Engineer same_class_name_diff_weapon = new Engineer(
                 engineerTest.getClassname(), other_axe);
 
+        assertEquals(engineerTest, engineerTest);
         assertNotEquals(other_engineer, engineerTest);
         assertEquals(same_class_name_same_weapon, engineerTest);
         assertEquals(same_class_name_diff_weapon, engineerTest);
@@ -71,6 +72,7 @@ class EngineerTest {
         Engineer same_class_name_diff_weapon = new Engineer(
                 engineerTest.getClassname(), other_axe);
 
+        assertEquals(engineerTest.hashCode(), engineerTest.hashCode());
         assertNotEquals(other_axe.hashCode(), engineerTest.hashCode());
         assertEquals(same_class_name_same_weapon.hashCode(), engineerTest.hashCode());
         assertEquals(same_class_name_diff_weapon.hashCode(), engineerTest.hashCode());

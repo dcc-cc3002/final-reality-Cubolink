@@ -15,6 +15,7 @@ class KnifeTest {
 
     @Test
     void testEquals() {
+
         assertEquals(knifeTest, knifeTest);
 
         var notKnife = new GenericWeapon(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
@@ -23,11 +24,11 @@ class KnifeTest {
         var same_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
         var heavy_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight()+10);
 
-        assertNotEquals(notKnife, knifeTest);
-        assertNotEquals(cooking_knife, knifeTest);
-        assertNotEquals(altered_knife, knifeTest);
-        assertNotEquals(heavy_knife, knifeTest);
-        assertEquals(same_knife, knifeTest);
+        assertNotEquals(knifeTest, notKnife);
+        assertNotEquals(knifeTest, cooking_knife);
+        assertNotEquals(knifeTest, altered_knife);
+        assertNotEquals(knifeTest, heavy_knife);
+        assertEquals(knifeTest, same_knife);
 
     }
 

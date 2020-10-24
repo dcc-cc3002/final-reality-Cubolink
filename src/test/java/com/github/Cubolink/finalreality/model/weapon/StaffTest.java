@@ -24,10 +24,10 @@ class StaffTest {
         var same_staff = new Staff(staffTest.getName(), staffTest.getPhysicalDamage(),
                 staffTest.getMagicalDamage(), staffTest.getWeight());
 
-        assertNotEquals(notStaff, staffTest);
-        assertNotEquals(rod, staffTest);
-        assertNotEquals(altered_staff, staffTest);
-        assertEquals(same_staff, staffTest);
+        assertNotEquals(staffTest, notStaff);
+        assertNotEquals(staffTest, rod);
+        assertNotEquals(staffTest, altered_staff);
+        assertEquals(staffTest, same_staff);
     }
 
     @Test

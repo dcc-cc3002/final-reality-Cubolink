@@ -57,6 +57,18 @@ class PoisonedTest {
     }
 
     @Test
+    void testAlmostEquals(){
+        var majorPoisoned = new Poisoned(25);
+        var samePoisoned = new Poisoned(magic_damage);
+        IStatus otherStatus = new Burned(magic_damage);
+
+        assertTrue(poisonedTest.almostEquals(poisonedTest));
+        assertTrue(poisonedTest.almostEquals(majorPoisoned));
+        assertTrue(poisonedTest.almostEquals(samePoisoned));
+        assertFalse(poisonedTest.almostEquals(otherStatus));
+    }
+
+    @Test
     void testEquals() {
         var majorPoisoned = new Poisoned(25);
         var samePoisoned = new Poisoned(magic_damage);

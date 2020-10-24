@@ -51,6 +51,18 @@ class ParalyzedTest {
     }
 
     @Test
+    void testAlmostEquals(){
+        var sameParalyzed = new Paralyzed();
+        var oldParalyzed = new Paralyzed();
+        IStatus otherEffect = new Poisoned(15);
+
+        assertTrue(paralyzedTest.almostEquals(paralyzedTest));
+        assertTrue(paralyzedTest.almostEquals(sameParalyzed));
+        assertTrue(paralyzedTest.almostEquals(oldParalyzed));
+        assertFalse(paralyzedTest.almostEquals(otherEffect));
+    }
+
+    @Test
     void testEquals() {
         var sameParalyzed = new Paralyzed();
         var oldParalyzed = new Paralyzed();

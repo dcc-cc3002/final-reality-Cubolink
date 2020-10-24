@@ -57,6 +57,7 @@ class KnightTest {
         Knight same_class_name_diff_weapon = new Knight(
                 knightTest.getClassname(), other_sword);
 
+        assertEquals(knightTest, knightTest);
         assertNotEquals(other_knight, knightTest);
         assertEquals(same_class_name_same_weapon, knightTest);
         assertEquals(same_class_name_diff_weapon, knightTest);
@@ -71,6 +72,7 @@ class KnightTest {
         Knight same_class_name_diff_weapon = new Knight(
                 knightTest.getClassname(), other_sword);
 
+        assertEquals(knightTest.hashCode(), knightTest.hashCode());
         assertNotEquals(other_knigth.hashCode(), knightTest.hashCode());
         assertEquals(same_class_name_same_weapon.hashCode(), knightTest.hashCode());
         assertEquals(same_class_name_diff_weapon.hashCode(), knightTest.hashCode());

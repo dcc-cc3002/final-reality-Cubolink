@@ -55,6 +55,18 @@ class BurnedTest {
     }
 
     @Test
+    void testAlmostEquals(){
+        var otherBurned = new Burned(15);
+        var sameBurned = new Burned(magic_damage);
+        IStatus otherStatus = new Paralyzed();
+
+        assertTrue(burnedTest.almostEquals(burnedTest));
+        assertTrue(burnedTest.almostEquals(otherBurned));
+        assertTrue(burnedTest.almostEquals(sameBurned));
+        assertFalse(burnedTest.almostEquals(otherStatus));
+    }
+
+    @Test
     void testEquals() {
         var otherBurned = new Burned(15);
         var sameBurned = new Burned(magic_damage);

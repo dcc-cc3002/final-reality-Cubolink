@@ -57,6 +57,7 @@ class ThiefTest {
         Thief same_class_name_diff_weapon = new Thief(
                 thiefTest.getClassname(), other_knife);
 
+        assertEquals(thiefTest, thiefTest);
         assertNotEquals(other_thief, thiefTest);
         assertEquals(same_class_name_same_weapon, thiefTest);
         assertEquals(same_class_name_diff_weapon, thiefTest);
@@ -71,6 +72,7 @@ class ThiefTest {
         Thief same_class_name_diff_weapon = new Thief(
                 thiefTest.getClassname(), other_knife);
 
+        assertEquals(thiefTest.hashCode(), thiefTest.hashCode());
         assertNotEquals(other_thief.hashCode(), thiefTest.hashCode());
         assertEquals(same_class_name_same_weapon.hashCode(), thiefTest.hashCode());
         assertEquals(same_class_name_diff_weapon.hashCode(), thiefTest.hashCode());

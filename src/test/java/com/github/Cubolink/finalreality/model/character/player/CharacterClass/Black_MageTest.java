@@ -83,6 +83,7 @@ class Black_MageTest{
         Black_Mage same_class_name_diff_weapon = new Black_Mage(
                 blackMageTest.getClassname(), other_staff);
 
+        assertEquals(blackMageTest, blackMageTest);
         assertNotEquals(other_blackMage, blackMageTest);
         assertEquals(same_class_name_same_weapon, blackMageTest);
         assertEquals(same_class_name_diff_weapon, blackMageTest);
@@ -97,6 +98,7 @@ class Black_MageTest{
         Black_Mage same_class_name_diff_weapon = new Black_Mage(
                 blackMageTest.getClassname(), other_staff);
 
+        assertEquals(blackMageTest.hashCode(), blackMageTest.hashCode());
         assertNotEquals(other_blackMage.hashCode(), blackMageTest.hashCode());
         assertEquals(same_class_name_same_weapon.hashCode(), blackMageTest.hashCode());
         assertEquals(same_class_name_diff_weapon.hashCode(), blackMageTest.hashCode());

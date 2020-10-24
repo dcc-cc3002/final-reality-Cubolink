@@ -2,7 +2,6 @@ package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.character.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -101,6 +100,7 @@ class White_MageTest {
         White_Mage same_class_name_diff_weapon = new White_Mage(
                 white_mageTest.getClassname(), other_staff);
 
+        assertEquals(white_mageTest, white_mageTest);
         assertNotEquals(other_whiteMage, white_mageTest);
         assertEquals(same_class_name_same_weapon, white_mageTest);
         assertEquals(same_class_name_diff_weapon, white_mageTest);
@@ -115,6 +115,7 @@ class White_MageTest {
         White_Mage same_class_name_diff_weapon = new White_Mage(
                 white_mageTest.getClassname(), other_staff);
 
+        assertEquals(white_mageTest.hashCode(), white_mageTest.hashCode());
         assertNotEquals(other_whiteMage.hashCode(), white_mageTest.hashCode());
         assertEquals(same_class_name_same_weapon.hashCode(), white_mageTest.hashCode());
         assertEquals(same_class_name_diff_weapon.hashCode(), white_mageTest.hashCode());

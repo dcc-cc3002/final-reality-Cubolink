@@ -116,6 +116,25 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         assertNull(pcharact1.getEquippedWeapon());
         pcharact1.equip(new Knife("Cuchillo", 10, 3));
         assertEquals(new Knife("Cuchillo", 10, 3), pcharact1.getEquippedWeapon());
+
+        // Try to equip when is defeated
+
+        // Two different weapons that pcharact1 can equip
+        testWeapon = pcharact1.getEquippedWeapon();
+        GenericWeapon testWeapon2 = new Knife("Bisturi", 20, 2);
+        assertNotEquals(testWeapon, testWeapon2);
+        pcharact1.equip(testWeapon2);
+        assertEquals(pcharact1.getEquippedWeapon(), testWeapon2);
+        pcharact1.equip(testWeapon);
+        assertEquals(pcharact1.getEquippedWeapon(), testWeapon);
+        assertNotEquals(pcharact1.getEquippedWeapon(), testWeapon2);
+        // Kill pcharact1
+        assertTrue(pcharact1.isAlive());
+        pcharact1.receiveDamage(pcharact1.getHp());
+        assertFalse(pcharact1.isAlive());
+        // Now he shouldn't be able to change its weapon
+        pcharact1.equip(testWeapon2);
+        assertNotEquals(pcharact1.getEquippedWeapon(), testWeapon2);
     }
 
     @Test

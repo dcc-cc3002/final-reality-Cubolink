@@ -22,10 +22,10 @@ class BowTest {
         var bow_altered = new Bow(bowTest.getName(), bowTest.getPhysicalDamage()+10, bowTest.getWeight());
         var samebow = new Bow(bowTest.getName(), bowTest.getPhysicalDamage(), bowTest.getWeight());
 
-        assertNotEquals(notBow, bowTest);
-        assertNotEquals(ballesta, bowTest);
-        assertNotEquals(bow_altered, bowTest);
-        assertEquals(samebow, bowTest);
+        assertNotEquals(bowTest, notBow);
+        assertNotEquals(bowTest, ballesta);
+        assertNotEquals(bowTest, bow_altered);
+        assertEquals(bowTest, samebow);
 
 
     }

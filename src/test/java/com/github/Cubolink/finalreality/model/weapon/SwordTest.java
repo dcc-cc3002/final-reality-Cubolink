@@ -22,10 +22,10 @@ class SwordTest {
         var altered_sword = new Sword(swordTest.getName(), swordTest.getPhysicalDamage()-10, swordTest.getWeight());
         var same_sword = new Sword(swordTest.getName(), swordTest.getPhysicalDamage(), swordTest.getWeight());
 
-        assertNotEquals(notSword, swordTest);
-        assertNotEquals(sable, swordTest);
-        assertNotEquals(altered_sword, swordTest);
-        assertEquals(same_sword, swordTest);
+        assertNotEquals(swordTest, notSword);
+        assertNotEquals(swordTest, sable);
+        assertNotEquals(swordTest, altered_sword);
+        assertEquals(swordTest, same_sword);
 
     }
 

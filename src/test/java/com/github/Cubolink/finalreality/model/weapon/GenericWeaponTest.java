@@ -23,9 +23,9 @@ class GenericWeaponTest {
         var otherWeapon = new Axe("Hacha", 15, 15);
 
         assertEquals(genericWeaponTest, genericWeaponTest);
-        assertNotEquals(alteredWeapon, genericWeaponTest);
-        assertEquals(sameWeapon, genericWeaponTest);
-        assertNotEquals(otherWeapon, genericWeaponTest);
+        assertNotEquals(genericWeaponTest, alteredWeapon);
+        assertEquals(genericWeaponTest, sameWeapon);
+        assertNotEquals(genericWeaponTest, otherWeapon);
     }
 
     @Test
