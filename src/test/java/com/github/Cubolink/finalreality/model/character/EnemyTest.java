@@ -91,12 +91,29 @@ class EnemyTest extends AbstractCharacterTest{
 
 
         while (p_Hp-(e1_atk-p_def)>0){
+            assertTrue(playerCharacter.isAlive());
             enemy1.attack(playerCharacter);
             assertEquals(playerCharacter.getHp(), p_Hp-(e1_atk-p_def));
             p_Hp = playerCharacter.getHp();
         }
+        assertTrue(playerCharacter.isAlive());
         enemy1.attack(playerCharacter);
         assertEquals(playerCharacter.getHp(), 0);
+        assertFalse(playerCharacter.isAlive());
+
+        // Try to attack while defeated
+
+        int previousHp = enemy1.getHp();
+        assertTrue(enemy1.isAlive());
+        assertTrue(enemy2.isAlive());
+        enemy2.attack(enemy1);  // 2 is able to attack 1
+        assertTrue(enemy1.getHp() < previousHp);
+        previousHp = enemy1.getHp();
+
+        enemy2.receiveDamage(enemy2.getHp());  // 2 is defeated and now is unable to attack 1
+        assertFalse(enemy2.isAlive());
+        enemy2.attack(enemy1);
+        assertEquals(previousHp, enemy1.getHp());
 
     }
 

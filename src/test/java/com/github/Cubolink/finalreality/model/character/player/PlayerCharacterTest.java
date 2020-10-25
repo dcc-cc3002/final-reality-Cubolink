@@ -79,6 +79,37 @@ class PlayerCharacterTest extends AbstractCharacterTest {
 
         ((Black_Mage) pcharact2.getCharacterClass()).fire(enemy);
         assertEquals(enemy.getHp(), hp - (pcharact2.getEquippedWeapon().getMagicalDamage())-res);
+
+        // Try to attack when is defeated
+
+        assertTrue(pcharact1.isAlive());
+        assertTrue(pcharact2.isAlive());
+        assertTrue(pcharact1.isAttack_enabled());
+        assertTrue(pcharact2.isAttack_enabled());
+        int previousHp2 = pcharact2.getHp();
+        assertTrue(previousHp2>0);
+        // attack pcharact1 to death
+        while (pcharact1.isAlive()){
+            pcharact2.attack(pcharact1);
+        }
+        assertTrue(pcharact1.isAttack_enabled());
+        assertFalse(pcharact1.isAlive());
+        assertEquals(pcharact1.getHp(), 0);
+        // pcharact1, who is defeated, tries to attack
+        pcharact1.attack(pcharact2);
+        assertEquals(pcharact2.getHp(), previousHp2);
+
+         // Try to attack when attack is disabled
+
+        pcharact2.setAttack_enabled(false);
+        assertTrue(enemy.isAlive());
+        previousHp2 = enemy.getHp();
+        pcharact2.attack(enemy);
+        assertEquals(enemy.getHp(), previousHp2);
+        pcharact2.setAttack_enabled(true);
+        pcharact2.attack(enemy);
+        assertTrue(enemy.getHp() < previousHp2);
+
     }
 
     @Test

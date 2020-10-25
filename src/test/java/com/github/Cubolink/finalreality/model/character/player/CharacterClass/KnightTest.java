@@ -56,11 +56,13 @@ class KnightTest {
                 knightTest.getClassname(), knightTest.getEquippedWeapon());
         Knight same_class_name_diff_weapon = new Knight(
                 knightTest.getClassname(), other_sword);
+        ICharacterClass other_character_class = new Thief("Lanza", knightTest.getEquippedWeapon());
 
         assertEquals(knightTest, knightTest);
-        assertNotEquals(other_knight, knightTest);
-        assertEquals(same_class_name_same_weapon, knightTest);
-        assertEquals(same_class_name_diff_weapon, knightTest);
+        assertNotEquals(knightTest, other_knight);
+        assertEquals(knightTest, same_class_name_same_weapon);
+        assertEquals(knightTest, same_class_name_diff_weapon);
+        assertNotEquals(knightTest, other_character_class);
     }
 
     @Test
@@ -71,10 +73,12 @@ class KnightTest {
                 knightTest.getClassname(), knightTest.getEquippedWeapon());
         Knight same_class_name_diff_weapon = new Knight(
                 knightTest.getClassname(), other_sword);
+        ICharacterClass other_character_class = new Thief("Lanza", knightTest.getEquippedWeapon());
 
         assertEquals(knightTest.hashCode(), knightTest.hashCode());
-        assertNotEquals(other_knigth.hashCode(), knightTest.hashCode());
-        assertEquals(same_class_name_same_weapon.hashCode(), knightTest.hashCode());
-        assertEquals(same_class_name_diff_weapon.hashCode(), knightTest.hashCode());
+        assertNotEquals(knightTest.hashCode(), other_knigth.hashCode());
+        assertEquals(knightTest.hashCode(), same_class_name_same_weapon.hashCode());
+        assertEquals(knightTest.hashCode(), same_class_name_diff_weapon.hashCode());
+        assertNotEquals(knightTest.hashCode(), other_character_class.hashCode());
     }
 }

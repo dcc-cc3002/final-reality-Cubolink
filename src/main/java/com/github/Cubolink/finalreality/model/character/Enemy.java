@@ -55,7 +55,9 @@ public class Enemy extends AbstractCharacter {
      */
     @Override
     public void attack(ICharacter character) {
-        character.bePhysicallyAttacked(attack_damage);
+        if (isAlive() && isAttack_enabled()){
+            character.bePhysicallyAttacked(attack_damage);
+        }
     }
 
     /**
@@ -71,9 +73,11 @@ public class Enemy extends AbstractCharacter {
         if (this == o) {
             return true;
         }
+
         if (!(o instanceof Enemy)) {
             return false;
         }
+
         final Enemy enemy = (Enemy) o;
         return getName().equals(enemy.getName())
                 && getHp() == enemy.getHp()

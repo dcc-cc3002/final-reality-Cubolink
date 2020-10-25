@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player;
 
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.ICharacterClass;
 import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 
 /**
@@ -27,5 +28,5 @@ public interface IPlayerCharacter {
     /**
      * @return this character's class.
      */
-    AbstractCharacterClass getCharacterClass();
+    ICharacterClass getCharacterClass();
 }

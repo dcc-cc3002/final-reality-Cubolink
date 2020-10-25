@@ -99,11 +99,13 @@ class White_MageTest {
                 white_mageTest.getClassname(), white_mageTest.getEquippedWeapon());
         White_Mage same_class_name_diff_weapon = new White_Mage(
                 white_mageTest.getClassname(), other_staff);
+        ICharacterClass other_character_class = new Black_Mage("Mago Negro", white_mageTest.getEquippedWeapon());
 
         assertEquals(white_mageTest, white_mageTest);
-        assertNotEquals(other_whiteMage, white_mageTest);
-        assertEquals(same_class_name_same_weapon, white_mageTest);
-        assertEquals(same_class_name_diff_weapon, white_mageTest);
+        assertNotEquals(white_mageTest, other_whiteMage);
+        assertEquals(white_mageTest, same_class_name_same_weapon);
+        assertEquals(white_mageTest, same_class_name_diff_weapon);
+        assertNotEquals(white_mageTest, other_character_class);
     }
 
     @Test
@@ -114,10 +116,12 @@ class White_MageTest {
                 white_mageTest.getClassname(), white_mageTest.getEquippedWeapon());
         White_Mage same_class_name_diff_weapon = new White_Mage(
                 white_mageTest.getClassname(), other_staff);
+        ICharacterClass other_character_class = new Black_Mage("Mago Negro", white_mageTest.getEquippedWeapon());
 
         assertEquals(white_mageTest.hashCode(), white_mageTest.hashCode());
-        assertNotEquals(other_whiteMage.hashCode(), white_mageTest.hashCode());
-        assertEquals(same_class_name_same_weapon.hashCode(), white_mageTest.hashCode());
-        assertEquals(same_class_name_diff_weapon.hashCode(), white_mageTest.hashCode());
+        assertNotEquals(white_mageTest.hashCode(), other_whiteMage.hashCode());
+        assertEquals(white_mageTest.hashCode(), same_class_name_same_weapon.hashCode());
+        assertEquals(white_mageTest.hashCode(), same_class_name_diff_weapon.hashCode());
+        assertNotEquals(white_mageTest.hashCode(), other_character_class.hashCode());
     }
 }

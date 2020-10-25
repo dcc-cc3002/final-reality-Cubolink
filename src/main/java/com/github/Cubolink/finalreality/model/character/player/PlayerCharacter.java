@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.ICharacterClass;
 import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,7 +52,9 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
      */
     @Override
     public void attack(ICharacter character) {
-        characterClass.attack(character);
+        if (isAlive() && isAttack_enabled()){
+            characterClass.attack(character);
+        }
     }
 
     /**
@@ -81,7 +84,9 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
      */
     @Override
     public void equip(GenericWeapon weapon) {
-        characterClass.equip(weapon);
+        if (isAlive()){
+            characterClass.equip(weapon);  // A player character only can equip weapons if he's alive
+        }
     }
 
     /**
@@ -94,9 +99,10 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
 
     /**
      * {@inheritDoc}
+     * @return
      */
     @Override
-    public AbstractCharacterClass getCharacterClass() {
+    public ICharacterClass getCharacterClass() {
         return characterClass;
     }
 
