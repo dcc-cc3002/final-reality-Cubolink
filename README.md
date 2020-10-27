@@ -33,11 +33,11 @@ A weapon is an Item, so extends the previous defined abstract item, but is also 
 It's defined a weapon interface too, with the behavior that a weapon has to have. This structure was made with the assumption of there would exist
 wearable items that are not weapon, items like helmets or stuff like that. That's why the interfaces wearable item and weapon are separate.
 
-There's a Generic Weapon class, with all common behavior that weapons have, and implement both interfaces weapon and wearable item.
-While it could be an abstract class, I decided to not making it abstract, because we could have an unknown weapon, for example broken sword,
-and somehow in a future implementation change it to a sword. It could be simply an item, but it didn't seem like that for me.
+There's an AbstractWeapon class, with all common behavior that weapons have, and implement both interfaces weapon and wearable item.
+In the beginning, it wasn't abstract, because I considered it would be useful to instantiate unusable weapons like 'broken sword'.
+I reconsidered it, and reached the conclusion for that would be better to use simply an item, and not a non wearable weapon.
 
-The classes Axe, Bow, Knife, Staff and Sword extends from this Generic Weapon,
+The classes Axe, Bow, Knife, Staff and Sword extends from this AbstractWeapon,
 overriding the methods isWearableBy those classes that can equip that weapon.
 
 * ##### Status Effects

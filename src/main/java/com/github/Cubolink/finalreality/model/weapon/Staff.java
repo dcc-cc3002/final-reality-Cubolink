@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * A class to define a Staff weapon.
  */
-public class Staff extends GenericWeapon{
+public class Staff extends AbstractWeapon {
     protected final int magical_damage;
 
     /**

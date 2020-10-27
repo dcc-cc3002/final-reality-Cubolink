@@ -1,6 +1,5 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,8 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ThiefTest {
     private Thief thiefTest;
-    private GenericWeapon knife;
-    private ICharacter opponent;
+    private IWeapon knife;
 
     @BeforeEach
     void setUp(){
@@ -22,15 +20,10 @@ class ThiefTest {
     void equip() {
         thiefTest = new Thief("Lanza");
 
-        GenericWeapon axe = new Axe("Hacha", 20, 15);
-        GenericWeapon staff = new Staff("Báculo", 5, 20, 6);
-        GenericWeapon bow = new Bow("Arco de Hierro", 15, 6);
-        GenericWeapon knife = new Knife("Cuchillito", 10, 3);
-        GenericWeapon sword = new Sword("Espada", 15, 10);
-        GenericWeapon genericWeapon = new GenericWeapon("Piedra", 5, 1);
-
-        thiefTest.equip(genericWeapon);
-        assertNull(thiefTest.getEquippedWeapon());
+        IWeapon axe = new Axe("Hacha", 20, 15);
+        IWeapon staff = new Staff("Báculo", 5, 20, 6);
+        IWeapon bow = new Bow("Arco de Hierro", 15, 6);
+        IWeapon sword = new Sword("Espada", 15, 10);
 
         thiefTest.equip(staff);
         assertNull(thiefTest.getEquippedWeapon());

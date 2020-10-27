@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class White_MageTest {
     private White_Mage white_mageTest;
-    private GenericWeapon staff;
+    private IWeapon staff;
     private ICharacter opponent;
     protected BlockingQueue<ICharacter> turns;
 
@@ -31,20 +31,15 @@ class White_MageTest {
     void equip() {
         white_mageTest = new White_Mage("Shiro mado-shi");
 
-        GenericWeapon axe = new Axe("Hacha", 20, 15);
-        GenericWeapon staff = new Staff("Báculo", 5, 20, 6);
-        GenericWeapon bow = new Bow("Arco de Hierro", 15, 6);
-        GenericWeapon knife = new Knife("Cuchillito", 10, 3);
-        GenericWeapon sword = new Sword("Espada", 15, 10);
-        GenericWeapon genericWeapon = new GenericWeapon("Piedra", 5, 1);
+        IWeapon axe = new Axe("Hacha", 20, 15);
+        IWeapon bow = new Bow("Arco de Hierro", 15, 6);
+        IWeapon knife = new Knife("Cuchillito", 10, 3);
+        IWeapon sword = new Sword("Espada", 15, 10);
 
         white_mageTest.equip(knife);
         assertNull(white_mageTest.getEquippedWeapon());
 
         white_mageTest.equip(sword);
-        assertNull(white_mageTest.getEquippedWeapon());
-
-        white_mageTest.equip(genericWeapon);
         assertNull(white_mageTest.getEquippedWeapon());
 
         white_mageTest.equip(axe);
@@ -76,7 +71,6 @@ class White_MageTest {
     @Test
     void poison() {
         white_mageTest.poison(opponent);
-        int hp = opponent.getHp();
         int dmg = white_mageTest.getEquippedWeapon().getMagicalDamage()/3;
         opponent.applyStatuses();
         assertEquals(opponent.getHp(), opponent.getMaxHp()-dmg);
@@ -85,8 +79,6 @@ class White_MageTest {
     @Test
     void paralyze() {
         white_mageTest.paralyze(opponent);
-        int hp = opponent.getHp();
-        int dmg = white_mageTest.getEquippedWeapon().getMagicalDamage()/2;
         opponent.applyStatuses();
         assertFalse(opponent.isAttack_enabled());
     }

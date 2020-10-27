@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AxeTest {
-    private GenericWeapon axeTest;
+    private AbstractWeapon axeTest;
 
     @BeforeEach
     void setUp(){

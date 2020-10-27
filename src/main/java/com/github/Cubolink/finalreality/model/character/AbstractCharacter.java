@@ -1,7 +1,6 @@
 package com.github.Cubolink.finalreality.model.character;
 
 import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

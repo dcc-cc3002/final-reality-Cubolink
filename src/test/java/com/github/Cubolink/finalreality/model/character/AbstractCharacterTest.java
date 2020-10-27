@@ -1,9 +1,6 @@
 package com.github.Cubolink.finalreality.model.character;
 
-import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Thief;
-import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
-import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +9,10 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public abstract class AbstractCharacterTest {
     protected BlockingQueue<ICharacter> turns;
     protected List<ICharacter> testCharacters;
-    protected GenericWeapon testWeapon;
+    protected AbstractWeapon testWeapon;
 
     @BeforeEach
     public void preSetUp(){

@@ -3,6 +3,7 @@ ChangeLog
 
 Version 3.0 (Tarea 2)
 -----------
+- (B.4) GenericWeapon is now an abstract class AbstractWeapon, not an instantiable unusable thing.
 - (B.3) Enemies now have resistance 0 (when receiving magical attacks). Testing refactor.
 - (B.2) Refactor, improved a little the coverage. Implementation of code+tests for being unable to attack/equip when defeated.
 - (B.1) Refactor, improved a little the coverage, add a Test to not equipping while defeated.

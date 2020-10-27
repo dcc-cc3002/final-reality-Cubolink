@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.ICharacterClass;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -23,7 +23,7 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
 
     // While Player has its Inventory, is the characterClass which store the equipped stuff
     private final AbstractCharacterClass characterClass;
-    //private static final GenericWeapon[] inventory = new GenericWeapon[10];
+    //private static final IWeapon[] inventory = new IWeapon[10];
 
     /**
      * Creates a character for the player.
@@ -81,9 +81,10 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
 
     /**
      * {@inheritDoc}
+     * @param weapon
      */
     @Override
-    public void equip(GenericWeapon weapon) {
+    public void equip(IWeapon weapon) {
         if (isAlive()){
             characterClass.equip(weapon);  // A player character only can equip weapons if he's alive
         }
@@ -93,7 +94,7 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
      * {@inheritDoc}
      */
     @Override
-    public GenericWeapon getEquippedWeapon() {
+    public IWeapon getEquippedWeapon() {
         return characterClass.getEquippedWeapon();
     }
 

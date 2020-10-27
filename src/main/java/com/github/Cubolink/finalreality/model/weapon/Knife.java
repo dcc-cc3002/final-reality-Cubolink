@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * A class to define a Knife weapon.
  */
-public class Knife extends GenericWeapon{
+public class Knife extends AbstractWeapon {
 
     /**
      * Instantiates a Knife.

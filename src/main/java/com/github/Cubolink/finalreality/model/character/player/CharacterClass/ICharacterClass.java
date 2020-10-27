@@ -1,7 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 
 /**
  * Interface for the the classes that a player have as a job. (A player only can have one).
@@ -18,12 +18,12 @@ public interface ICharacterClass {
      * Try to equip a weapon to the class.
      * @param weapon the weapon to equip.
      */
-    void equip(GenericWeapon weapon);
+    void equip(IWeapon weapon);
 
     /**
      * @return the weapon that this class is equipping.
      */
-    GenericWeapon getEquippedWeapon();
+    IWeapon getEquippedWeapon();
 
     /**
      * @return the name of the class/job.

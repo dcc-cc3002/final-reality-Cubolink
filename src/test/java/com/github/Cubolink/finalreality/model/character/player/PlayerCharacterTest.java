@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerCharacterTest extends AbstractCharacterTest {
     private BlockingQueue<ICharacter> turns;
     private List<PlayerCharacter> testCharacters;
-    private GenericWeapon testWeapon;
 
     @BeforeEach
     void setUp() {
@@ -151,8 +150,8 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         // Try to equip when is defeated
 
         // Two different weapons that pcharact1 can equip
-        testWeapon = pcharact1.getEquippedWeapon();
-        GenericWeapon testWeapon2 = new Knife("Bisturi", 20, 2);
+        IWeapon testWeapon = pcharact1.getEquippedWeapon();
+        IWeapon testWeapon2 = new Knife("Bisturi", 20, 2);
         assertNotEquals(testWeapon, testWeapon2);
         pcharact1.equip(testWeapon2);
         assertEquals(pcharact1.getEquippedWeapon(), testWeapon2);
