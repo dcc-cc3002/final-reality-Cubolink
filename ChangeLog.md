@@ -3,6 +3,7 @@ ChangeLog
 
 Version 3.0 (Tarea 2)
 -----------
+- (RC.1) Pull Request (Entrega Parcial 3). Weapon equip and attack previously implemented for Tarea 1.
 - (B.4) GenericWeapon is now an abstract class AbstractWeapon, not an instantiable unusable thing.
 - (B.3) Enemies now have resistance 0 (when receiving magical attacks). Testing refactor.
 - (B.2) Refactor, improved a little the coverage. Implementation of code+tests for being unable to attack/equip when defeated.

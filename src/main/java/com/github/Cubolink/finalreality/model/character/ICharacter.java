@@ -94,6 +94,7 @@ public interface ICharacter {
     int getMaxHp();
 
     /**
+     * Checks if the entity is alive, updates its status if it's required.
      * @return true if the entity is alive, and false otherwise.
      */
     boolean isAlive();
