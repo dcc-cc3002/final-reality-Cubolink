@@ -24,12 +24,11 @@ public abstract class AbstractCharacter implements ICharacter {
     protected int hp;
     protected final int defense;
     protected final int resistance;
-    protected boolean alive;
-    protected boolean attack_enabled;
-    protected GenericWeapon equippedWeapon = new GenericWeapon("Fist", 1, 0);
-    protected ArrayList<IStatus> statuses;
-    protected Iterator<IStatus> statusIterator;
-    protected boolean inIteration = false;
+    private boolean alive;
+    private boolean attack_enabled;
+    private final ArrayList<IStatus> statuses;
+    private Iterator<IStatus> statusIterator;
+    private boolean inIteration = false;
 
     /**
      * @param turnsQueue The queue with the characters ready.

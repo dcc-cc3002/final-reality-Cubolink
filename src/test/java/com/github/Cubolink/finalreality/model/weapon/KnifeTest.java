@@ -41,9 +41,9 @@ class KnifeTest {
         var altered_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage()+5, knifeTest.getWeight());
         var same_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
 
-        assertNotEquals(notKnife.hashCode(), knifeTest.hashCode());
-        assertNotEquals(cooking_knife.hashCode(), knifeTest.hashCode());
-        assertNotEquals(altered_knife.hashCode(), knifeTest.hashCode());
-        assertEquals(same_knife.hashCode(), knifeTest.hashCode());
+        assertNotEquals(knifeTest.hashCode(), notKnife.hashCode());
+        assertNotEquals(knifeTest.hashCode(), cooking_knife.hashCode());
+        assertNotEquals(knifeTest.hashCode(), altered_knife.hashCode());
+        assertEquals(knifeTest.hashCode(), same_knife.hashCode());
     }
 }

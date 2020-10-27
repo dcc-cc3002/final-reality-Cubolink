@@ -69,7 +69,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         PlayerCharacter pcharact2 = new PlayerCharacter(turns, "Soren", 50, 5, 15,
                 class2);
 
-        ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, res, 3, 12);
+        ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, 3, 12);
 
 
         assertEquals(enemy.getHp(), hp);
@@ -226,7 +226,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
                 new Thief("Picaro"));
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
                 new Thief("Ladron"));
-        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 5, 3, 12);
+        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1, pcharact1);
         assertEquals(pcharact1, pcharact1_copy);
@@ -246,7 +246,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
                 new Thief("Picaro"));
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
                 new Thief("Ladron"));
-        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 5, 3, 12);
+        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1.hashCode(), pcharact1.hashCode());
         assertEquals(pcharact1.hashCode(), pcharact1_copy.hashCode());

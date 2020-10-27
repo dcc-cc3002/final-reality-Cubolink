@@ -41,10 +41,10 @@ class StaffTest {
         var same_staff = new Staff(staffTest.getName(), staffTest.getPhysicalDamage(),
                 staffTest.getMagicalDamage(), staffTest.getWeight());
 
-        assertNotEquals(notStaff.hashCode(), staffTest.hashCode());
-        assertNotEquals(rod.hashCode(), staffTest.hashCode());
-        assertNotEquals(altered_staff.hashCode(), staffTest.hashCode());
-        assertEquals(same_staff.hashCode(), staffTest.hashCode());
+        assertNotEquals(staffTest.hashCode(), notStaff.hashCode());
+        assertNotEquals(staffTest.hashCode(), rod.hashCode());
+        assertNotEquals(staffTest.hashCode(), altered_staff.hashCode());
+        assertEquals(staffTest.hashCode(), same_staff.hashCode());
     }
 
 }

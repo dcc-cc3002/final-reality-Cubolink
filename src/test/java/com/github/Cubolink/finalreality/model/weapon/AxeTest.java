@@ -18,7 +18,7 @@ class AxeTest {
 
         assertEquals(axeTest, axeTest);
 
-        var sword = new Sword("espada de madera", 3, 5);
+        var sword = new Sword("Espada de madera", 3, 5);
         var axe2 = new Axe("Hacha sin filo", 0, 5);
         var axe3 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage(), axeTest.getWeight());
         var axe4 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage()+10, axeTest.getWeight());

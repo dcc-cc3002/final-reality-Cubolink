@@ -39,10 +39,10 @@ class BowTest {
         var bow_altered = new Bow(bowTest.getName(), bowTest.getPhysicalDamage()+10, bowTest.getWeight());
         var samebow = new Bow(bowTest.getName(), bowTest.getPhysicalDamage(), bowTest.getWeight());
 
-        assertNotEquals(notBow.hashCode(), bowTest.hashCode());
-        assertNotEquals(ballesta.hashCode(), bowTest.hashCode());
-        assertNotEquals(bow_altered.hashCode(), bowTest.hashCode());
-        assertEquals(samebow.hashCode(), bowTest.hashCode());
+        assertNotEquals(bowTest.hashCode(), notBow.hashCode());
+        assertNotEquals(bowTest.hashCode(), ballesta.hashCode());
+        assertNotEquals(bowTest.hashCode(), bow_altered.hashCode());
+        assertEquals(bowTest.hashCode(), samebow.hashCode());
 
     }
 }

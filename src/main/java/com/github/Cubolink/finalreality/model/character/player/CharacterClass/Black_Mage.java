@@ -45,7 +45,7 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
     public void thunder(ICharacter character) {
         if (mana>=15){
             mana -= 15;
-            character.receiveDamage(equippedWeapon.getMagicalDamage());
+            character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
             Random R = new Random();
             if (R.nextDouble() < 0.3){
                 character.addStatus(new Paralyzed());

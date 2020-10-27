@@ -18,17 +18,17 @@ class EnemyTest extends AbstractCharacterTest{
     void setUp() {
         turns = new LinkedBlockingQueue<>();
         testCharacters = new ArrayList<>();
-        testCharacters.add(new Enemy(turns, "Slime", 30, 10, 30, 10, 10));
+        testCharacters.add(new Enemy(turns, "Slime", 30, 10, 10, 10));
 
     }
 
     @Test
     void checkConstructor(){
         String name = "Slime";
-        int maxHp = 30, defense = 10, resistance = 10, attack_damage=10;
+        int maxHp = 30, defense = 10, resistance = 0, attack_damage=10;
         double weight = 10;
 
-        Enemy enemy = new Enemy(turns, name, maxHp, defense, resistance, attack_damage, weight);
+        Enemy enemy = new Enemy(turns, name, maxHp, defense, attack_damage, weight);
         assertEquals(name, enemy.getName());
         assertEquals(maxHp, enemy.getHp());
         assertEquals(defense, enemy.defense);
@@ -63,7 +63,7 @@ class EnemyTest extends AbstractCharacterTest{
     void damageTest(){
         int e1_Hp=30, e1_atk=10, e1_def=10;
         int dmg = 20;
-        Enemy enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, 10, e1_atk, 12);
+        Enemy enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, 12);
         enemy1.receiveDamage(dmg);
         assertEquals(enemy1.getHp(), e1_Hp-dmg);
 
@@ -84,8 +84,8 @@ class EnemyTest extends AbstractCharacterTest{
         int e1_Hp=30, e1_atk=10, e1_def=10;
         int e2_Hp=30, e2_atk=15, e2_def=15;
 
-        Enemy enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, 10, e1_atk, 12);
-        Enemy enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, 0, e2_atk, 12);
+        Enemy enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, 12);
+        Enemy enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_atk, 12);
         ICharacter playerCharacter = new PlayerCharacter(turns, "Ark", p_Hp, p_def, 5,
                 new Knight("Caballero del Zodiaco"));
 
@@ -121,9 +121,9 @@ class EnemyTest extends AbstractCharacterTest{
     void testEquals() {
         int e1_Hp=30, e1_atk=10, e1_def=10, e1_res=10, e1_weight=12;
         int e2_Hp=30, e2_atk=15, e2_def=15, e2_res=0, e2_weight=15;
-        var enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_res, e1_atk, e1_weight);
-        var enemy1copy = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_res, e1_atk, e1_weight);
-        var enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_res, e2_atk, e2_weight);
+        var enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, e1_weight);
+        var enemy1copy = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, e1_weight);
+        var enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_atk, e2_weight);
         ICharacter playerCharacter = new PlayerCharacter(turns, "Ark", 45, 5, 5,
                 new Knight("Caballero del Zodiaco"));
 
@@ -136,11 +136,11 @@ class EnemyTest extends AbstractCharacterTest{
 
     @Test
     void testHashCode() {
-        int e1_Hp=30, e1_atk=10, e1_def=10, e1_res=10, e1_weight=12;
-        int e2_Hp=30, e2_atk=15, e2_def=15, e2_res=0, e2_weight=15;
-        var enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_res, e1_atk, e1_weight);
-        var enemy1copy = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_res, e1_atk, e1_weight);
-        var enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_res, e2_atk, e2_weight);
+        int e1_Hp=30, e1_atk=10, e1_def=10, e1_weight=12;
+        int e2_Hp=30, e2_atk=15, e2_def=15, e2_weight=15;
+        var enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, e1_weight);
+        var enemy1copy = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, e1_weight);
+        var enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_atk, e2_weight);
         ICharacter playerCharacter = new PlayerCharacter(turns, "Ark", 45, 5, 5,
                 new Knight("Caballero del Zodiaco"));
 

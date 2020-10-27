@@ -26,15 +26,14 @@ public class Enemy extends AbstractCharacter {
      * @param name The name of the enemy.
      * @param maxHp The maximum Hp of the enemy. The Hp if initialized at this value too.
      * @param defense to resist physicals attacks.
-     * @param resistance to resist magical attacks.
      * @param attack_damage base attack points for attacking other characters.
      * @param weight of the enemy.
      */
     public Enemy(@NotNull final BlockingQueue<ICharacter> turnsQueue,
                  @NotNull final String name,
-                 final int maxHp, final int defense, final int resistance,
+                 final int maxHp, final int defense,
                  final int attack_damage, final double weight) {
-        super(turnsQueue, name, maxHp, defense, resistance);
+        super(turnsQueue, name, maxHp, defense, 0);  // Enemies don't resist magic attacks according to the requirements.
         this.weight = weight;
         this.attack_damage = attack_damage;
     }
@@ -80,12 +79,15 @@ public class Enemy extends AbstractCharacter {
 
         final Enemy enemy = (Enemy) o;
         return getName().equals(enemy.getName())
+                && getMaxHp() == enemy.getMaxHp()
                 && getHp() == enemy.getHp()
+                && attack_damage == enemy.attack_damage
+                && defense == enemy.defense
                 && getWeight() == enemy.getWeight();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getHp(), getWeight(), attack_damage);
+        return Objects.hash(getName(), getMaxHp(), getHp(), attack_damage, defense, getWeight());
     }
 }

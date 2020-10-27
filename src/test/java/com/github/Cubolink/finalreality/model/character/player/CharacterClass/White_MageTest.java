@@ -24,7 +24,7 @@ class White_MageTest {
 
         staff = new Staff("Báculo", 5, 20, 6);
         white_mageTest = new White_Mage("Mago Blanco", staff);
-        opponent = new Enemy(turns, "Enemigo", 40, 0, 0, 10, 5);
+        opponent = new Enemy(turns, "Enemigo", 40, 0, 10, 5);
     }
 
     @Test

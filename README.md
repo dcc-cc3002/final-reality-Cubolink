@@ -53,6 +53,9 @@ Characters can wait, attack, receive damage, and other things. They have a list 
 Enemy extends from character, so it doesn't include other things that players can do with their characters.
 The enemy has a weight, because they can't equip weapons.
 It was made the assumption that characters can attack all kinds of characters, including allies.
+The enemies have resistance 0 to magical attacks, but that information is stored like a normal character.
+I know that if I won't be using resistance, I shouldn't being implementing it and it should be a particularity of player characters,
+but I considered that it would be more extensible for possible magical enemies.
 This was actually on purpose, because
 --off topic-- I remember be very surprised when I played a Final Fantasy when I was a kid, and I was able to attack my allies,
 but then an enemy send one of my characters to sleep (this can't happen in this final reality, unless I define a special enemy with that ability) and

@@ -38,9 +38,9 @@ class GenericWeaponTest {
         var otherThing = new Burned(15);
 
         assertEquals(genericWeaponTest.hashCode(), genericWeaponTest.hashCode());
-        assertNotEquals(alteredWeapon.hashCode(), genericWeaponTest.hashCode());
-        assertEquals(sameWeapon.hashCode(), genericWeaponTest.hashCode());
-        assertNotEquals(otherWeapon.hashCode(), genericWeaponTest.hashCode());
-        assertNotEquals(otherThing.hashCode(), genericWeaponTest.hashCode());
+        assertNotEquals(genericWeaponTest.hashCode(), alteredWeapon.hashCode());
+        assertEquals(genericWeaponTest.hashCode(), sameWeapon.hashCode());
+        assertNotEquals(genericWeaponTest.hashCode(), otherWeapon.hashCode());
+        assertNotEquals(genericWeaponTest.hashCode(), otherThing.hashCode());
     }
 }

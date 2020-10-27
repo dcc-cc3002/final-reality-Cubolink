@@ -38,9 +38,9 @@ class SwordTest {
         var altered_sword = new Sword(swordTest.getName(), swordTest.getPhysicalDamage()-10, swordTest.getWeight());
         var same_sword = new Sword(swordTest.getName(), swordTest.getPhysicalDamage(), swordTest.getWeight());
 
-        assertNotEquals(notSword.hashCode(), swordTest.hashCode());
-        assertNotEquals(sable.hashCode(), swordTest.hashCode());
-        assertNotEquals(altered_sword.hashCode(), swordTest.hashCode());
-        assertEquals(same_sword.hashCode(), swordTest.hashCode());
+        assertNotEquals(swordTest.hashCode(), notSword.hashCode());
+        assertNotEquals(swordTest.hashCode(), sable.hashCode());
+        assertNotEquals(swordTest.hashCode(), altered_sword.hashCode());
+        assertEquals(swordTest.hashCode(), same_sword.hashCode());
     }
 }

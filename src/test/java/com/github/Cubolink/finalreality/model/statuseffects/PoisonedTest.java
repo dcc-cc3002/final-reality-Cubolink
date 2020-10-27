@@ -5,7 +5,6 @@ import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Black_Mage;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import com.github.Cubolink.finalreality.model.weapon.Staff;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +28,7 @@ class PoisonedTest {
     void testEffect(){
         int enemy_hp = 50;
         int player_hp = 25;
-        Enemy enemy = new Enemy(turns, "Talus", enemy_hp, 30, 0, 4, 10);
+        Enemy enemy = new Enemy(turns, "Talus", enemy_hp, 30, 4, 10);
         PlayerCharacter player =
                 new PlayerCharacter(turns, "Lyshithea", player_hp, 2, 10,
                         new Black_Mage("Mago",
@@ -75,9 +74,9 @@ class PoisonedTest {
         IStatus otherStatus = new Burned(magic_damage);
 
         assertEquals(poisonedTest, poisonedTest);
-        assertNotEquals(majorPoisoned, poisonedTest);
-        assertEquals(samePoisoned, poisonedTest);
-        assertNotEquals(otherStatus, poisonedTest);
+        assertNotEquals(poisonedTest, majorPoisoned);
+        assertEquals(poisonedTest, samePoisoned);
+        assertNotEquals(poisonedTest, otherStatus);
     }
 
     @Test
@@ -87,9 +86,9 @@ class PoisonedTest {
         IStatus otherStatus = new Burned(magic_damage);
 
         assertEquals(poisonedTest.hashCode(), poisonedTest.hashCode());
-        assertNotEquals(majorPoisoned.hashCode(), poisonedTest.hashCode());
-        assertEquals(samePoisoned.hashCode(), poisonedTest.hashCode());
-        assertNotEquals(otherStatus.hashCode(), poisonedTest.hashCode());
+        assertNotEquals(poisonedTest.hashCode(), majorPoisoned.hashCode());
+        assertEquals(poisonedTest.hashCode(), samePoisoned.hashCode());
+        assertNotEquals(poisonedTest.hashCode(), otherStatus.hashCode());
 
     }
 }
