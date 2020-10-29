@@ -1,12 +1,11 @@
 package com.github.Cubolink.finalreality.model.weapon;
 
 import com.github.Cubolink.finalreality.model.AbstractItem;
-import com.github.Cubolink.finalreality.model.IWearableItem;
 
 /**
  * An abstract class with common things that weapon have.
  */
-public abstract class AbstractWeapon extends AbstractItem implements IWeapon, IWearableItem {
+public abstract class AbstractWeapon extends AbstractItem implements IWeapon {
     private final int physical_damage;
 
     /**

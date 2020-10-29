@@ -3,7 +3,7 @@ package com.github.Cubolink.finalreality.model;
 /**
  * Interface to define what makes an item Wearable.
  */
-public interface IWearableItem {
+public interface IWearableItem extends IItem{
     /**
      * @return true if is wearable by an Engineer.
      */
