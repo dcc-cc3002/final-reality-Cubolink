@@ -10,12 +10,8 @@ import java.util.Objects;
  */
 public class Engineer extends AbstractCharacterClass {
 
-    public Engineer(String classname) {
-        super("Engineer");
-    }
-
-    public Engineer(String classname, IWeapon weapon) {
-        super(classname, weapon);
+    public Engineer() {
+        super("Ingeniero", EnumCharacterClass.engineer);
     }
 
     /**
@@ -45,11 +41,11 @@ public class Engineer extends AbstractCharacterClass {
         }
 
         final Engineer that = (Engineer) o;
-        return getClassname().equals(that.getClassname());
+        return classEnum == that.classEnum;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getClassname());
+        return Objects.hash(classEnum);
     }
 }

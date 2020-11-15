@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class KnifeTest {
+class KnifeTest extends AbstractWeaponTest{
     private Knife knifeTest;
 
     @BeforeEach
@@ -15,35 +15,20 @@ class KnifeTest {
 
     @Test
     void testEquals() {
-
-        assertEquals(knifeTest, knifeTest);
-
-        var sword = new Sword("Espada de madera", 3, 5);
-        var cooking_knife = new Knife("Cuchillo", 5, 2);
-        var altered_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage()+5, knifeTest.getWeight());
         var same_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
-        var heavy_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight()+10);
+        var other_knife = new Knife("Bisturi", 12, 2);
+        var sword = new Sword("Espada de madera", 3, 5);
 
-        assertNotEquals(knifeTest, sword);
-        assertNotEquals(knifeTest, cooking_knife);
-        assertNotEquals(knifeTest, altered_knife);
-        assertNotEquals(knifeTest, heavy_knife);
-        assertEquals(knifeTest, same_knife);
+        checkEquals(knifeTest, same_knife, other_knife, sword);
 
     }
 
     @Test
     void testHashCode() {
-        assertEquals(knifeTest.hashCode(), knifeTest.hashCode());
-
-        var sword = new Sword("Espada de madera", 3, 5);
-        var cooking_knife = new Knife("Cuchillo", 5, 2);
-        var altered_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage()+5, knifeTest.getWeight());
         var same_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
+        var other_knife = new Knife("Bisturi", 12, 2);
+        var sword = new Sword("Espada de madera", 3, 5);
 
-        assertNotEquals(knifeTest.hashCode(), sword.hashCode());
-        assertNotEquals(knifeTest.hashCode(), cooking_knife.hashCode());
-        assertNotEquals(knifeTest.hashCode(), altered_knife.hashCode());
-        assertEquals(knifeTest.hashCode(), same_knife.hashCode());
+        checkHashCode(knifeTest, same_knife, other_knife, sword);
     }
 }

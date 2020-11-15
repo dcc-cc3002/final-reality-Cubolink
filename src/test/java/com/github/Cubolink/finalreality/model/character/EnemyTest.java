@@ -87,7 +87,7 @@ class EnemyTest extends AbstractCharacterTest{
         Enemy enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, 12);
         Enemy enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_atk, 12);
         ICharacter playerCharacter = new PlayerCharacter(turns, "Ark", p_Hp, p_def, 5,
-                new Knight("Caballero del Zodiaco"));
+                new Knight());
 
 
         while (p_Hp-(e1_atk-p_def)>0){
@@ -119,13 +119,13 @@ class EnemyTest extends AbstractCharacterTest{
 
     @Test
     void testEquals() {
-        int e1_Hp=30, e1_atk=10, e1_def=10, e1_res=10, e1_weight=12;
-        int e2_Hp=30, e2_atk=15, e2_def=15, e2_res=0, e2_weight=15;
+        int e1_Hp=30, e1_atk=10, e1_def=10, e1_weight=12;
+        int e2_Hp=30, e2_atk=15, e2_def=15, e2_weight=15;
         var enemy1 = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, e1_weight);
         var enemy1copy = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, e1_weight);
         var enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_atk, e2_weight);
         ICharacter playerCharacter = new PlayerCharacter(turns, "Ark", 45, 5, 5,
-                new Knight("Caballero del Zodiaco"));
+                new Knight());
 
         assertEquals(enemy1, enemy1);
         assertEquals(enemy1, enemy1copy);
@@ -142,7 +142,7 @@ class EnemyTest extends AbstractCharacterTest{
         var enemy1copy = new Enemy(turns, "Slime", e1_Hp, e1_def, e1_atk, e1_weight);
         var enemy2 = new Enemy(turns, "Goblin", e2_Hp, e2_def, e2_atk, e2_weight);
         ICharacter playerCharacter = new PlayerCharacter(turns, "Ark", 45, 5, 5,
-                new Knight("Caballero del Zodiaco"));
+                new Knight());
 
         assertEquals(enemy1.hashCode(), enemy1.hashCode());
         assertEquals(enemy1.hashCode(), enemy1copy.hashCode());

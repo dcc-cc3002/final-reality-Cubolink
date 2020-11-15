@@ -29,7 +29,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         turns = new LinkedBlockingQueue<>();
         testCharacters = new ArrayList<>();
         testCharacters.add(new PlayerCharacter(turns, "Saitama", 9999, 400, 10,
-                new Knight("Caballero")));
+                new Knight()));
     }
 
     /**
@@ -61,12 +61,13 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         int hp = 100, def=10, res=0;
 
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 10, 5,
-                new Thief("Picaro", new Bow("Arco", atk, 7)));
+                new Thief());
+        pcharact1.equip(new Bow("Arco", atk, 7));
 
-        Black_Mage class2 = new Black_Mage("Hechicero",
-                new Staff("Baculo escrito", atk, atk*2, 4));
+        //Black_Mage class2 = new Black_Mage();
         PlayerCharacter pcharact2 = new PlayerCharacter(turns, "Soren", 50, 5, 15,
-                class2);
+                new Black_Mage());
+        pcharact2.equip(new Staff("Baculo escrito", atk, atk*2, 4));
 
         ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, 3, 12);
 
@@ -115,7 +116,8 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     void heal() {
         int maxhp = 50;
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", maxhp, 7, 5,
-                new Thief("Picaro", new Bow("Arco", 15, 7)));
+                new Thief());
+        pcharact1.equip(new Bow("Arco", 15, 7));
         assertEquals(pcharact1.getHp(), maxhp);
         pcharact1.receiveDamage(maxhp /2);
         pcharact1.heal(maxhp /4);
@@ -133,14 +135,15 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void getWeight() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro", new Bow("Arco", 15, 7)));
+                new Thief());
+        pcharact1.equip(new Bow("Arco", 15, 7));
         assertEquals(pcharact1.getWeight(), pcharact1.getEquippedWeapon().getWeight());
     }
 
     @Test
     void testEquip() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         assertNull(pcharact1.getEquippedWeapon());
         pcharact1.equip(new Staff("Baculo", 5, 15, 5));
         assertNull(pcharact1.getEquippedWeapon());
@@ -170,7 +173,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void testAddStatus(){
         ICharacter playerCharacter = new PlayerCharacter(
-                turns, "Boshy", 100, 3, 0, new Thief("Pistolero"));
+                turns, "Boshy", 100, 3, 0, new Thief());
 
         assertTrue(playerCharacter.isAttack_enabled());
         assertEquals(playerCharacter.getHp(), 100);
@@ -218,13 +221,13 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void testEquals() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact1_copy = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact2 = new PlayerCharacter(turns, "Volke", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Ladron"));
+                new Thief());
         ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1, pcharact1);
@@ -238,13 +241,13 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void testHashCode() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact1_copy = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact2 = new PlayerCharacter(turns, "Volke", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Ladron"));
+                new Thief());
         ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1.hashCode(), pcharact1.hashCode());

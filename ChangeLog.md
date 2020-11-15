@@ -3,6 +3,7 @@ ChangeLog
 
 Version 3.0 (Tarea 2)
 -----------
+- (B.5) Refactor in order to follow the correction of Tarea 1: Removed constructor overload. Inheritance in testing.
 - (RC.2) New Pull Request (Entrega Parcial 3). IWearableItem extends from IWeapon, which extends from IItem.
 - (RC.1) Pull Request (Entrega Parcial 3). Weapon equip and attack previously implemented for Tarea 1.
 - (B.4) GenericWeapon is now an abstract class AbstractWeapon, not an instantiable unusable thing.

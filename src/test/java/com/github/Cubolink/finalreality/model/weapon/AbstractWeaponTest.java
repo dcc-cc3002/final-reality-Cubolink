@@ -4,19 +4,27 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbstractWeaponTest {
-    IWeapon weapon;
+abstract class AbstractWeaponTest {
 
-    @Test
-    public void check(){
-        String name = "Zangetsu";
-        int physical_damage = 10;
-        int weight = 2;
-        weapon  = new Sword(name, physical_damage, weight);
+    protected void checkEquals(final IWeapon expectedWeapon,
+                                  final IWeapon equalWeapon,
+                                  final IWeapon sameClassDifferentWeapon,
+                                  final IWeapon differentClassWeapon){
+        assertEquals(expectedWeapon, expectedWeapon);
+        assertEquals(expectedWeapon, equalWeapon);
+        assertNotEquals(expectedWeapon, sameClassDifferentWeapon);
+        assertNotEquals(expectedWeapon, differentClassWeapon);
 
-        assertEquals(weapon.getName(), name);
-        assertEquals(weapon.getPhysicalDamage(), physical_damage);
-        assertEquals(weapon.getMagicalDamage(), 0);
-        assertEquals(weapon.getWeight(), weight);
+    }
+
+    protected void checkHashCode(final IWeapon expectedWeapon,
+                                 final IWeapon equalWeapon,
+                                 final IWeapon sameClassDifferentWeapon,
+                                 final IWeapon differentClassWeapon){
+        assertEquals(expectedWeapon.hashCode(), expectedWeapon.hashCode());
+        assertEquals(expectedWeapon.hashCode(), equalWeapon.hashCode());
+        assertNotEquals(expectedWeapon.hashCode(), sameClassDifferentWeapon.hashCode());
+        assertNotEquals(expectedWeapon.hashCode(), differentClassWeapon.hashCode());
+
     }
 }
