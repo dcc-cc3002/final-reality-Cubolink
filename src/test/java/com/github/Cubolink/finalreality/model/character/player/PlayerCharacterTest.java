@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerCharacterTest extends AbstractCharacterTest {
     private BlockingQueue<ICharacter> turns;
     private List<PlayerCharacter> testCharacters;
-    private GenericWeapon testWeapon;
 
     @BeforeEach
     void setUp() {
@@ -69,7 +68,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         PlayerCharacter pcharact2 = new PlayerCharacter(turns, "Soren", 50, 5, 15,
                 class2);
 
-        ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, res, 3, 12);
+        ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, 3, 12);
 
 
         assertEquals(enemy.getHp(), hp);
@@ -79,6 +78,37 @@ class PlayerCharacterTest extends AbstractCharacterTest {
 
         ((Black_Mage) pcharact2.getCharacterClass()).fire(enemy);
         assertEquals(enemy.getHp(), hp - (pcharact2.getEquippedWeapon().getMagicalDamage())-res);
+
+        // Try to attack when is defeated
+
+        assertTrue(pcharact1.isAlive());
+        assertTrue(pcharact2.isAlive());
+        assertTrue(pcharact1.isAttack_enabled());
+        assertTrue(pcharact2.isAttack_enabled());
+        int previousHp2 = pcharact2.getHp();
+        assertTrue(previousHp2>0);
+        // attack pcharact1 to death
+        while (pcharact1.isAlive()){
+            pcharact2.attack(pcharact1);
+        }
+        assertTrue(pcharact1.isAttack_enabled());
+        assertFalse(pcharact1.isAlive());
+        assertEquals(pcharact1.getHp(), 0);
+        // pcharact1, who is defeated, tries to attack
+        pcharact1.attack(pcharact2);
+        assertEquals(pcharact2.getHp(), previousHp2);
+
+         // Try to attack when attack is disabled
+
+        pcharact2.setAttack_enabled(false);
+        assertTrue(enemy.isAlive());
+        previousHp2 = enemy.getHp();
+        pcharact2.attack(enemy);
+        assertEquals(enemy.getHp(), previousHp2);
+        pcharact2.setAttack_enabled(true);
+        pcharact2.attack(enemy);
+        assertTrue(enemy.getHp() < previousHp2);
+
     }
 
     @Test
@@ -116,6 +146,25 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         assertNull(pcharact1.getEquippedWeapon());
         pcharact1.equip(new Knife("Cuchillo", 10, 3));
         assertEquals(new Knife("Cuchillo", 10, 3), pcharact1.getEquippedWeapon());
+
+        // Try to equip when is defeated
+
+        // Two different weapons that pcharact1 can equip
+        IWeapon testWeapon = pcharact1.getEquippedWeapon();
+        IWeapon testWeapon2 = new Knife("Bisturi", 20, 2);
+        assertNotEquals(testWeapon, testWeapon2);
+        pcharact1.equip(testWeapon2);
+        assertEquals(pcharact1.getEquippedWeapon(), testWeapon2);
+        pcharact1.equip(testWeapon);
+        assertEquals(pcharact1.getEquippedWeapon(), testWeapon);
+        assertNotEquals(pcharact1.getEquippedWeapon(), testWeapon2);
+        // Kill pcharact1
+        assertTrue(pcharact1.isAlive());
+        pcharact1.receiveDamage(pcharact1.getHp());
+        assertFalse(pcharact1.isAlive());
+        // Now he shouldn't be able to change its weapon
+        pcharact1.equip(testWeapon2);
+        assertNotEquals(pcharact1.getEquippedWeapon(), testWeapon2);
     }
 
     @Test
@@ -176,7 +225,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
                 new Thief("Picaro"));
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
                 new Thief("Ladron"));
-        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 5, 3, 12);
+        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1, pcharact1);
         assertEquals(pcharact1, pcharact1_copy);
@@ -196,7 +245,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
                 new Thief("Picaro"));
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
                 new Thief("Ladron"));
-        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 5, 3, 12);
+        ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1.hashCode(), pcharact1.hashCode());
         assertEquals(pcharact1.hashCode(), pcharact1_copy.hashCode());

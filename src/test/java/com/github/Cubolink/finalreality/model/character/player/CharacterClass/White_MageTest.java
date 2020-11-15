@@ -2,7 +2,6 @@ package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.character.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class White_MageTest {
     private White_Mage white_mageTest;
-    private GenericWeapon staff;
+    private IWeapon staff;
     private ICharacter opponent;
     protected BlockingQueue<ICharacter> turns;
 
@@ -25,27 +24,22 @@ class White_MageTest {
 
         staff = new Staff("Báculo", 5, 20, 6);
         white_mageTest = new White_Mage("Mago Blanco", staff);
-        opponent = new Enemy(turns, "Enemigo", 40, 0, 0, 10, 5);
+        opponent = new Enemy(turns, "Enemigo", 40, 0, 10, 5);
     }
 
     @Test
     void equip() {
         white_mageTest = new White_Mage("Shiro mado-shi");
 
-        GenericWeapon axe = new Axe("Hacha", 20, 15);
-        GenericWeapon staff = new Staff("Báculo", 5, 20, 6);
-        GenericWeapon bow = new Bow("Arco de Hierro", 15, 6);
-        GenericWeapon knife = new Knife("Cuchillito", 10, 3);
-        GenericWeapon sword = new Sword("Espada", 15, 10);
-        GenericWeapon genericWeapon = new GenericWeapon("Piedra", 5, 1);
+        IWeapon axe = new Axe("Hacha", 20, 15);
+        IWeapon bow = new Bow("Arco de Hierro", 15, 6);
+        IWeapon knife = new Knife("Cuchillito", 10, 3);
+        IWeapon sword = new Sword("Espada", 15, 10);
 
         white_mageTest.equip(knife);
         assertNull(white_mageTest.getEquippedWeapon());
 
         white_mageTest.equip(sword);
-        assertNull(white_mageTest.getEquippedWeapon());
-
-        white_mageTest.equip(genericWeapon);
         assertNull(white_mageTest.getEquippedWeapon());
 
         white_mageTest.equip(axe);
@@ -77,7 +71,6 @@ class White_MageTest {
     @Test
     void poison() {
         white_mageTest.poison(opponent);
-        int hp = opponent.getHp();
         int dmg = white_mageTest.getEquippedWeapon().getMagicalDamage()/3;
         opponent.applyStatuses();
         assertEquals(opponent.getHp(), opponent.getMaxHp()-dmg);
@@ -86,8 +79,6 @@ class White_MageTest {
     @Test
     void paralyze() {
         white_mageTest.paralyze(opponent);
-        int hp = opponent.getHp();
-        int dmg = white_mageTest.getEquippedWeapon().getMagicalDamage()/2;
         opponent.applyStatuses();
         assertFalse(opponent.isAttack_enabled());
     }
@@ -100,10 +91,13 @@ class White_MageTest {
                 white_mageTest.getClassname(), white_mageTest.getEquippedWeapon());
         White_Mage same_class_name_diff_weapon = new White_Mage(
                 white_mageTest.getClassname(), other_staff);
+        ICharacterClass other_character_class = new Black_Mage("Mago Negro", white_mageTest.getEquippedWeapon());
 
-        assertNotEquals(other_whiteMage, white_mageTest);
-        assertEquals(same_class_name_same_weapon, white_mageTest);
-        assertEquals(same_class_name_diff_weapon, white_mageTest);
+        assertEquals(white_mageTest, white_mageTest);
+        assertNotEquals(white_mageTest, other_whiteMage);
+        assertEquals(white_mageTest, same_class_name_same_weapon);
+        assertEquals(white_mageTest, same_class_name_diff_weapon);
+        assertNotEquals(white_mageTest, other_character_class);
     }
 
     @Test
@@ -114,9 +108,12 @@ class White_MageTest {
                 white_mageTest.getClassname(), white_mageTest.getEquippedWeapon());
         White_Mage same_class_name_diff_weapon = new White_Mage(
                 white_mageTest.getClassname(), other_staff);
+        ICharacterClass other_character_class = new Black_Mage("Mago Negro", white_mageTest.getEquippedWeapon());
 
-        assertNotEquals(other_whiteMage.hashCode(), white_mageTest.hashCode());
-        assertEquals(same_class_name_same_weapon.hashCode(), white_mageTest.hashCode());
-        assertEquals(same_class_name_diff_weapon.hashCode(), white_mageTest.hashCode());
+        assertEquals(white_mageTest.hashCode(), white_mageTest.hashCode());
+        assertNotEquals(white_mageTest.hashCode(), other_whiteMage.hashCode());
+        assertEquals(white_mageTest.hashCode(), same_class_name_same_weapon.hashCode());
+        assertEquals(white_mageTest.hashCode(), same_class_name_diff_weapon.hashCode());
+        assertNotEquals(white_mageTest.hashCode(), other_character_class.hashCode());
     }
 }

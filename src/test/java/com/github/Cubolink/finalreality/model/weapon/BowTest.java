@@ -17,15 +17,15 @@ class BowTest {
     void testEquals() {
         assertEquals(bowTest, bowTest);
 
-        var notBow = new GenericWeapon("piedra", 3, 1);
+        var sword = new Sword("Espada de madera", 3, 5);
         var ballesta = new Bow("Bayesta", 15, 10);
         var bow_altered = new Bow(bowTest.getName(), bowTest.getPhysicalDamage()+10, bowTest.getWeight());
         var samebow = new Bow(bowTest.getName(), bowTest.getPhysicalDamage(), bowTest.getWeight());
 
-        assertNotEquals(notBow, bowTest);
-        assertNotEquals(ballesta, bowTest);
-        assertNotEquals(bow_altered, bowTest);
-        assertEquals(samebow, bowTest);
+        assertNotEquals(bowTest, sword);
+        assertNotEquals(bowTest, ballesta);
+        assertNotEquals(bowTest, bow_altered);
+        assertEquals(bowTest, samebow);
 
 
     }
@@ -34,15 +34,15 @@ class BowTest {
     void testHashCode() {
         assertEquals(bowTest.hashCode(), bowTest.hashCode());
 
-        var notBow = new GenericWeapon(bowTest.getName(), bowTest.getPhysicalDamage(), bowTest.getWeight());
+        var sword = new Sword("Espada de madera", 3, 5);
         var ballesta = new Bow("Bayesta", 15, 10);
         var bow_altered = new Bow(bowTest.getName(), bowTest.getPhysicalDamage()+10, bowTest.getWeight());
         var samebow = new Bow(bowTest.getName(), bowTest.getPhysicalDamage(), bowTest.getWeight());
 
-        assertNotEquals(notBow.hashCode(), bowTest.hashCode());
-        assertNotEquals(ballesta.hashCode(), bowTest.hashCode());
-        assertNotEquals(bow_altered.hashCode(), bowTest.hashCode());
-        assertEquals(samebow.hashCode(), bowTest.hashCode());
+        assertNotEquals(bowTest.hashCode(), sword.hashCode());
+        assertNotEquals(bowTest.hashCode(), ballesta.hashCode());
+        assertNotEquals(bowTest.hashCode(), bow_altered.hashCode());
+        assertEquals(bowTest.hashCode(), samebow.hashCode());
 
     }
 }

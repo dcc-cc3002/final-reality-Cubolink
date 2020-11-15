@@ -27,7 +27,7 @@ class ParalyzedTest {
     void testEffect(){
         int enemy_hp = 50;
         int player_hp = 25;
-        Enemy enemy = new Enemy(turns, "Talus", enemy_hp, 30, 0, 4, 10);
+        Enemy enemy = new Enemy(turns, "Talus", enemy_hp, 30, 4, 10);
         PlayerCharacter player =
                 new PlayerCharacter(turns, "Lyshithea", player_hp, 2, 10,
                         new Black_Mage("Mago",
@@ -51,25 +51,42 @@ class ParalyzedTest {
     }
 
     @Test
-    void testEquals() {
+    void testAlmostEquals(){
         var sameParalyzed = new Paralyzed();
         var oldParalyzed = new Paralyzed();
         IStatus otherEffect = new Poisoned(15);
 
-        assertEquals(paralyzedTest, paralyzedTest);
-        assertEquals(sameParalyzed, paralyzedTest);
+        assertTrue(paralyzedTest.almostEquals(paralyzedTest));
+        assertTrue(paralyzedTest.almostEquals(sameParalyzed));
+        assertTrue(paralyzedTest.almostEquals(oldParalyzed));
+        assertFalse(paralyzedTest.almostEquals(otherEffect));
+    }
 
-        assertNotEquals(otherEffect, paralyzedTest);
+    @Test
+    void testEquals() {
+        var sameParalyzed = new Paralyzed();
+        var oldParalyzed = new Paralyzed();
+        Enemy enemy = new Enemy(turns, "Talus", 50, 30, 4, 10);
+        oldParalyzed.effect(enemy);  // oldParalyzed has its turns to disappear in 0
+        IStatus otherEffect = new Poisoned(15);
+
+        assertEquals(paralyzedTest, paralyzedTest);
+        assertEquals(paralyzedTest, sameParalyzed);
+        assertNotEquals(paralyzedTest, oldParalyzed);
+        assertNotEquals(paralyzedTest, otherEffect);
     }
 
     @Test
     void testHashCode() {
         var sameParalyzed = new Paralyzed();
         var oldParalyzed = new Paralyzed();
+        Enemy enemy = new Enemy(turns, "Talus", 50, 30, 4, 10);
+        oldParalyzed.effect(enemy);  // oldParalyzed has its turns to disappear in 0
         IStatus otherEffect = new Poisoned(15);
 
         assertEquals(paralyzedTest.hashCode(), paralyzedTest.hashCode());
-        assertEquals(sameParalyzed.hashCode(), paralyzedTest.hashCode());
-        assertNotEquals(otherEffect.hashCode(), paralyzedTest.hashCode());
+        assertEquals(paralyzedTest.hashCode(), sameParalyzed.hashCode());
+        assertNotEquals(paralyzedTest.hashCode(), oldParalyzed.hashCode());
+        assertNotEquals(paralyzedTest.hashCode(), otherEffect.hashCode());
     }
 }

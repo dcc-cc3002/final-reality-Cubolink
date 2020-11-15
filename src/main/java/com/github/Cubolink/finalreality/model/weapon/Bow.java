@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * A class to define a Bow weapon.
  */
-public class Bow extends GenericWeapon{
+public class Bow extends AbstractWeapon {
 
     /**
      * Instantiates a Bow.

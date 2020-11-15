@@ -1,7 +1,6 @@
 package com.github.Cubolink.finalreality.model.character;
 
 import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
 
 /**
  * Interface of what represents a character in the game.
@@ -41,7 +40,7 @@ public interface ICharacter {
     void waitTurn();
 
     /**
-     * Attacks other entity.
+     * Attacks other entity. This entity's attack is executed only if is alive and its attack is enabled
      * @param character The character which this entity is attacking.
      */
     void attack(ICharacter character);
@@ -95,6 +94,7 @@ public interface ICharacter {
     int getMaxHp();
 
     /**
+     * Checks if the entity is alive, updates its status if it's required.
      * @return true if the entity is alive, and false otherwise.
      */
     boolean isAlive();

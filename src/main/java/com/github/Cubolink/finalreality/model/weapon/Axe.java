@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * A class to define an Axe weapon.
  */
-public class Axe extends GenericWeapon{
+public class Axe extends AbstractWeapon {
 
     /**
      * Instantiates an Axe.

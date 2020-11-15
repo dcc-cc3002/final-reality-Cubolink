@@ -33,11 +33,11 @@ A weapon is an Item, so extends the previous defined abstract item, but is also 
 It's defined a weapon interface too, with the behavior that a weapon has to have. This structure was made with the assumption of there would exist
 wearable items that are not weapon, items like helmets or stuff like that. That's why the interfaces wearable item and weapon are separate.
 
-There's a Generic Weapon class, with all common behavior that weapons have, and implement both interfaces weapon and wearable item.
-While it could be an abstract class, I decided to not making it abstract, because we could have an unknown weapon, for example broken sword,
-and somehow in a future implementation change it to a sword. It could be simply an item, but it didn't seem like that for me.
+There's an AbstractWeapon class, with all common behavior that weapons have, and implement both interfaces weapon and wearable item.
+In the beginning, it wasn't abstract, because I considered it would be useful to instantiate unusable weapons like 'broken sword'.
+I reconsidered it, and reached the conclusion for that would be better to use simply an item, and not a non wearable weapon.
 
-The classes Axe, Bow, Knife, Staff and Sword extends from this Generic Weapon,
+The classes Axe, Bow, Knife, Staff and Sword extends from this AbstractWeapon,
 overriding the methods isWearableBy those classes that can equip that weapon.
 
 * ##### Status Effects
@@ -53,6 +53,9 @@ Characters can wait, attack, receive damage, and other things. They have a list 
 Enemy extends from character, so it doesn't include other things that players can do with their characters.
 The enemy has a weight, because they can't equip weapons.
 It was made the assumption that characters can attack all kinds of characters, including allies.
+The enemies have resistance 0 to magical attacks, but that information is stored like a normal character.
+I know that if I won't be using resistance, I shouldn't being implementing it and it should be a particularity of player characters,
+but I considered that it would be more extensible for possible magical enemies.
 This was actually on purpose, because
 --off topic-- I remember be very surprised when I played a Final Fantasy when I was a kid, and I was able to attack my allies,
 but then an enemy send one of my characters to sleep (this can't happen in this final reality, unless I define a special enemy with that ability) and

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AxeTest {
-    private GenericWeapon axeTest;
+    private AbstractWeapon axeTest;
 
     @BeforeEach
     void setUp(){
@@ -18,16 +18,14 @@ class AxeTest {
 
         assertEquals(axeTest, axeTest);
 
-        var sword = new Sword("espada de madera", 3, 5);
-        assertNotEquals(sword, axeTest);
-
+        var sword = new Sword("Espada de madera", 3, 5);
         var axe2 = new Axe("Hacha sin filo", 0, 5);
-        assertNotEquals(axeTest, axe2);
-
         var axe3 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage(), axeTest.getWeight());
-        assertEquals(axeTest, axe3);
-
         var axe4 = new Axe(axeTest.getName(), axeTest.getPhysicalDamage()+10, axeTest.getWeight());
+
+        assertNotEquals(axeTest, sword);
+        assertNotEquals(axeTest, axe2);
+        assertEquals(axeTest, axe3);
         assertNotEquals(axeTest, axe4);
 
     }

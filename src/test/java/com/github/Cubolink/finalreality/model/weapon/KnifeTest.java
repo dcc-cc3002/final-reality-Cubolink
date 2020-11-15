@@ -15,19 +15,20 @@ class KnifeTest {
 
     @Test
     void testEquals() {
+
         assertEquals(knifeTest, knifeTest);
 
-        var notKnife = new GenericWeapon(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
+        var sword = new Sword("Espada de madera", 3, 5);
         var cooking_knife = new Knife("Cuchillo", 5, 2);
         var altered_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage()+5, knifeTest.getWeight());
         var same_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
         var heavy_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight()+10);
 
-        assertNotEquals(notKnife, knifeTest);
-        assertNotEquals(cooking_knife, knifeTest);
-        assertNotEquals(altered_knife, knifeTest);
-        assertNotEquals(heavy_knife, knifeTest);
-        assertEquals(same_knife, knifeTest);
+        assertNotEquals(knifeTest, sword);
+        assertNotEquals(knifeTest, cooking_knife);
+        assertNotEquals(knifeTest, altered_knife);
+        assertNotEquals(knifeTest, heavy_knife);
+        assertEquals(knifeTest, same_knife);
 
     }
 
@@ -35,14 +36,14 @@ class KnifeTest {
     void testHashCode() {
         assertEquals(knifeTest.hashCode(), knifeTest.hashCode());
 
-        var notKnife = new GenericWeapon("piedra", 3, 1);
+        var sword = new Sword("Espada de madera", 3, 5);
         var cooking_knife = new Knife("Cuchillo", 5, 2);
         var altered_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage()+5, knifeTest.getWeight());
         var same_knife = new Knife(knifeTest.getName(), knifeTest.getPhysicalDamage(), knifeTest.getWeight());
 
-        assertNotEquals(notKnife.hashCode(), knifeTest.hashCode());
-        assertNotEquals(cooking_knife.hashCode(), knifeTest.hashCode());
-        assertNotEquals(altered_knife.hashCode(), knifeTest.hashCode());
-        assertEquals(same_knife.hashCode(), knifeTest.hashCode());
+        assertNotEquals(knifeTest.hashCode(), sword.hashCode());
+        assertNotEquals(knifeTest.hashCode(), cooking_knife.hashCode());
+        assertNotEquals(knifeTest.hashCode(), altered_knife.hashCode());
+        assertEquals(knifeTest.hashCode(), same_knife.hashCode());
     }
 }

@@ -4,7 +4,7 @@ import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.statuseffects.Poisoned;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 
 import java.util.Objects;
 
@@ -19,15 +19,16 @@ public class White_Mage extends AbstractCharacterClass implements IMage{
         super(classname);
     }
 
-    public White_Mage(String classname, GenericWeapon weapon) {
+    public White_Mage(String classname, IWeapon weapon) {
         super(classname, weapon);
     }
 
     /**
      * {@inheritDoc}
+     * @param weapon
      */
     @Override
-    public void equip(GenericWeapon weapon) {
+    public void equip(IWeapon weapon) {
         if (weapon.isWearableByMage()){
             this.equippedWeapon = weapon;
         }

@@ -1,7 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player;
 
-import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.ICharacterClass;
+import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 
 /**
  * Interface which represent the things that those characters controlled by the player can do, that enemies can't.
@@ -11,7 +11,7 @@ public interface IPlayerCharacter {
      * Equips a weapon to the character.
      * @param weapon the weapon to equip
      */
-    void equip(GenericWeapon weapon);
+    void equip(IWeapon weapon);
 
     /**
      * Heals a number of points to the current Hp
@@ -22,10 +22,10 @@ public interface IPlayerCharacter {
     /**
      * @return this character's equipped weapon.
      */
-    GenericWeapon getEquippedWeapon();
+    IWeapon getEquippedWeapon();
 
     /**
      * @return this character's class.
      */
-    AbstractCharacterClass getCharacterClass();
+    ICharacterClass getCharacterClass();
 }

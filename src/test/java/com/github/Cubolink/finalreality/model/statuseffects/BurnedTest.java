@@ -28,7 +28,7 @@ class BurnedTest {
     void testEffect(){
         int enemy_hp = 50;
         int player_hp = 25;
-        Enemy enemy = new Enemy(turns, "Talus", enemy_hp, 30, 0, 4, 10);
+        Enemy enemy = new Enemy(turns, "Talus", enemy_hp, 30, 4, 10);
         PlayerCharacter player =
                 new PlayerCharacter(turns, "Lyshithea", player_hp, 2, 10,
                                     new Black_Mage("Mago",
@@ -55,15 +55,27 @@ class BurnedTest {
     }
 
     @Test
+    void testAlmostEquals(){
+        var otherBurned = new Burned(15);
+        var sameBurned = new Burned(magic_damage);
+        IStatus otherStatus = new Paralyzed();
+
+        assertTrue(burnedTest.almostEquals(burnedTest));
+        assertTrue(burnedTest.almostEquals(otherBurned));
+        assertTrue(burnedTest.almostEquals(sameBurned));
+        assertFalse(burnedTest.almostEquals(otherStatus));
+    }
+
+    @Test
     void testEquals() {
         var otherBurned = new Burned(15);
         var sameBurned = new Burned(magic_damage);
         IStatus otherStatus = new Paralyzed();
 
         assertEquals(burnedTest, burnedTest);
-        assertNotEquals(otherBurned, burnedTest);
-        assertEquals(sameBurned, burnedTest);
-        assertNotEquals(otherStatus, burnedTest);
+        assertNotEquals(burnedTest, otherBurned);
+        assertEquals(burnedTest, sameBurned);
+        assertNotEquals(burnedTest, otherStatus);
     }
 
     @Test
@@ -73,8 +85,8 @@ class BurnedTest {
         IStatus otherStatus = new Paralyzed();
 
         assertEquals(burnedTest.hashCode(), burnedTest.hashCode());
-        assertNotEquals(otherBurned.hashCode(), burnedTest.hashCode());
-        assertEquals(sameBurned.hashCode(), burnedTest.hashCode());
-        assertNotEquals(otherStatus.hashCode(), burnedTest.hashCode());
+        assertNotEquals(burnedTest.hashCode(), otherBurned.hashCode());
+        assertEquals(burnedTest.hashCode(), sameBurned.hashCode());
+        assertNotEquals(burnedTest.hashCode(), otherStatus.hashCode());
     }
 }

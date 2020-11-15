@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * A class to define a Sword weapon.
  */
-public class Sword extends GenericWeapon{
+public class Sword extends AbstractWeapon {
 
     /**
      * Instantiates a Sword.

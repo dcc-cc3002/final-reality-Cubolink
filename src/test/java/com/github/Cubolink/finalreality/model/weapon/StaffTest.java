@@ -17,34 +17,34 @@ class StaffTest {
     void testEquals() {
         assertEquals(staffTest, staffTest);
 
-        var notStaff = new GenericWeapon("piedra", 3, 1);
+        var sword = new Sword("Espada de madera", 3, 5);
         var rod = new Staff("Baculo", 5, 20, 5);
         var altered_staff = new Staff(staffTest.getName(), staffTest.getPhysicalDamage(),
                             staffTest.getMagicalDamage()+3, staffTest.getWeight());
         var same_staff = new Staff(staffTest.getName(), staffTest.getPhysicalDamage(),
                 staffTest.getMagicalDamage(), staffTest.getWeight());
 
-        assertNotEquals(notStaff, staffTest);
-        assertNotEquals(rod, staffTest);
-        assertNotEquals(altered_staff, staffTest);
-        assertEquals(same_staff, staffTest);
+        assertNotEquals(staffTest, sword);
+        assertNotEquals(staffTest, rod);
+        assertNotEquals(staffTest, altered_staff);
+        assertEquals(staffTest, same_staff);
     }
 
     @Test
     void testHashCode() {
         assertEquals(staffTest.hashCode(), staffTest.hashCode());
 
-        var notStaff = new GenericWeapon("piedra", 3, 1);
+        var sword = new Sword("Espada de madera", 3, 5);
         var rod = new Staff("Baculo", 5, 20, 5);
         var altered_staff = new Staff(staffTest.getName(), staffTest.getPhysicalDamage(),
                 staffTest.getMagicalDamage()+3, staffTest.getWeight());
         var same_staff = new Staff(staffTest.getName(), staffTest.getPhysicalDamage(),
                 staffTest.getMagicalDamage(), staffTest.getWeight());
 
-        assertNotEquals(notStaff.hashCode(), staffTest.hashCode());
-        assertNotEquals(rod.hashCode(), staffTest.hashCode());
-        assertNotEquals(altered_staff.hashCode(), staffTest.hashCode());
-        assertEquals(same_staff.hashCode(), staffTest.hashCode());
+        assertNotEquals(staffTest.hashCode(), sword.hashCode());
+        assertNotEquals(staffTest.hashCode(), rod.hashCode());
+        assertNotEquals(staffTest.hashCode(), altered_staff.hashCode());
+        assertEquals(staffTest.hashCode(), same_staff.hashCode());
     }
 
 }

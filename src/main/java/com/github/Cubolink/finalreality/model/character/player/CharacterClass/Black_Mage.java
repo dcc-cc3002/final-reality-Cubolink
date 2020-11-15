@@ -5,7 +5,7 @@ import java.util.Random;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.statuseffects.Burned;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 
 
 /**
@@ -19,15 +19,16 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         super(classname);
     }
 
-    public Black_Mage(String classname, GenericWeapon weapon) {
+    public Black_Mage(String classname, IWeapon weapon) {
         super(classname, weapon);
     }
 
     /**
      * {@inheritDoc}
+     * @param weapon
      */
     @Override
-    public void equip(GenericWeapon weapon) {
+    public void equip(IWeapon weapon) {
         if (weapon.isWearableByMage()){
             this.equippedWeapon = weapon;
         }
@@ -45,7 +46,7 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
     public void thunder(ICharacter character) {
         if (mana>=15){
             mana -= 15;
-            character.receiveDamage(equippedWeapon.getMagicalDamage());
+            character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
             Random R = new Random();
             if (R.nextDouble() < 0.3){
                 character.addStatus(new Paralyzed());

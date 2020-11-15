@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 
 import java.util.Objects;
 
@@ -14,15 +14,16 @@ public class Thief extends AbstractCharacterClass {
         super(classname);
     }
 
-    public Thief(String classname, GenericWeapon weapon) {
+    public Thief(String classname, IWeapon weapon) {
         super(classname, weapon);
     }
 
     /**
      * {@inheritDoc}
+     * @param weapon
      */
     @Override
-    public void equip(GenericWeapon weapon) {
+    public void equip(IWeapon weapon) {
         if (weapon.isWearableByThief()){
             this.equippedWeapon = weapon;
         }

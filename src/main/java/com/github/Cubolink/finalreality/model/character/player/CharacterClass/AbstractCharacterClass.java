@@ -1,7 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
+import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 
 /**
  * Abstract class for the classes that a player have as a job. (A player only can have one).
@@ -11,7 +11,7 @@ import com.github.Cubolink.finalreality.model.weapon.GenericWeapon;
  * @author Joaquín Cruz Cancino.
  */
 public abstract class AbstractCharacterClass implements  ICharacterClass {
-    protected GenericWeapon equippedWeapon;
+    protected IWeapon equippedWeapon;
     protected String classname;
 
     /**
@@ -27,7 +27,7 @@ public abstract class AbstractCharacterClass implements  ICharacterClass {
      * @param classname name of the class.
      * @param weapon equipped weapon.
      */
-    public AbstractCharacterClass(String classname, GenericWeapon weapon) {
+    public AbstractCharacterClass(String classname, IWeapon weapon) {
         this.equippedWeapon = weapon;
         this.classname = classname;
     }
@@ -45,13 +45,13 @@ public abstract class AbstractCharacterClass implements  ICharacterClass {
      * @param weapon the one to equip,
      */
     @Override
-    public abstract void equip(GenericWeapon weapon);
+    public abstract void equip(IWeapon weapon);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public GenericWeapon getEquippedWeapon() {
+    public IWeapon getEquippedWeapon() {
         return equippedWeapon;
     }
 

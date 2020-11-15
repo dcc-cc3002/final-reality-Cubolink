@@ -1,6 +1,5 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,8 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KnightTest {
     private Knight knightTest;
-    private GenericWeapon sword;
-    private ICharacter opponent;
+    private IWeapon sword;
 
     @BeforeEach
     void setUp(){
@@ -22,15 +20,10 @@ class KnightTest {
     void equip() {
         knightTest = new Knight("Caballero");
 
-        GenericWeapon axe = new Axe("Hacha", 20, 15);
-        GenericWeapon staff = new Staff("Báculo", 5, 20, 6);
-        GenericWeapon bow = new Bow("Arco de Hierro", 15, 6);
-        GenericWeapon knife = new Knife("Cuchillito", 10, 3);
-        GenericWeapon sword = new Sword("Espada", 15, 10);
-        GenericWeapon genericWeapon = new GenericWeapon("Piedra", 5, 1);
-
-        knightTest.equip(genericWeapon);
-        assertNull(knightTest.getEquippedWeapon());
+        IWeapon axe = new Axe("Hacha", 20, 15);
+        IWeapon staff = new Staff("Báculo", 5, 20, 6);
+        IWeapon bow = new Bow("Arco de Hierro", 15, 6);
+        IWeapon knife = new Knife("Cuchillito", 10, 3);
 
         knightTest.equip(staff);
         assertNull(knightTest.getEquippedWeapon());
@@ -56,10 +49,13 @@ class KnightTest {
                 knightTest.getClassname(), knightTest.getEquippedWeapon());
         Knight same_class_name_diff_weapon = new Knight(
                 knightTest.getClassname(), other_sword);
+        ICharacterClass other_character_class = new Thief("Lanza", knightTest.getEquippedWeapon());
 
-        assertNotEquals(other_knight, knightTest);
-        assertEquals(same_class_name_same_weapon, knightTest);
-        assertEquals(same_class_name_diff_weapon, knightTest);
+        assertEquals(knightTest, knightTest);
+        assertNotEquals(knightTest, other_knight);
+        assertEquals(knightTest, same_class_name_same_weapon);
+        assertEquals(knightTest, same_class_name_diff_weapon);
+        assertNotEquals(knightTest, other_character_class);
     }
 
     @Test
@@ -70,9 +66,12 @@ class KnightTest {
                 knightTest.getClassname(), knightTest.getEquippedWeapon());
         Knight same_class_name_diff_weapon = new Knight(
                 knightTest.getClassname(), other_sword);
+        ICharacterClass other_character_class = new Thief("Lanza", knightTest.getEquippedWeapon());
 
-        assertNotEquals(other_knigth.hashCode(), knightTest.hashCode());
-        assertEquals(same_class_name_same_weapon.hashCode(), knightTest.hashCode());
-        assertEquals(same_class_name_diff_weapon.hashCode(), knightTest.hashCode());
+        assertEquals(knightTest.hashCode(), knightTest.hashCode());
+        assertNotEquals(knightTest.hashCode(), other_knigth.hashCode());
+        assertEquals(knightTest.hashCode(), same_class_name_same_weapon.hashCode());
+        assertEquals(knightTest.hashCode(), same_class_name_diff_weapon.hashCode());
+        assertNotEquals(knightTest.hashCode(), other_character_class.hashCode());
     }
 }
