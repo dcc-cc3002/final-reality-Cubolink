@@ -17,6 +17,12 @@ class KnightTest extends AbstractCharacterClassTest{
     }
 
     @Test
+    void testConstruction(){
+        ICharacterClass knight = new Knight();
+        checkConstruction(knight, knightTest.getClassname());
+    }
+
+    @Test
     void equip() {
         knightTest = new Knight();
         equipTestSetUp();
@@ -39,11 +45,11 @@ class KnightTest extends AbstractCharacterClassTest{
 
     @Test
     void testEquals() {
-        Knight same_knight = new Knight();
+        ICharacterClass same_knight = new Knight();
         same_knight.equip(knightTest.getEquippedWeapon());
 
-        Knight sameClass_diffWeapon = new Knight();
-        Sword other_sword = new Sword("Espadon", 10, 25);
+        ICharacterClass sameClass_diffWeapon = new Knight();
+        IWeapon other_sword = new Sword("Espadon", 10, 25);
         sameClass_diffWeapon.equip(other_sword);
 
         ICharacterClass other_character_class = new Thief();
@@ -54,11 +60,11 @@ class KnightTest extends AbstractCharacterClassTest{
 
     @Test
     void testHashCode() {
-        Knight same_knight = new Knight();
+        ICharacterClass same_knight = new Knight();
         same_knight.equip(knightTest.getEquippedWeapon());
 
-        Knight sameClass_diffWeapon = new Knight();
-        Sword other_sword = new Sword("Espadon", 10, 25);
+        ICharacterClass sameClass_diffWeapon = new Knight();
+        IWeapon other_sword = new Sword("Espadon", 10, 25);
         sameClass_diffWeapon.equip(other_sword);
 
         ICharacterClass other_character_class = new Thief();

@@ -39,11 +39,11 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
      *
      * @param character the character to attack.
      */
-    public void thunder(ICharacter character) {
+    public void thunder(ICharacter character, Random R) {
         if (mana>=15){
             mana -= 15;
             character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
-            Random R = new Random();
+
             if (R.nextDouble() < 0.3){
                 character.addStatus(new Paralyzed());
             }
@@ -59,11 +59,10 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
      *
      * @param character the character to attack.
      */
-    public void fire(ICharacter character) {
+    public void fire(ICharacter character, Random R) {
         if (mana>=15){
             mana -= 15;
             character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
-            Random R = new Random();
             if (R.nextDouble() < 0.2){
                 character.addStatus(new Burned(equippedWeapon.getMagicalDamage()));
             }

@@ -29,6 +29,12 @@ class White_MageTest extends AbstractCharacterClassTest {
     }
 
     @Test
+    void testConstruction(){
+        ICharacterClass white_mage = new White_Mage();
+        checkConstruction(white_mage, white_mageTest.getClassname());
+    }
+
+    @Test
     void equip() {
         white_mageTest = new White_Mage();
         equipTestSetUp();
@@ -82,11 +88,11 @@ class White_MageTest extends AbstractCharacterClassTest {
 
     @Test
     void testEquals() {
-        White_Mage same_whiteMage = new White_Mage();
+        ICharacterClass same_whiteMage = new White_Mage();
         same_whiteMage.equip(white_mageTest.getEquippedWeapon());
 
-        White_Mage sameClass_diffWeapon = new White_Mage();
-        Staff other_staff = new Staff("Vara", 10, 5, 5);
+        ICharacterClass sameClass_diffWeapon = new White_Mage();
+        IWeapon other_staff = new Staff("Vara", 10, 5, 5);
         sameClass_diffWeapon.equip(other_staff);
 
         ICharacterClass other_character_class = new Black_Mage();
@@ -97,11 +103,11 @@ class White_MageTest extends AbstractCharacterClassTest {
 
     @Test
     void testHashCode() {
-        White_Mage same_whiteMage = new White_Mage();
+        ICharacterClass same_whiteMage = new White_Mage();
         same_whiteMage.equip(white_mageTest.getEquippedWeapon());
 
-        White_Mage sameClass_diffWeapon = new White_Mage();
-        Staff other_staff = new Staff("Vara", 10, 5, 5);
+        ICharacterClass sameClass_diffWeapon = new White_Mage();
+        IWeapon other_staff = new Staff("Vara", 10, 5, 5);
         sameClass_diffWeapon.equip(other_staff);
 
         ICharacterClass other_character_class = new Black_Mage();

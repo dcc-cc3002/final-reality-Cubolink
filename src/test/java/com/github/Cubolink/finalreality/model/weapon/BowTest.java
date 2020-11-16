@@ -3,8 +3,6 @@ package com.github.Cubolink.finalreality.model.weapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class BowTest extends AbstractWeaponTest{
     private Bow bowTest;
 

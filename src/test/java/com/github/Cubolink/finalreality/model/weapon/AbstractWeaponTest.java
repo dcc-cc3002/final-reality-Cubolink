@@ -1,7 +1,5 @@
 package com.github.Cubolink.finalreality.model.weapon;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractWeaponTest {

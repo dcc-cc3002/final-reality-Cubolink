@@ -16,8 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EnemyTest extends AbstractCharacterTest{
     @BeforeEach
     void setUp() {
-        turns = new LinkedBlockingQueue<>();
-        testCharacters = new ArrayList<>();
+        preSetUp();
         testCharacters.add(new Enemy(turns, "Slime", 30, 10, 10, 10));
 
     }
@@ -42,21 +41,7 @@ class EnemyTest extends AbstractCharacterTest{
      */
     @Test
     public void waitTurnTest() {
-        assertTrue(turns.isEmpty());
-
-        testCharacters.get(0).waitTurn();
-        try {
-            // Thread.sleep is not accurate so this values may be changed to adjust the
-            // acceptable error margin.
-            // We're testing that the character waits approximately 1 second.
-            Thread.sleep(900);
-            assertEquals(0, turns.size());
-            Thread.sleep(200);
-            assertEquals(1, turns.size());
-            assertEquals(testCharacters.get(0), turns.peek());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        checkWaitTurn();
     }
 
     @Test

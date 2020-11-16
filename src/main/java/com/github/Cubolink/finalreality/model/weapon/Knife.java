@@ -44,6 +44,7 @@ public class Knife extends AbstractWeapon {
         final Knife knife = (Knife) o;
         return getName().equals(knife.getName())
                 && getPhysicalDamage() == knife.getPhysicalDamage()
+                && getMagicalDamage() == knife.getMagicalDamage()
                 && getWeight() == knife.getWeight()
                 && isWearableByEngineer() == knife.isWearableByEngineer()
                 && isWearableByKnight() == knife.isWearableByKnight()
@@ -54,7 +55,7 @@ public class Knife extends AbstractWeapon {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPhysicalDamage(), getWeight(),
+        return Objects.hash(getName(), getPhysicalDamage(), getMagicalDamage(), getWeight(),
                 isWearableByEngineer(), isWearableByKnight(), isWearableByMage(), isWearableByThief());
     }
 }

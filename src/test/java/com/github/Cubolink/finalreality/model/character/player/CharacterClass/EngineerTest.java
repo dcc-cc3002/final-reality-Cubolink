@@ -1,5 +1,6 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
+import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,12 @@ class EngineerTest extends AbstractCharacterClassTest{
         axe = new Axe("Hacha", 20, 15);
         engineerTest = new Engineer();
         engineerTest.equip(axe);
+    }
+
+    @Test
+    void testConstruction(){
+        ICharacterClass engineer = new Engineer();
+        checkConstruction(engineer, engineerTest.getClassname());
     }
 
     @Test
@@ -39,11 +46,11 @@ class EngineerTest extends AbstractCharacterClassTest{
 
     @Test
     void testEquals() {
-        Engineer same_engineer = new Engineer();
+        ICharacterClass same_engineer = new Engineer();
         same_engineer.equip(engineerTest.getEquippedWeapon());
 
-        Engineer sameClass_diffWeapon = new Engineer();
-        Axe other_axe = new Axe("Hacha de Lenador", 10, 55);
+        ICharacterClass sameClass_diffWeapon = new Engineer();
+        IWeapon other_axe = new Axe("Hacha de Lenador", 10, 55);
         sameClass_diffWeapon.equip(other_axe);
 
         ICharacterClass other_character_class = new Knight();
@@ -54,11 +61,11 @@ class EngineerTest extends AbstractCharacterClassTest{
 
     @Test
     void testHashCode() {
-        Engineer same_engineer = new Engineer();
+        ICharacterClass same_engineer = new Engineer();
         same_engineer.equip(engineerTest.getEquippedWeapon());
 
-        Engineer sameClass_diffWeapon = new Engineer();
-        Axe other_axe = new Axe("Hacha de Lenador", 10, 55);
+        ICharacterClass sameClass_diffWeapon = new Engineer();
+        IWeapon other_axe = new Axe("Hacha de Lenador", 10, 55);
         sameClass_diffWeapon.equip(other_axe);
 
         ICharacterClass other_character_class = new Knight();

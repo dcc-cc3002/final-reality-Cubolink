@@ -16,6 +16,11 @@ abstract class AbstractCharacterClassTest {
         sword = new Sword("Espada", 15, 10);
     }
 
+    void checkConstruction(ICharacterClass characterClass, String expectedClassName){
+        assertEquals(characterClass.getClassname(), expectedClassName);
+        assertNull(characterClass.getEquippedWeapon());
+    }
+
     void checkEquals(final ICharacterClass expectedClass,
                      final ICharacterClass equalClass,
                      final ICharacterClass sameClassDifferentWeapon,

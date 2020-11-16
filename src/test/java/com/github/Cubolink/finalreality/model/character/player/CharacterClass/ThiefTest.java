@@ -17,6 +17,12 @@ class ThiefTest extends AbstractCharacterClassTest {
     }
 
     @Test
+    void testConstruction(){
+        ICharacterClass thief = new Thief();
+        checkConstruction(thief, thiefTest.getClassname());
+    }
+
+    @Test
     void equip() {
         thiefTest = new Thief();
         equipTestSetUp();
@@ -54,11 +60,11 @@ class ThiefTest extends AbstractCharacterClassTest {
 
     @Test
     void testHashCode() {
-        Thief same_thief = new Thief();
+        ICharacterClass same_thief = new Thief();
         same_thief.equip(thiefTest.getEquippedWeapon());
 
-        Thief sameClass_diffWeapon = new Thief();
-        Knife other_knife = new Knife("Navaja", 10, 1);
+        ICharacterClass sameClass_diffWeapon = new Thief();
+        IWeapon other_knife = new Knife("Navaja", 10, 1);
         sameClass_diffWeapon.equip(other_knife);
 
         ICharacterClass other_character_class = new Knight();
