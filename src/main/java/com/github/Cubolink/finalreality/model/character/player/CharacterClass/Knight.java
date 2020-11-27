@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Knight extends AbstractCharacterClass {
 
     public Knight() {
-        super("Caballero", EnumCharacterClass.knight);
+        super("Caballero");
     }
 
     /**
@@ -23,6 +23,14 @@ public class Knight extends AbstractCharacterClass {
         if (weapon.isWearableByKnight()){
             this.equippedWeapon = weapon;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isKnight() {
+        return true;
     }
 
     /**
@@ -41,11 +49,15 @@ public class Knight extends AbstractCharacterClass {
         }
 
         final Knight that = (Knight) o;
-        return classEnum == that.classEnum;
+        return that.isBlackMage() == isBlackMage()
+                && that.isWhiteMage() == isWhiteMage()
+                && that.isEngineer() == isEngineer()
+                && that.isKnight() == isKnight()
+                && that.isThief() == isThief();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(classEnum);
+        return Objects.hash(isBlackMage(), isWhiteMage(), isEngineer(), isKnight(), isThief());
     }
 }

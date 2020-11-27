@@ -16,7 +16,7 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
     private int mana=50;
 
     public Black_Mage() {
-        super("Mago Negro", EnumCharacterClass.blackMage);
+        super("Mago Negro");
     }
 
     /**
@@ -70,6 +70,14 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBlackMage() {
+        return true;
+    }
+
+    /**
      * Equals definition is set as same object, or instance with name.
      *
      * @param o the object to compare equality.
@@ -85,11 +93,15 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         }
 
         final Black_Mage that = (Black_Mage) o;
-        return classEnum == that.classEnum;
+        return that.isBlackMage() == isBlackMage()
+                && that.isWhiteMage() == isWhiteMage()
+                && that.isEngineer() == isEngineer()
+                && that.isKnight() == isKnight()
+                && that.isThief() == isThief();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(classEnum);
+        return Objects.hash(isBlackMage(), isWhiteMage(), isEngineer(), isKnight(), isThief());
     }
 }

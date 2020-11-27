@@ -11,18 +11,15 @@ import com.github.Cubolink.finalreality.model.weapon.IWeapon;
  * @author Joaquín Cruz Cancino.
  */
 public abstract class AbstractCharacterClass implements  ICharacterClass {
-    protected EnumCharacterClass classEnum;
     protected String classname;
     protected IWeapon equippedWeapon;
 
     /**
      * Constructor for the player class/job. Initialize the class without a weapon equipped.
      * @param classname name of the class.
-     * @param classEnum numeric code for that class
      */
-    public AbstractCharacterClass(String classname, EnumCharacterClass classEnum) {
+    public AbstractCharacterClass(String classname) {
         this.classname = classname;
-        this.classEnum = classEnum;
         this.equippedWeapon = null;
     }
 
@@ -58,5 +55,45 @@ public abstract class AbstractCharacterClass implements  ICharacterClass {
     @Override
     public String getClassname() {
         return this.classname;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBlackMage() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isWhiteMage() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isKnight() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isThief() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isEngineer() {
+        return false;
     }
 }

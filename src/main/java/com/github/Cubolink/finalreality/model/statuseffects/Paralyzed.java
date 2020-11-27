@@ -7,16 +7,14 @@ import java.util.Objects;
 /**
  * A class to define the paralysis effect.
  */
-public class Paralyzed implements IStatus {
+public class Paralyzed extends AbstractStatus implements IStatus {
     private int turns_to_disappear;
-    private final EnumStatus status;
 
     /**
      * Instantiates the Paralyzed status effect, with a counter of 1 turn to disable this status.
      */
     public Paralyzed(){
         this.turns_to_disappear = 1;
-        status = EnumStatus.paralyzed;
     }
 
     /**
@@ -51,11 +49,19 @@ public class Paralyzed implements IStatus {
      * {@inheritDoc}
      */
     @Override
+    public boolean isParalyzedStatus() {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean almostEquals(IStatus status) {
         if (this == status){
             return true;
         }
-        return status instanceof Paralyzed;
+        return status.isParalyzedStatus();
     }
 
     /**
@@ -82,6 +88,6 @@ public class Paralyzed implements IStatus {
 
     @Override
     public int hashCode() {
-        return Objects.hash(turns_to_disappear, status);
+        return Objects.hash(turns_to_disappear, isBurnedStatus(), isParalyzedStatus(), isPoisonedStatus());
     }
 }

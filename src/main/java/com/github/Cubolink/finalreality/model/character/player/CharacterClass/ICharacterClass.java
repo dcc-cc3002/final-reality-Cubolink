@@ -29,4 +29,30 @@ public interface ICharacterClass {
      * @return the name of the class/job.
      */
     String getClassname();
+
+    /**
+     * @return true if the character class is Black Mage
+     */
+    boolean isBlackMage();
+
+    /**
+     * @return true if the character class is White Mage
+     */
+    boolean isWhiteMage();
+
+    /**
+     * @return true if the character class is Knight
+     */
+    boolean isKnight();
+
+    /**
+     * @return true if the character class is Thief
+     */
+    boolean isThief();
+
+    /**
+     * @return true if the character class is Engineer
+     */
+    boolean isEngineer();
+
 }

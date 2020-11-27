@@ -7,9 +7,8 @@ import java.util.Objects;
 /**
  * A class to define the Poison Status Effect.
  */
-public class Poisoned implements IStatus {
+public class Poisoned extends AbstractStatus implements IStatus {
     private final int magic_damage;
-    private final EnumStatus status;
 
     /**
      * Instantiates Poisoned
@@ -17,7 +16,6 @@ public class Poisoned implements IStatus {
      */
     public Poisoned(int magic_damage) {
         this.magic_damage = magic_damage;
-        status = EnumStatus.poisoned;
     }
 
     /**
@@ -40,11 +38,19 @@ public class Poisoned implements IStatus {
      * {@inheritDoc}
      */
     @Override
+    public boolean isPoisonedStatus() {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean almostEquals(IStatus status) {
         if (this == status) {
             return true;
         }
-        return status instanceof Poisoned;
+        return status.isPoisonedStatus();
     }
 
     /**
@@ -71,6 +77,6 @@ public class Poisoned implements IStatus {
 
     @Override
     public int hashCode() {
-        return Objects.hash(magic_damage, status);
+        return Objects.hash(magic_damage, isBurnedStatus(), isParalyzedStatus(), isPoisonedStatus());
     }
 }

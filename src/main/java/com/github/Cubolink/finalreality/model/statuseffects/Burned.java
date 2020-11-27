@@ -7,9 +7,8 @@ import java.util.Objects;
 /**
  * A class to define the Burned Status Effect.
  */
-public class Burned implements IStatus {
+public class Burned extends AbstractStatus implements IStatus {
     private final int magic_damage;
-    private final EnumStatus status;
 
     /**
      * Instantiates Burned Status Effect
@@ -18,7 +17,6 @@ public class Burned implements IStatus {
      */
     public Burned(int magic_damage) {
         this.magic_damage = magic_damage;
-        this.status = EnumStatus.burned;
     }
 
     /**
@@ -42,11 +40,19 @@ public class Burned implements IStatus {
      * {@inheritDoc}
      */
     @Override
+    public boolean isBurnedStatus() {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean almostEquals(IStatus status) {
         if (this == status){
             return true;
         }
-        return status instanceof Burned;
+        return status.isBurnedStatus();
     }
 
     /**
@@ -73,6 +79,6 @@ public class Burned implements IStatus {
 
     @Override
     public int hashCode() {
-        return Objects.hash(magic_damage, status);
+        return Objects.hash(magic_damage, isBurnedStatus(), isParalyzedStatus(), isPoisonedStatus());
     }
 }
