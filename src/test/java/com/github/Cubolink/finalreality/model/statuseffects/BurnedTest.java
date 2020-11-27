@@ -30,9 +30,8 @@ class BurnedTest {
         int player_hp = 25;
         Enemy enemy = new Enemy(turns, "Talus", enemy_hp, 30, 4, 10);
         PlayerCharacter player =
-                new PlayerCharacter(turns, "Lyshithea", player_hp, 2, 10,
-                                    new Black_Mage("Mago",
-                                            new Staff("Baculo", 3, 15, 5)));
+                new PlayerCharacter(turns, "Lyshithea", player_hp, 2, 10, new Black_Mage());
+        player.equip(new Staff("Baculo", 3, 15, 5));
         enemy.addStatus(burnedTest);
         player.addStatus(burnedTest);
 

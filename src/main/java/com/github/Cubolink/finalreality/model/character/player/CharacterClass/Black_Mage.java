@@ -15,12 +15,8 @@ import com.github.Cubolink.finalreality.model.weapon.IWeapon;
 public class Black_Mage extends AbstractCharacterClass implements IMage{
     private int mana=50;
 
-    public Black_Mage(String classname) {
-        super(classname);
-    }
-
-    public Black_Mage(String classname, IWeapon weapon) {
-        super(classname, weapon);
+    public Black_Mage() {
+        super("Mago Negro", EnumCharacterClass.blackMage);
     }
 
     /**
@@ -43,11 +39,11 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
      *
      * @param character the character to attack.
      */
-    public void thunder(ICharacter character) {
+    public void thunder(ICharacter character, Random R) {
         if (mana>=15){
             mana -= 15;
             character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
-            Random R = new Random();
+
             if (R.nextDouble() < 0.3){
                 character.addStatus(new Paralyzed());
             }
@@ -63,11 +59,10 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
      *
      * @param character the character to attack.
      */
-    public void fire(ICharacter character) {
+    public void fire(ICharacter character, Random R) {
         if (mana>=15){
             mana -= 15;
             character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
-            Random R = new Random();
             if (R.nextDouble() < 0.2){
                 character.addStatus(new Burned(equippedWeapon.getMagicalDamage()));
             }
@@ -90,11 +85,11 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         }
 
         final Black_Mage that = (Black_Mage) o;
-        return getClassname().equals(that.getClassname());
+        return classEnum == that.classEnum;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getClassname());
+        return Objects.hash(classEnum);
     }
 }

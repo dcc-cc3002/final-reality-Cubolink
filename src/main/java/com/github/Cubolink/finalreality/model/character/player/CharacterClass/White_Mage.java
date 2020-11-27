@@ -15,12 +15,8 @@ import java.util.Objects;
 public class White_Mage extends AbstractCharacterClass implements IMage{
     private int mana=50;
 
-    public White_Mage(String classname) {
-        super(classname);
-    }
-
-    public White_Mage(String classname, IWeapon weapon) {
-        super(classname, weapon);
+    public White_Mage() {
+        super("Mago Blanco", EnumCharacterClass.whiteMage);
     }
 
     /**
@@ -97,11 +93,11 @@ public class White_Mage extends AbstractCharacterClass implements IMage{
         }
 
         final White_Mage that = (White_Mage) o;
-        return getClassname().equals(that.getClassname());
+        return classEnum == that.classEnum;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getClassname());
+        return Objects.hash(classEnum);
     }
 }

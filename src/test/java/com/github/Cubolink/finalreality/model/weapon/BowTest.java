@@ -3,9 +3,7 @@ package com.github.Cubolink.finalreality.model.weapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class BowTest {
+class BowTest extends AbstractWeaponTest{
     private Bow bowTest;
 
     @BeforeEach
@@ -15,34 +13,22 @@ class BowTest {
 
     @Test
     void testEquals() {
-        assertEquals(bowTest, bowTest);
-
-        var sword = new Sword("Espada de madera", 3, 5);
-        var ballesta = new Bow("Bayesta", 15, 10);
-        var bow_altered = new Bow(bowTest.getName(), bowTest.getPhysicalDamage()+10, bowTest.getWeight());
         var samebow = new Bow(bowTest.getName(), bowTest.getPhysicalDamage(), bowTest.getWeight());
+        var other_bow = new Bow("Bayesta", 15, 10);
+        var sword = new Sword("Espada de madera", 3, 5);
 
-        assertNotEquals(bowTest, sword);
-        assertNotEquals(bowTest, ballesta);
-        assertNotEquals(bowTest, bow_altered);
-        assertEquals(bowTest, samebow);
+        checkEquals(bowTest, samebow, other_bow, sword);
 
 
     }
 
     @Test
     void testHashCode() {
-        assertEquals(bowTest.hashCode(), bowTest.hashCode());
-
-        var sword = new Sword("Espada de madera", 3, 5);
-        var ballesta = new Bow("Bayesta", 15, 10);
-        var bow_altered = new Bow(bowTest.getName(), bowTest.getPhysicalDamage()+10, bowTest.getWeight());
         var samebow = new Bow(bowTest.getName(), bowTest.getPhysicalDamage(), bowTest.getWeight());
+        var other_bow = new Bow("Bayesta", 15, 10);
+        var sword = new Sword("Espada de madera", 3, 5);
 
-        assertNotEquals(bowTest.hashCode(), sword.hashCode());
-        assertNotEquals(bowTest.hashCode(), ballesta.hashCode());
-        assertNotEquals(bowTest.hashCode(), bow_altered.hashCode());
-        assertEquals(bowTest.hashCode(), samebow.hashCode());
+        checkHashCode(bowTest, samebow, other_bow, sword);
 
     }
 }

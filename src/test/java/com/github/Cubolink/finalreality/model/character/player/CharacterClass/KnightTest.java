@@ -6,24 +6,26 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class KnightTest {
+class KnightTest extends AbstractCharacterClassTest{
     private Knight knightTest;
-    private IWeapon sword;
 
     @BeforeEach
     void setUp(){
         sword = new Sword("Espada", 15, 10);
-        knightTest = new Knight("Caballero", sword);
+        knightTest = new Knight();
+        knightTest.equip(sword);
+    }
+
+    @Test
+    void testConstruction(){
+        ICharacterClass knight = new Knight();
+        checkConstruction(knight, knightTest.getClassname());
     }
 
     @Test
     void equip() {
-        knightTest = new Knight("Caballero");
-
-        IWeapon axe = new Axe("Hacha", 20, 15);
-        IWeapon staff = new Staff("Báculo", 5, 20, 6);
-        IWeapon bow = new Bow("Arco de Hierro", 15, 6);
-        IWeapon knife = new Knife("Cuchillito", 10, 3);
+        knightTest = new Knight();
+        equipTestSetUp();
 
         knightTest.equip(staff);
         assertNull(knightTest.getEquippedWeapon());
@@ -43,35 +45,31 @@ class KnightTest {
 
     @Test
     void testEquals() {
-        Sword other_sword = new Sword("Espadon", 10, 25);
-        Knight other_knight = new Knight("Burrero");
-        Knight same_class_name_same_weapon = new Knight(
-                knightTest.getClassname(), knightTest.getEquippedWeapon());
-        Knight same_class_name_diff_weapon = new Knight(
-                knightTest.getClassname(), other_sword);
-        ICharacterClass other_character_class = new Thief("Lanza", knightTest.getEquippedWeapon());
+        ICharacterClass same_knight = new Knight();
+        same_knight.equip(knightTest.getEquippedWeapon());
 
-        assertEquals(knightTest, knightTest);
-        assertNotEquals(knightTest, other_knight);
-        assertEquals(knightTest, same_class_name_same_weapon);
-        assertEquals(knightTest, same_class_name_diff_weapon);
-        assertNotEquals(knightTest, other_character_class);
+        ICharacterClass sameClass_diffWeapon = new Knight();
+        IWeapon other_sword = new Sword("Espadon", 10, 25);
+        sameClass_diffWeapon.equip(other_sword);
+
+        ICharacterClass other_character_class = new Thief();
+        other_character_class.equip(knightTest.getEquippedWeapon());
+
+        checkEquals(knightTest, same_knight, sameClass_diffWeapon, other_character_class);
     }
 
     @Test
     void testHashCode() {
-        Sword other_sword = new Sword("Espadon", 10, 25);
-        Knight other_knigth = new Knight("Dark Knight");
-        Knight same_class_name_same_weapon = new Knight(
-                knightTest.getClassname(), knightTest.getEquippedWeapon());
-        Knight same_class_name_diff_weapon = new Knight(
-                knightTest.getClassname(), other_sword);
-        ICharacterClass other_character_class = new Thief("Lanza", knightTest.getEquippedWeapon());
+        ICharacterClass same_knight = new Knight();
+        same_knight.equip(knightTest.getEquippedWeapon());
 
-        assertEquals(knightTest.hashCode(), knightTest.hashCode());
-        assertNotEquals(knightTest.hashCode(), other_knigth.hashCode());
-        assertEquals(knightTest.hashCode(), same_class_name_same_weapon.hashCode());
-        assertEquals(knightTest.hashCode(), same_class_name_diff_weapon.hashCode());
-        assertNotEquals(knightTest.hashCode(), other_character_class.hashCode());
+        ICharacterClass sameClass_diffWeapon = new Knight();
+        IWeapon other_sword = new Sword("Espadon", 10, 25);
+        sameClass_diffWeapon.equip(other_sword);
+
+        ICharacterClass other_character_class = new Thief();
+        other_character_class.equip(knightTest.getEquippedWeapon());
+
+        checkHashCode(knightTest, same_knight, sameClass_diffWeapon, other_character_class);
     }
 }

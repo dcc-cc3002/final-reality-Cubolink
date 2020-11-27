@@ -1,29 +1,32 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
+import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EngineerTest {
+class EngineerTest extends AbstractCharacterClassTest{
     private Engineer engineerTest;
-    private IWeapon axe;
 
     @BeforeEach
     void setUp(){
         axe = new Axe("Hacha", 20, 15);
-        engineerTest = new Engineer("Ingeniero", axe);
+        engineerTest = new Engineer();
+        engineerTest.equip(axe);
     }
 
     @Test
-    void equip() {
-        engineerTest = new Engineer("Kuro mado-shi");
+    void testConstruction(){
+        ICharacterClass engineer = new Engineer();
+        checkConstruction(engineer, engineerTest.getClassname());
+    }
 
-        IWeapon staff = new Staff("Báculo", 5, 20, 6);
-        IWeapon bow = new Bow("Arco de Hierro", 15, 6);
-        IWeapon knife = new Knife("Cuchillito", 10, 3);
-        IWeapon sword = new Sword("Espada", 15, 10);
+    @Test
+    void equipTest() {
+        engineerTest = new Engineer();
+        equipTestSetUp();
 
         engineerTest.equip(knife);
         assertNull(engineerTest.getEquippedWeapon());
@@ -43,35 +46,31 @@ class EngineerTest {
 
     @Test
     void testEquals() {
-        Axe other_axe = new Axe("Hacha de Lenador", 10, 55);
-        Engineer other_engineer = new Engineer("Ingeniero con Magister");
-        Engineer same_class_name_same_weapon = new Engineer(
-                engineerTest.getClassname(), engineerTest.getEquippedWeapon());
-        Engineer same_class_name_diff_weapon = new Engineer(
-                engineerTest.getClassname(), other_axe);
-        ICharacterClass other_character_class = new Knight("Ingeniero", engineerTest.getEquippedWeapon());
+        ICharacterClass same_engineer = new Engineer();
+        same_engineer.equip(engineerTest.getEquippedWeapon());
 
-        assertEquals(engineerTest, engineerTest);
-        assertNotEquals(engineerTest, other_engineer);
-        assertEquals(engineerTest, same_class_name_same_weapon);
-        assertEquals(engineerTest, same_class_name_diff_weapon);
-        assertNotEquals(engineerTest, other_character_class);
+        ICharacterClass sameClass_diffWeapon = new Engineer();
+        IWeapon other_axe = new Axe("Hacha de Lenador", 10, 55);
+        sameClass_diffWeapon.equip(other_axe);
+
+        ICharacterClass other_character_class = new Knight();
+        other_character_class.equip(engineerTest.getEquippedWeapon());
+
+        checkEquals(engineerTest, same_engineer, sameClass_diffWeapon, other_character_class);
     }
 
     @Test
     void testHashCode() {
-        Axe other_axe = new Axe("Hacha de lenador", 10, 55);
-        Engineer other_engineer = new Engineer("Ingeniero con Magister");
-        Engineer same_class_name_same_weapon = new Engineer(
-                engineerTest.getClassname(), engineerTest.getEquippedWeapon());
-        Engineer same_class_name_diff_weapon = new Engineer(
-                engineerTest.getClassname(), other_axe);
-        ICharacterClass other_character_class = new Knight("Cabashero", engineerTest.getEquippedWeapon());
+        ICharacterClass same_engineer = new Engineer();
+        same_engineer.equip(engineerTest.getEquippedWeapon());
 
-        assertEquals(engineerTest.hashCode(), engineerTest.hashCode());
-        assertNotEquals(engineerTest.hashCode(), other_engineer.hashCode());
-        assertEquals(engineerTest.hashCode(), same_class_name_same_weapon.hashCode());
-        assertEquals(engineerTest.hashCode(), same_class_name_diff_weapon.hashCode());
-        assertNotEquals(engineerTest.hashCode(), other_character_class.hashCode());
+        ICharacterClass sameClass_diffWeapon = new Engineer();
+        IWeapon other_axe = new Axe("Hacha de Lenador", 10, 55);
+        sameClass_diffWeapon.equip(other_axe);
+
+        ICharacterClass other_character_class = new Knight();
+        other_character_class.equip(engineerTest.getEquippedWeapon());
+
+        checkHashCode(engineerTest, same_engineer, sameClass_diffWeapon, other_character_class);
     }
 }

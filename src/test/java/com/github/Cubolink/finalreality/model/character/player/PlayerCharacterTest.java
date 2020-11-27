@@ -6,6 +6,7 @@ import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Black_Mage;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Knight;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Thief;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.White_Mage;
 import com.github.Cubolink.finalreality.model.statuseffects.Burned;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.statuseffects.Poisoned;
@@ -15,21 +16,22 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerCharacterTest extends AbstractCharacterTest {
-    private BlockingQueue<ICharacter> turns;
-    private List<PlayerCharacter> testCharacters;
 
     @BeforeEach
     void setUp() {
-        turns = new LinkedBlockingQueue<>();
-        testCharacters = new ArrayList<>();
-        testCharacters.add(new PlayerCharacter(turns, "Saitama", 9999, 400, 10,
-                new Knight("Caballero")));
+        preSetUp();
+
+        IPlayerCharacter character = new PlayerCharacter(turns, "Saitama", 9999, 400, 10,
+                new Knight());
+        character.equip(new Sword("Templed Sword", 20, 10));
+        testCharacters.add(character);
     }
 
     /**
@@ -37,22 +39,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
      */
     @Test
     public void waitTurnTest() {
-        assertTrue(turns.isEmpty());
-
-        testCharacters.get(0).equip(new Sword("Templed Sword", 20, 10));
-        testCharacters.get(0).waitTurn();
-        try {
-            // Thread.sleep is not accurate so this values may be changed to adjust the
-            // acceptable error margin.
-            // We're testing that the character waits approximately 1 second.
-            Thread.sleep(900);
-            assertEquals(0, turns.size());
-            Thread.sleep(200);
-            assertEquals(1, turns.size());
-            assertEquals(testCharacters.get(0), turns.peek());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        checkWaitTurn();
     }
 
     @Test
@@ -61,26 +48,32 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         int hp = 100, def=10, res=0;
 
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 10, 5,
-                new Thief("Picaro", new Bow("Arco", atk, 7)));
+                new Thief());
+        pcharact1.equip(new Bow("Arco", atk, 7));
 
-        Black_Mage class2 = new Black_Mage("Hechicero",
-                new Staff("Baculo escrito", atk, atk*2, 4));
         PlayerCharacter pcharact2 = new PlayerCharacter(turns, "Soren", 50, 5, 15,
-                class2);
+                new Black_Mage());
+        pcharact2.equip(new Staff("Baculo escrito", atk, atk*2, 4));
 
         ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, 3, 12);
 
-
+        // Test character without an equipped weapon can't attack
+        PlayerCharacter pcharactNoWeapon = new PlayerCharacter(turns, "Citizen", 10, 1, 1,
+                new White_Mage());
         assertEquals(enemy.getHp(), hp);
+        pcharactNoWeapon.attack(enemy);
+        assertEquals(enemy.getHp(), hp);
+
+        // Test normal physical attack
         pcharact1.attack(enemy);
         assertEquals(enemy.getHp(), hp - (pcharact1.getEquippedWeapon().getPhysicalDamage()-def));
         hp -= pcharact1.getEquippedWeapon().getPhysicalDamage()-def;
 
-        ((Black_Mage) pcharact2.getCharacterClass()).fire(enemy);
+        // Test magical attack (fire)
+        ((Black_Mage) pcharact2.getCharacterClass()).fire(enemy, new Random());
         assertEquals(enemy.getHp(), hp - (pcharact2.getEquippedWeapon().getMagicalDamage())-res);
 
-        // Try to attack when is defeated
-
+        // Test trying to attack when is defeated
         assertTrue(pcharact1.isAlive());
         assertTrue(pcharact2.isAlive());
         assertTrue(pcharact1.isAttack_enabled());
@@ -98,7 +91,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         pcharact1.attack(pcharact2);
         assertEquals(pcharact2.getHp(), previousHp2);
 
-         // Try to attack when attack is disabled
+        // Test trying to attack when attack is disabled
 
         pcharact2.setAttack_enabled(false);
         assertTrue(enemy.isAlive());
@@ -115,7 +108,8 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     void heal() {
         int maxhp = 50;
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", maxhp, 7, 5,
-                new Thief("Picaro", new Bow("Arco", 15, 7)));
+                new Thief());
+        pcharact1.equip(new Bow("Arco", 15, 7));
         assertEquals(pcharact1.getHp(), maxhp);
         pcharact1.receiveDamage(maxhp /2);
         pcharact1.heal(maxhp /4);
@@ -133,14 +127,15 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void getWeight() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro", new Bow("Arco", 15, 7)));
+                new Thief());
+        pcharact1.equip(new Bow("Arco", 15, 7));
         assertEquals(pcharact1.getWeight(), pcharact1.getEquippedWeapon().getWeight());
     }
 
     @Test
     void testEquip() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         assertNull(pcharact1.getEquippedWeapon());
         pcharact1.equip(new Staff("Baculo", 5, 15, 5));
         assertNull(pcharact1.getEquippedWeapon());
@@ -170,7 +165,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void testAddStatus(){
         ICharacter playerCharacter = new PlayerCharacter(
-                turns, "Boshy", 100, 3, 0, new Thief("Pistolero"));
+                turns, "Boshy", 100, 3, 0, new Thief());
 
         assertTrue(playerCharacter.isAttack_enabled());
         assertEquals(playerCharacter.getHp(), 100);
@@ -218,13 +213,13 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void testEquals() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact1_copy = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact2 = new PlayerCharacter(turns, "Volke", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Ladron"));
+                new Thief());
         ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1, pcharact1);
@@ -238,13 +233,13 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     @Test
     void testHashCode() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact1_copy = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact2 = new PlayerCharacter(turns, "Volke", 50, 7, 5,
-                new Thief("Picaro"));
+                new Thief());
         var pcharact3 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
-                new Thief("Ladron"));
+                new Thief());
         ICharacter enemy = new Enemy(turns, "Sothe", 50, 7, 3, 12);
 
         assertEquals(pcharact1.hashCode(), pcharact1.hashCode());

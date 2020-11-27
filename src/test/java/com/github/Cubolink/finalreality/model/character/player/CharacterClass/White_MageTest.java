@@ -12,9 +12,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class White_MageTest {
+class White_MageTest extends AbstractCharacterClassTest {
     private White_Mage white_mageTest;
-    private IWeapon staff;
     private ICharacter opponent;
     protected BlockingQueue<ICharacter> turns;
 
@@ -23,18 +22,22 @@ class White_MageTest {
         turns = new LinkedBlockingQueue<>();
 
         staff = new Staff("Báculo", 5, 20, 6);
-        white_mageTest = new White_Mage("Mago Blanco", staff);
+        white_mageTest = new White_Mage();
+        white_mageTest.equip(staff);
+
         opponent = new Enemy(turns, "Enemigo", 40, 0, 10, 5);
     }
 
     @Test
-    void equip() {
-        white_mageTest = new White_Mage("Shiro mado-shi");
+    void testConstruction(){
+        ICharacterClass white_mage = new White_Mage();
+        checkConstruction(white_mage, white_mageTest.getClassname());
+    }
 
-        IWeapon axe = new Axe("Hacha", 20, 15);
-        IWeapon bow = new Bow("Arco de Hierro", 15, 6);
-        IWeapon knife = new Knife("Cuchillito", 10, 3);
-        IWeapon sword = new Sword("Espada", 15, 10);
+    @Test
+    void equip() {
+        white_mageTest = new White_Mage();
+        equipTestSetUp();
 
         white_mageTest.equip(knife);
         assertNull(white_mageTest.getEquippedWeapon());
@@ -55,7 +58,7 @@ class White_MageTest {
     @Test
     void cure() {
         PlayerCharacter ally = new PlayerCharacter(turns, "AliadoRandom", 100, 0, 0,
-                new Engineer("Ingeniero"));
+                new Engineer());
         assertEquals(ally.getHp(), 100);
         opponent.attack(ally);
         opponent.attack(ally);
@@ -85,35 +88,31 @@ class White_MageTest {
 
     @Test
     void testEquals() {
-        Staff other_staff = new Staff("Vara", 10, 5, 5);
-        White_Mage other_whiteMage = new White_Mage("Cleric");
-        White_Mage same_class_name_same_weapon = new White_Mage(
-                white_mageTest.getClassname(), white_mageTest.getEquippedWeapon());
-        White_Mage same_class_name_diff_weapon = new White_Mage(
-                white_mageTest.getClassname(), other_staff);
-        ICharacterClass other_character_class = new Black_Mage("Mago Negro", white_mageTest.getEquippedWeapon());
+        ICharacterClass same_whiteMage = new White_Mage();
+        same_whiteMage.equip(white_mageTest.getEquippedWeapon());
 
-        assertEquals(white_mageTest, white_mageTest);
-        assertNotEquals(white_mageTest, other_whiteMage);
-        assertEquals(white_mageTest, same_class_name_same_weapon);
-        assertEquals(white_mageTest, same_class_name_diff_weapon);
-        assertNotEquals(white_mageTest, other_character_class);
+        ICharacterClass sameClass_diffWeapon = new White_Mage();
+        IWeapon other_staff = new Staff("Vara", 10, 5, 5);
+        sameClass_diffWeapon.equip(other_staff);
+
+        ICharacterClass other_character_class = new Black_Mage();
+        other_character_class.equip(white_mageTest.getEquippedWeapon());
+
+        checkEquals(white_mageTest, same_whiteMage, sameClass_diffWeapon, other_character_class);
     }
 
     @Test
     void testHashCode() {
-        Staff other_staff = new Staff("Vara", 10, 5, 5);
-        White_Mage other_whiteMage = new White_Mage("Cleric");
-        White_Mage same_class_name_same_weapon = new White_Mage(
-                white_mageTest.getClassname(), white_mageTest.getEquippedWeapon());
-        White_Mage same_class_name_diff_weapon = new White_Mage(
-                white_mageTest.getClassname(), other_staff);
-        ICharacterClass other_character_class = new Black_Mage("Mago Negro", white_mageTest.getEquippedWeapon());
+        ICharacterClass same_whiteMage = new White_Mage();
+        same_whiteMage.equip(white_mageTest.getEquippedWeapon());
 
-        assertEquals(white_mageTest.hashCode(), white_mageTest.hashCode());
-        assertNotEquals(white_mageTest.hashCode(), other_whiteMage.hashCode());
-        assertEquals(white_mageTest.hashCode(), same_class_name_same_weapon.hashCode());
-        assertEquals(white_mageTest.hashCode(), same_class_name_diff_weapon.hashCode());
-        assertNotEquals(white_mageTest.hashCode(), other_character_class.hashCode());
+        ICharacterClass sameClass_diffWeapon = new White_Mage();
+        IWeapon other_staff = new Staff("Vara", 10, 5, 5);
+        sameClass_diffWeapon.equip(other_staff);
+
+        ICharacterClass other_character_class = new Black_Mage();
+        other_character_class.equip(white_mageTest.getEquippedWeapon());
+
+        checkHashCode(white_mageTest, same_whiteMage, sameClass_diffWeapon, other_character_class);
     }
 }
