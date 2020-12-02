@@ -3,6 +3,9 @@ package com.github.Cubolink.finalreality.model.character;
 import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
@@ -28,6 +31,7 @@ public abstract class AbstractCharacter implements ICharacter {
     private final ArrayList<IStatus> statuses;
     private Iterator<IStatus> statusIterator;
     private boolean inIteration = false;
+    private final PropertyChangeSupport characterDefeatedEvent = new PropertyChangeSupport(this);
 
     /**
      * @param turnsQueue The queue with the characters ready.
@@ -49,6 +53,9 @@ public abstract class AbstractCharacter implements ICharacter {
         this.attack_enabled = true;
         this.alive = true;
     }
+
+    @Override
+    public abstract boolean isPlayable();
 
     /**
      * Adds this character to the turns queue.
@@ -167,8 +174,10 @@ public abstract class AbstractCharacter implements ICharacter {
      */
     @Override
     public boolean isAlive() {
-        if (hp <= 0){
+        if (alive && hp<=0){
             alive = false;
+            characterDefeatedEvent.firePropertyChange(getName()+" defeated.", true, false);
+
         }
         return alive;
     }
@@ -212,4 +221,8 @@ public abstract class AbstractCharacter implements ICharacter {
         }
     }
 
+    @Override
+    public void addDefeatEventListener(PropertyChangeListener listener) {
+        characterDefeatedEvent.addPropertyChangeListener(listener);
+    }
 }

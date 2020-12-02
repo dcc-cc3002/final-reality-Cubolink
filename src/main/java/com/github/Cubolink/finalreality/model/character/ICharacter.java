@@ -2,6 +2,8 @@ package com.github.Cubolink.finalreality.model.character;
 
 import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
 
+import java.beans.PropertyChangeListener;
+
 /**
  * Interface of what represents a character in the game.
  * A character can be controlled by the player or by the CPU (an enemy).
@@ -10,6 +12,11 @@ import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
  * @author Joaquín Cruz Cancino.
  */
 public interface ICharacter {
+
+    /**
+     * Checks if the character is playable or not
+     */
+    boolean isPlayable();
 
     /**
      * Add a status effect to the character.
@@ -95,7 +102,14 @@ public interface ICharacter {
 
     /**
      * Checks if the entity is alive, updates its status if it's required.
+     * Fires a property change if the character defeat event happens.
      * @return true if the entity is alive, and false otherwise.
      */
     boolean isAlive();
+
+    /**
+     * Adds a listener to the character's defeat event
+     * @param listener who will listen the event
+     */
+    void addDefeatEventListener(PropertyChangeListener listener);
 }

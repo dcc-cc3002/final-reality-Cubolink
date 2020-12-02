@@ -38,6 +38,11 @@ public class Enemy extends AbstractCharacter {
         this.attack_damage = attack_damage;
     }
 
+    @Override
+    public boolean isPlayable() {
+        return false;
+    }
+
     /**
      * {@inheritDoc}
      */

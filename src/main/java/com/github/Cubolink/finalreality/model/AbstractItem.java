@@ -12,6 +12,9 @@ public abstract class AbstractItem implements  IItem{
         this.weight = weight;
     }
 
+    @Override
+    public abstract boolean isAWearableItem();
+
     /**
      * {@inheritDoc}
      */
