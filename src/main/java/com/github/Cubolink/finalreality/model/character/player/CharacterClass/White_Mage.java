@@ -4,7 +4,7 @@ import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.statuseffects.Poisoned;
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 import java.util.Objects;
 

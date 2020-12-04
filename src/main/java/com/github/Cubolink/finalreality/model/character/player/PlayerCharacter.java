@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.AbstractCharacterClass;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.ICharacterClass;
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**

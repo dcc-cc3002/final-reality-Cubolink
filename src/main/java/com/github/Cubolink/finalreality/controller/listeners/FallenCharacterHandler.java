@@ -20,6 +20,6 @@ public class FallenCharacterHandler implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        controller.checkEndGame(/*(ICharacter) evt.getNewValue()*/);
+        controller.checkEndGame();
     }
 }

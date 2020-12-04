@@ -1,4 +1,4 @@
-package com.github.Cubolink.finalreality.controller.factories;
+package com.github.Cubolink.finalreality.model.character.player;
 
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 

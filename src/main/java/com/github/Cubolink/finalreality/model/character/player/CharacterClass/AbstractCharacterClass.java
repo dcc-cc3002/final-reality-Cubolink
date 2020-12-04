@@ -1,7 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 /**
  * Abstract class for the classes that a player have as a job. (A player only can have one).

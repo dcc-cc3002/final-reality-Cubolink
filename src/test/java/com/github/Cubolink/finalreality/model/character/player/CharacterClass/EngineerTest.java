@@ -1,7 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.*;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Axe;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

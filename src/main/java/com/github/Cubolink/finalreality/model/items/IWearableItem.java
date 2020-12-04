@@ -1,4 +1,4 @@
-package com.github.Cubolink.finalreality.model;
+package com.github.Cubolink.finalreality.model.items;
 
 /**
  * Interface to define what makes an item Wearable.

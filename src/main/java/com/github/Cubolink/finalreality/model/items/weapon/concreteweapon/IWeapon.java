@@ -1,6 +1,6 @@
-package com.github.Cubolink.finalreality.model.weapon;
+package com.github.Cubolink.finalreality.model.items.weapon.concreteweapon;
 
-import com.github.Cubolink.finalreality.model.IWearableItem;
+import com.github.Cubolink.finalreality.model.items.IWearableItem;
 
 /**
  * Interface to define a weapon over a common wearable item.

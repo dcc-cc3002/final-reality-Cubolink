@@ -1,4 +1,6 @@
-package com.github.Cubolink.finalreality.model.weapon;
+package com.github.Cubolink.finalreality.model.items.weapon.concreteweapon;
+
+import com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon;
 
 import java.util.Objects;
 
@@ -52,6 +54,8 @@ public class Staff extends AbstractWeapon {
         return getName().equals(staff.getName())
                 && getMagicalDamage() == staff.getMagicalDamage()
                 && getPhysicalDamage() == staff.getPhysicalDamage()
+                && getWeight() == staff.getWeight()
+                && isAWearableItem() == staff.isAWearableItem()
                 && isWearableByEngineer() == staff.isWearableByEngineer()
                 && isWearableByKnight() == staff.isWearableByKnight()
                 && isWearableByMage() == staff.isWearableByMage()
@@ -62,6 +66,6 @@ public class Staff extends AbstractWeapon {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getPhysicalDamage(), getMagicalDamage(), getWeight(),
-                isWearableByEngineer(), isWearableByKnight(), isWearableByMage(), isWearableByThief());
+                isAWearableItem(), isWearableByEngineer(), isWearableByKnight(), isWearableByMage(), isWearableByThief());
     }
 }

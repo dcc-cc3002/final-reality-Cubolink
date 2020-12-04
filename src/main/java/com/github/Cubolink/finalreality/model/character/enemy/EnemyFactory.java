@@ -1,6 +1,5 @@
-package com.github.Cubolink.finalreality.controller.factories;
+package com.github.Cubolink.finalreality.model.character.enemy;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 
 import java.util.Random;

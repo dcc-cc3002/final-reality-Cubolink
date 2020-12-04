@@ -1,5 +1,7 @@
-package com.github.Cubolink.finalreality.model.weapon;
+package com.github.Cubolink.finalreality.model.items.weapon;
 
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Axe;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +20,8 @@ class AxeTest extends AbstractWeaponTest{
         var other_axe = new Axe("Hacha sin filo", 0, 5);
 
         checkEquals(axeTest, same_axe, other_axe, sword);
+
+        ramificationEqualsTest(axeTest, Axe::new);
 
     }
 

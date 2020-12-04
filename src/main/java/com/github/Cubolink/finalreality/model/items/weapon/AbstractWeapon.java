@@ -1,7 +1,7 @@
-package com.github.Cubolink.finalreality.model.weapon;
+package com.github.Cubolink.finalreality.model.items.weapon;
 
-import com.github.Cubolink.finalreality.model.AbstractItem;
-import com.github.Cubolink.finalreality.model.AbstractWearableItem;
+import com.github.Cubolink.finalreality.model.items.AbstractWearableItem;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 /**
  * An abstract class with common things that weapon have.

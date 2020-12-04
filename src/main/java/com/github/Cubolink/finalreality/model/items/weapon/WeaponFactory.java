@@ -1,6 +1,6 @@
-package com.github.Cubolink.finalreality.controller.factories;
+package com.github.Cubolink.finalreality.model.items.weapon;
 
-import com.github.Cubolink.finalreality.model.weapon.*;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.*;
 
 /**
  * A Weapon Factory. Creates weapon objects.
@@ -76,7 +76,7 @@ public class WeaponFactory implements IWeaponFactory {
     }
 
 
-    public IWeapon createBow(String materialName, int materialBaseDmg, int materialBaseWeight) {
+    private IWeapon createBow(String materialName, int materialBaseDmg, int materialBaseWeight) {
         return new Bow(calculateName(materialName, BOW_NAME),
                 calculateDamage(materialBaseDmg, BOW_FACTOR),
                 calculateWeight(materialBaseWeight, BOW_FACTOR));
@@ -103,7 +103,7 @@ public class WeaponFactory implements IWeaponFactory {
     }
 
 
-    public IWeapon createKnife(String materialName, int materialBaseDmg, int materialBaseWeight) {
+    private IWeapon createKnife(String materialName, int materialBaseDmg, int materialBaseWeight) {
         return new Knife(calculateName(materialName, KNIFE_NAME),
                 calculateDamage(materialBaseDmg, KNIFE_FACTOR),
                 calculateWeight(materialBaseWeight, KNIFE_FACTOR));
@@ -130,7 +130,7 @@ public class WeaponFactory implements IWeaponFactory {
     }
 
 
-    public IWeapon createSword(String materialName, int materialBaseDmg, int materialBaseWeight) {
+    private IWeapon createSword(String materialName, int materialBaseDmg, int materialBaseWeight) {
         return new Sword(calculateName(materialName, SWORD_NAME),
                 calculateDamage(materialBaseDmg, SWORD_FACTOR),
                 calculateWeight(materialBaseWeight, SWORD_FACTOR));

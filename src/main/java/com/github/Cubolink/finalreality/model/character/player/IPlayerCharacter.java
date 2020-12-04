@@ -2,7 +2,7 @@ package com.github.Cubolink.finalreality.model.character.player;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.ICharacterClass;
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 /**
  * Interface which represent the things that those characters controlled by the player can do, that enemies can't.

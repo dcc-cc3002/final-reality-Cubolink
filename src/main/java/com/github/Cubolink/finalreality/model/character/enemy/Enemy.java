@@ -1,10 +1,12 @@
-package com.github.Cubolink.finalreality.model.character;
+package com.github.Cubolink.finalreality.model.character.enemy;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.github.Cubolink.finalreality.model.character.AbstractCharacter;
+import com.github.Cubolink.finalreality.model.character.ICharacter;
 import org.jetbrains.annotations.NotNull;
 
 /**

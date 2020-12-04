@@ -1,6 +1,6 @@
-package com.github.Cubolink.finalreality.controller.factories;
+package com.github.Cubolink.finalreality.model.items.weapon;
 
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 public interface IWeaponFactory {
 

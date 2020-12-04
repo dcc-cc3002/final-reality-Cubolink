@@ -1,24 +1,20 @@
 package com.github.Cubolink.finalreality.model.character.player;
 
 import com.github.Cubolink.finalreality.model.character.AbstractCharacterTest;
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Black_Mage;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Knight;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Thief;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.White_Mage;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.*;
 import com.github.Cubolink.finalreality.model.statuseffects.Burned;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.statuseffects.Poisoned;
-import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -204,9 +200,6 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         playerCharacter.applyStatuses();
 
         assertEquals(playerCharacter.getHp(), 30);  // there shouldn't be status altering the hp
-
-
-
 
     }
 

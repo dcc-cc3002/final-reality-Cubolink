@@ -1,12 +1,17 @@
 package com.github.Cubolink.finalreality.controller;
 
-import com.github.Cubolink.finalreality.controller.factories.*;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
-import com.github.Cubolink.finalreality.model.IItem;
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
+import com.github.Cubolink.finalreality.model.character.enemy.IEnemyFactory;
+import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacterFactory;
+import com.github.Cubolink.finalreality.model.character.player.PlayerCharacterFactory;
+import com.github.Cubolink.finalreality.model.items.IItem;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
-import com.github.Cubolink.finalreality.model.weapon.*;
+import com.github.Cubolink.finalreality.model.items.weapon.IWeaponFactory;
+import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +23,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class GameController implements IGameController{
     private static final BlockingQueue<ICharacter> turnsQueue = new LinkedBlockingQueue<>();
     private static final List<ICharacter> characters = new ArrayList<>();
+    private static final List<ICharacter> playerCharactersList = new ArrayList<>();
+    private static final List<ICharacter> enemiesList = new ArrayList<>();
     private static ICharacter currentCharacter;
 
     private static final IWeaponFactory weaponFactory = new WeaponFactory();
@@ -183,23 +190,88 @@ public class GameController implements IGameController{
         }
     }
 
-    public void createAxe() {
-        storeItem(new Axe("Hacha", 15, 10));
+    @Override
+    public void createBronzeAxe() {
+        storeItem(weaponFactory.createBronzeAxe());
     }
 
-    public void createBow() {
-        storeItem(new Bow("Arco", 7, 5));
+    @Override
+    public void createIronAxe() {
+        storeItem(weaponFactory.createIronAxe());
     }
 
-    public void createKnife() {
-        storeItem(new Knife("Cuchillo", 5, 2));
+    @Override
+    public void createSteelAxe() {
+        storeItem(weaponFactory.createSteelAxe());
     }
 
-    public void createStaff() {
-        storeItem(new Staff("Báculo", 1, 10, 5));
+    @Override
+    public void createSilverAxe() {
+        storeItem(weaponFactory.createSilverAxe());
     }
 
-    public void createSword() {
-        storeItem(new Sword("Espada", 10, 7));
+    @Override
+    public void createBronzeBow() {
+        storeItem(weaponFactory.createBronzeBow());
+    }
+
+    @Override
+    public void createIronBow() {
+        storeItem(weaponFactory.createIronBow());
+    }
+
+    @Override
+    public void createSteelBow() {
+        storeItem(weaponFactory.createSteelBow());
+    }
+
+    @Override
+    public void createSilverBow() {
+        storeItem(weaponFactory.createSilverBow());
+    }
+
+    @Override
+    public void createBronzeKnife() {
+        storeItem(weaponFactory.createBronzeKnife());
+    }
+
+    @Override
+    public void createIronKnife() {
+        storeItem(weaponFactory.createIronKnife());
+    }
+
+    @Override
+    public void createSteelKnife() {
+        storeItem(weaponFactory.createSteelKnife());
+    }
+
+    @Override
+    public void createSilverKnife() {
+        storeItem(weaponFactory.createSilverKnife());
+    }
+
+    @Override
+    public void createBronzeSword() {
+        storeItem(weaponFactory.createBronzeSword());
+    }
+
+    @Override
+    public void createIronSword() {
+        storeItem(weaponFactory.createIronSword());
+    }
+
+    @Override
+    public void createSteelSword() {
+        storeItem(weaponFactory.createSteelSword());
+    }
+
+    @Override
+    public void createSilverSword() {
+        storeItem(weaponFactory.createSilverSword());
+    }
+
+    @Override
+    public void createNormalStaff() {
+        storeItem(weaponFactory.createNormalStaff());
     }
 }

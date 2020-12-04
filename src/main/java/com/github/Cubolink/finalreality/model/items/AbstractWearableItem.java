@@ -1,4 +1,4 @@
-package com.github.Cubolink.finalreality.model;
+package com.github.Cubolink.finalreality.model.items;
 
 public abstract class AbstractWearableItem extends AbstractItem{
 

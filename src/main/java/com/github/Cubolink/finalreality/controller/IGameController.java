@@ -1,9 +1,9 @@
 package com.github.Cubolink.finalreality.controller;
 
-import com.github.Cubolink.finalreality.model.IItem;
+import com.github.Cubolink.finalreality.model.items.IItem;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 import java.util.Set;
 
@@ -100,4 +100,88 @@ public interface IGameController {
      * Creates a Player Character whose class/job is a Thief
      */
     void createThiefPlayer();
+
+    /**
+     * Creates and stores a Bronze Axe
+     */
+    void createBronzeAxe();
+
+    /**
+     * Creates and stores an Iron Axe
+     */
+    void createIronAxe();
+
+    /**
+     * Creates and stores a Steel Axe
+     */
+    void createSteelAxe();
+
+    /**
+     * Creates and stores a Silver Axe
+     */
+    void createSilverAxe();
+
+
+    /**
+     * Creates and stores a Bronze Bow
+     */
+    void createBronzeBow();
+
+    /**
+     * Creates and stores an Iron Bow
+     */
+    void createIronBow();
+
+    /**
+     * Creates and stores a Steel Bow
+     */
+    void createSteelBow();
+
+    /**
+     * Creates and stores a Silver Bow
+     */
+    void createSilverBow();
+
+
+    /**
+     * Creates and stores a Bronze Knife
+     */
+    void createBronzeKnife();
+    /**
+     * Creates and stores an Iron Knife
+     */
+    void createIronKnife();
+    /**
+     * Creates and stores a Steel Knife
+     */
+    void createSteelKnife();
+    /**
+     * Creates and stores a Silver Knife
+     */
+    void createSilverKnife();
+
+    /**
+     * Creates and stores a Bronze Sword
+     */
+    void createBronzeSword();
+
+    /**
+     * Creates and stores an Iron Sword
+     */
+    void createIronSword();
+
+    /**
+     * Creates and stores an Iron Sword
+     */
+    void createSteelSword();
+
+    /**
+     * Creates and stores a Silver Sword
+     */
+    void createSilverSword();
+
+    /**
+     * Creates and stores a Staff
+     */
+    void createNormalStaff();
 }

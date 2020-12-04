@@ -1,10 +1,10 @@
 package com.github.Cubolink.finalreality.model.statuseffects;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Black_Mage;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
-import com.github.Cubolink.finalreality.model.weapon.Staff;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Staff;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +59,19 @@ class ParalyzedTest {
         assertTrue(paralyzedTest.almostEquals(sameParalyzed));
         assertTrue(paralyzedTest.almostEquals(oldParalyzed));
         assertFalse(paralyzedTest.almostEquals(otherEffect));
+    }
+
+    @Test
+    void testGreaterThan() {
+        var oldParalyzed = new Paralyzed();
+        var newParalyzed = new Paralyzed();
+        Enemy enemy = new Enemy(turns, "Talus", 25, 30, 4, 10);
+        oldParalyzed.effect(enemy);
+
+        assertTrue(paralyzedTest.greaterThan(oldParalyzed));
+        assertFalse(paralyzedTest.greaterThan(newParalyzed));
+        paralyzedTest.effect(enemy);
+        assertFalse(paralyzedTest.greaterThan(newParalyzed));
     }
 
     @Test

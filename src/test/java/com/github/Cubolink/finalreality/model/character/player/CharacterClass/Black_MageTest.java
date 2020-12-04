@@ -1,9 +1,9 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.*;
-import org.junit.jupiter.api.BeforeAll;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Staff;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;

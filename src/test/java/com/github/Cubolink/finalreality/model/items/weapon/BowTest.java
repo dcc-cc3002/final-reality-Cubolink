@@ -1,5 +1,7 @@
-package com.github.Cubolink.finalreality.model.weapon;
+package com.github.Cubolink.finalreality.model.items.weapon;
 
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Bow;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +21,7 @@ class BowTest extends AbstractWeaponTest{
 
         checkEquals(bowTest, samebow, other_bow, sword);
 
-
+        ramificationEqualsTest(bowTest, Bow::new);
     }
 
     @Test

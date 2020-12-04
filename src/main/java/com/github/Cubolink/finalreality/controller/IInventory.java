@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller;
 
-import com.github.Cubolink.finalreality.model.IItem;
+import com.github.Cubolink.finalreality.model.items.IItem;
 
 import java.util.Set;
 
@@ -25,4 +25,9 @@ public interface IInventory {
      * @param item to take from the inventory and drop
      */
     void dropItem(IItem item);
+
+    /**
+     * @return true if the Inventory is empty. False otherwise.
+     */
+    boolean isEmpty();
 }

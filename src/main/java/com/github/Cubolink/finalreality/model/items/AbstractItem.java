@@ -1,4 +1,4 @@
-package com.github.Cubolink.finalreality.model;
+package com.github.Cubolink.finalreality.model.items;
 
 /**
  * Abstract class with common things that an Item can do.

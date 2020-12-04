@@ -1,7 +1,6 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.*;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

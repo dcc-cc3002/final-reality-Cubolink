@@ -1,7 +1,12 @@
-package com.github.Cubolink.finalreality.model.weapon;
+package com.github.Cubolink.finalreality.model.items.weapon;
 
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Bow;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SwordTest extends AbstractWeaponTest{
     private Sword swordTest;
@@ -18,6 +23,8 @@ class SwordTest extends AbstractWeaponTest{
         var bow = new Bow(swordTest.getName(), swordTest.getPhysicalDamage(), swordTest.getWeight());
 
         checkEquals(swordTest, same_sword, other_sword, bow);
+
+        ramificationEqualsTest(swordTest, Sword::new);
     }
 
     @Test

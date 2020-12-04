@@ -1,7 +1,5 @@
 package com.github.Cubolink.finalreality.model.character;
 
-import com.github.Cubolink.finalreality.model.weapon.AbstractWeapon;
-import com.github.Cubolink.finalreality.model.weapon.Sword;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractCharacterTest {
