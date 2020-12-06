@@ -21,6 +21,7 @@ class EngineerTest extends AbstractCharacterClassTest{
     void testConstruction(){
         ICharacterClass engineer = new Engineer();
         checkConstruction(engineer, engineerTest.getClassname());
+        assertEquals(engineerTest.getMana(), 0);
     }
 
     @Test

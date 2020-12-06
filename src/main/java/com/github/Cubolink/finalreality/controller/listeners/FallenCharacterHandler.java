@@ -1,7 +1,6 @@
 package com.github.Cubolink.finalreality.controller.listeners;
 
 import com.github.Cubolink.finalreality.controller.GameController;
-import com.github.Cubolink.finalreality.model.character.ICharacter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

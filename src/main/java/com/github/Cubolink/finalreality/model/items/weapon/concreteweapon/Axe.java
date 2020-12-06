@@ -41,13 +41,14 @@ public class Axe extends AbstractWeapon {
         final Axe axe = (Axe) o;
         return getName().equals(axe.getName())
                 && getPhysicalDamage() == axe.getPhysicalDamage()
-                && getMagicalDamage() == axe.getMagicalDamage()
-                && getWeight() == axe.getWeight()
+                //&& getMagicalDamage() == axe.getMagicalDamage()
+                && getWeight() == axe.getWeight();
+                /*
                 && isAWearableItem() == axe.isAWearableItem()
                 && isWearableByEngineer() == axe.isWearableByEngineer()
                 && isWearableByKnight() == axe.isWearableByKnight()
                 && isWearableByMage() == axe.isWearableByMage()
-                && isWearableByThief() == axe.isWearableByThief();
+                && isWearableByThief() == axe.isWearableByThief();*/
     }
 
     @Override

@@ -19,6 +19,11 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         super("Mago Negro");
     }
 
+    @Override
+    public int getMana() {
+        return mana;
+    }
+
     /**
      * {@inheritDoc}
      * @param weapon
@@ -60,7 +65,7 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
      * @param character the character to attack.
      */
     public void fire(ICharacter character, Random R) {
-        if (mana>=15){
+        if (mana >= 15){
             mana -= 15;
             character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
             if (R.nextDouble() < 0.2){
@@ -88,16 +93,7 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Black_Mage)) {
-            return false;
-        }
-
-        final Black_Mage that = (Black_Mage) o;
-        return that.isBlackMage() == isBlackMage()
-                && that.isWhiteMage() == isWhiteMage()
-                && that.isEngineer() == isEngineer()
-                && that.isKnight() == isKnight()
-                && that.isThief() == isThief();
+        return o instanceof Black_Mage;
     }
 
     @Override

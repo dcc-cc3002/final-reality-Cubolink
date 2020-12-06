@@ -21,6 +21,7 @@ class KnightTest extends AbstractCharacterClassTest{
     void testConstruction(){
         ICharacterClass knight = new Knight();
         checkConstruction(knight, knightTest.getClassname());
+        assertEquals(knightTest.getMana(), 0);
     }
 
     @Test

@@ -34,6 +34,11 @@ public abstract class AbstractCharacterClass implements  ICharacterClass {
         character.bePhysicallyAttacked(equippedWeapon.getPhysicalDamage());
     }
 
+    @Override
+    public int getMana() {
+        return 0;
+    }
+
     /**
      * Try to equip a weapon to the class, asking the weapon if it can be equipped by this class (double dispatch).
      * @param weapon the one to equip,

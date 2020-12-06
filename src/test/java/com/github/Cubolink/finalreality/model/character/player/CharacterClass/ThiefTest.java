@@ -21,6 +21,7 @@ class ThiefTest extends AbstractCharacterClassTest {
     void testConstruction(){
         ICharacterClass thief = new Thief();
         checkConstruction(thief, thiefTest.getClassname());
+        assertEquals(thiefTest.getMana(), 0);
     }
 
     @Test

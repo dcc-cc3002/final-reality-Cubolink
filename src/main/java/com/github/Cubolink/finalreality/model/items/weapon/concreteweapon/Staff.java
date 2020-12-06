@@ -54,12 +54,13 @@ public class Staff extends AbstractWeapon {
         return getName().equals(staff.getName())
                 && getMagicalDamage() == staff.getMagicalDamage()
                 && getPhysicalDamage() == staff.getPhysicalDamage()
-                && getWeight() == staff.getWeight()
+                && getWeight() == staff.getWeight();
+                /*
                 && isAWearableItem() == staff.isAWearableItem()
                 && isWearableByEngineer() == staff.isWearableByEngineer()
                 && isWearableByKnight() == staff.isWearableByKnight()
                 && isWearableByMage() == staff.isWearableByMage()
-                && isWearableByThief() == staff.isWearableByThief();
+                && isWearableByThief() == staff.isWearableByThief();*/
 
     }
 

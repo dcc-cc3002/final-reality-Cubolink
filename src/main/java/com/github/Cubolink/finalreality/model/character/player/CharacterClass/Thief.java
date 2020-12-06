@@ -44,16 +44,7 @@ public class Thief extends AbstractCharacterClass {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Thief)) {
-            return false;
-        }
-
-        final Thief that = (Thief) o;
-        return that.isBlackMage() == isBlackMage()
-                && that.isWhiteMage() == isWhiteMage()
-                && that.isEngineer() == isEngineer()
-                && that.isKnight() == isKnight()
-                && that.isThief() == isThief();
+        return o instanceof Thief;
     }
 
     @Override

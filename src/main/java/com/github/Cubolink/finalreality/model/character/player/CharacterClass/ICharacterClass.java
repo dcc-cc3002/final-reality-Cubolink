@@ -31,6 +31,11 @@ public interface ICharacterClass {
     String getClassname();
 
     /**
+     * @return the mana amount of the class/job.
+     */
+    int getMana();
+
+    /**
      * @return true if the character class is Black Mage
      */
     boolean isBlackMage();

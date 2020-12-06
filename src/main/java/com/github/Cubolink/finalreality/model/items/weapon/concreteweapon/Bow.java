@@ -46,13 +46,14 @@ public class Bow extends AbstractWeapon {
         final Bow bow = (Bow) o;
         return getName().equals(bow.getName())
                 && getPhysicalDamage() == bow.getPhysicalDamage()
-                && getMagicalDamage() == bow.getMagicalDamage()
-                && getWeight() == bow.getWeight()
+                // && getMagicalDamage() == bow.getMagicalDamage()
+                && getWeight() == bow.getWeight();
+                /*
                 && isAWearableItem() == bow.isAWearableItem()
                 && isWearableByEngineer() == bow.isWearableByEngineer()
                 && isWearableByKnight() == bow.isWearableByKnight()
                 && isWearableByMage() == bow.isWearableByMage()
-                && isWearableByThief() == bow.isWearableByThief();
+                && isWearableByThief() == bow.isWearableByThief();*/
     }
 
     @Override

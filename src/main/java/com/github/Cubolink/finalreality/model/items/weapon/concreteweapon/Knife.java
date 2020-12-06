@@ -46,13 +46,14 @@ public class Knife extends AbstractWeapon {
         final Knife knife = (Knife) o;
         return getName().equals(knife.getName())
                 && getPhysicalDamage() == knife.getPhysicalDamage()
-                && getMagicalDamage() == knife.getMagicalDamage()
+                // && getMagicalDamage() == knife.getMagicalDamage()
                 && getWeight() == knife.getWeight()
+                /*
                 && isAWearableItem() == knife.isAWearableItem()
                 && isWearableByEngineer() == knife.isWearableByEngineer()
                 && isWearableByKnight() == knife.isWearableByKnight()
                 && isWearableByMage() == knife.isWearableByMage()
-                && isWearableByThief() == knife.isWearableByThief();
+                && isWearableByThief() == knife.isWearableByThief()*/;
 
     }
 

@@ -30,6 +30,20 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         testCharacters.add(character);
     }
 
+    @Test
+    void checkConstructor(){
+        String name = "Ark";
+        int maxHp = 30, defense = 10, resistance = 0, attack_damage=10;
+        double weight = 10;
+
+        IPlayerCharacter playerCharacter2 = new PlayerCharacter(turns, name, maxHp, defense, attack_damage, new Knight());
+        assertTrue(playerCharacter2.isPlayable());
+        assertEquals(name, playerCharacter2.getName());
+        assertEquals(maxHp, playerCharacter2.getMaxHp());
+        assertEquals(maxHp, playerCharacter2.getHp());
+
+    }
+
     /**
      * Checks that the character waits the appropriate amount of time for it's turn.
      */
@@ -52,6 +66,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         pcharact2.equip(new Staff("Baculo escrito", atk, atk*2, 4));
 
         ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, 3, 12);
+        ICharacter strongPlayer = new PlayerCharacter(turns, "Zelgius", hp, 99999, 555, new Knight());
 
         // Test character without an equipped weapon can't attack
         PlayerCharacter pcharactNoWeapon = new PlayerCharacter(turns, "Citizen", 10, 1, 1,
@@ -60,11 +75,17 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         pcharactNoWeapon.attack(enemy);
         assertEquals(enemy.getHp(), hp);
 
+        // Test normal physical attack to a strong player
+        pcharact1.attack(strongPlayer);
+        assertEquals(strongPlayer.getHp(), hp);
+        // Test magical attack (fire) to a strong player
+        ((Black_Mage) pcharact2.getCharacterClass()).fire(strongPlayer, new Random());
+        assertEquals(strongPlayer.getHp(), hp);
+
         // Test normal physical attack
         pcharact1.attack(enemy);
         assertEquals(enemy.getHp(), hp - (pcharact1.getEquippedWeapon().getPhysicalDamage()-def));
         hp -= pcharact1.getEquippedWeapon().getPhysicalDamage()-def;
-
         // Test magical attack (fire)
         ((Black_Mage) pcharact2.getCharacterClass()).fire(enemy, new Random());
         assertEquals(enemy.getHp(), hp - (pcharact2.getEquippedWeapon().getMagicalDamage())-res);

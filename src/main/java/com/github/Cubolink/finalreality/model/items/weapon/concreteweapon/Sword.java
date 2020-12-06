@@ -44,13 +44,14 @@ public class Sword extends AbstractWeapon {
         final Sword sword = (Sword) o;
         return getName().equals(sword.getName())
                 && getPhysicalDamage() == sword.getPhysicalDamage()
-                && getMagicalDamage() == sword.getMagicalDamage()
+                // && getMagicalDamage() == sword.getMagicalDamage()
                 && getWeight() == sword.getWeight()
+                /*
                 && isAWearableItem() == sword.isAWearableItem()
                 && isWearableByEngineer() == sword.isWearableByEngineer()
                 && isWearableByKnight() == sword.isWearableByKnight()
                 && isWearableByMage() == sword.isWearableByMage()
-                && isWearableByThief() == sword.isWearableByThief();
+                && isWearableByThief() == sword.isWearableByThief()*/;
     }
 
     @Override

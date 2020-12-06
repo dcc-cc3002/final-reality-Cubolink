@@ -44,16 +44,7 @@ public class Engineer extends AbstractCharacterClass {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Engineer)) {
-            return false;
-        }
-
-        final Engineer that = (Engineer) o;
-        return that.isBlackMage() == isBlackMage()
-                && that.isWhiteMage() == isWhiteMage()
-                && that.isEngineer() == isEngineer()
-                && that.isKnight() == isKnight()
-                && that.isThief() == isThief();
+        return o instanceof Engineer;
     }
 
     @Override

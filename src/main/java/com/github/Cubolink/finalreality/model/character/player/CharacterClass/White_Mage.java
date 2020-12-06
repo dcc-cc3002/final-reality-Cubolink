@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
+import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.statuseffects.Poisoned;
@@ -12,11 +13,16 @@ import java.util.Objects;
  * White Mage class/job that a character can have.
  * @see AbstractCharacterClass
  */
-public class White_Mage extends AbstractCharacterClass implements IMage{
-    private int mana=50;
+public class White_Mage extends AbstractCharacterClass implements IMage {
+    private int mana = 50;
 
     public White_Mage() {
         super("Mago Blanco");
+    }
+
+    @Override
+    public int getMana() {
+        return mana;
     }
 
     /**
@@ -36,7 +42,7 @@ public class White_Mage extends AbstractCharacterClass implements IMage{
      * Spend 15 mana.
      * @param character the character to cure.
      */
-    public void cure(PlayerCharacter character) {
+    public void cure(IPlayerCharacter character) {
         if (mana>=15){
             mana -= 15;
             character.heal(character.getMaxHp()*3/10);
@@ -96,16 +102,8 @@ public class White_Mage extends AbstractCharacterClass implements IMage{
         if (this == o) {
             return true;
         }
-        if (!(o instanceof White_Mage)) {
-            return false;
-        }
+        return o instanceof White_Mage;
 
-        final White_Mage that = (White_Mage) o;
-        return that.isBlackMage() == isBlackMage()
-                && that.isWhiteMage() == isWhiteMage()
-                && that.isEngineer() == isEngineer()
-                && that.isKnight() == isKnight()
-                && that.isThief() == isThief();
     }
 
     @Override
