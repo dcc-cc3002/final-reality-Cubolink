@@ -23,7 +23,6 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
 
     // While Player has its Inventory, is the characterClass which store the equipped stuff
     private final AbstractCharacterClass characterClass;
-    //private static final IWeapon[] inventory = new IWeapon[10];
 
     /**
      * Creates a character for the player.
@@ -49,7 +48,7 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
     @Override
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutor.schedule(this::addToQueue, (int) (getEquippedWeapon().getWeight() / 10), TimeUnit.SECONDS);
+        scheduledExecutor.schedule(this::addToQueue, (int) (getWeight() / 10), TimeUnit.SECONDS);
     }
 
     /**
@@ -80,8 +79,12 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
      */
     @Override
     public double getWeight() {
-        // Do stuff with the equipped inventory and get the total weight
-        return getEquippedWeapon().getWeight();
+        IWeapon weapon = getEquippedWeapon();
+        if (weapon != null) {
+            return getEquippedWeapon().getWeight();
+        }
+        return 0;
+
     }
 
     /**

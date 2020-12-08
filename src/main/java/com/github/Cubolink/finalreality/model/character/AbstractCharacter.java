@@ -32,6 +32,7 @@ public abstract class AbstractCharacter implements ICharacter {
     private Iterator<IStatus> statusIterator;
     private boolean inIteration = false;
     private final PropertyChangeSupport characterDefeatedEvent = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport characterReadyInQueueEvent = new PropertyChangeSupport(this);
 
     /**
      * @param turnsQueue The queue with the characters ready.
@@ -63,6 +64,7 @@ public abstract class AbstractCharacter implements ICharacter {
     protected void addToQueue() {
         turnsQueue.add(this);
         scheduledExecutor.shutdown();
+        characterReadyInQueueEvent.firePropertyChange(getName()+" ready. ", false, true);
     }
 
     /**
@@ -177,8 +179,8 @@ public abstract class AbstractCharacter implements ICharacter {
         if (alive && hp<=0){
             alive = false;
             characterDefeatedEvent.firePropertyChange(getName()+" defeated.", true, false);
-
         }
+
         return alive;
     }
 
@@ -224,5 +226,10 @@ public abstract class AbstractCharacter implements ICharacter {
     @Override
     public void addDefeatEventListener(PropertyChangeListener listener) {
         characterDefeatedEvent.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void addReadyInQueueEventListener(PropertyChangeListener listener) {
+        characterReadyInQueueEvent.addPropertyChangeListener(listener);
     }
 }

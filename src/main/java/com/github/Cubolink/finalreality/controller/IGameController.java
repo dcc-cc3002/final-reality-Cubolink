@@ -1,11 +1,15 @@
 package com.github.Cubolink.finalreality.controller;
 
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
+import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import com.github.Cubolink.finalreality.model.items.IItem;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Interface for the Game Controller.
@@ -13,22 +17,29 @@ import java.util.Set;
  * It stores the current character as the last one that left the queue.
  */
 public interface IGameController {
-    /**
-     * Check if the game has come to an end, and in that case sees if the player won or lost
-     */
-    void checkEndGame(/*ICharacter character*/);  // I'm very unsure about what parameter to give the function
+
+
+// Controller flow control methods
 
     /**
-     * Makes a player character to equip a weapon
-     * @param weapon to equip
-     * @param playerCharacter who equips
+     * Put all the characters into the queue to start the game
      */
-    void equipWeaponToCharacter(IWeapon weapon, IPlayerCharacter playerCharacter);
+    void start();
 
     /**
-     * Creates an enemy and puts in a Queue
+     * Ends the game
      */
-    void createEnemy();
+    void end();
+
+    /**
+     * Check if the game has come to an end.
+     */
+    boolean isTheGameFinished();
+
+    /**
+     * @return the turns queue that the controller is using
+     */
+    BlockingQueue<ICharacter> getTurnsQueue();
 
     /**
      * Identifies which character is next in the queue.
@@ -37,9 +48,27 @@ public interface IGameController {
     void nextCharacterInQueue();
 
     /**
+     * @return the list of the player characters
+     */
+    List<IPlayerCharacter> getCharacterPlayerList();
+
+    /**
+     * @return the list of enemies
+     */
+    List<Enemy> getEnemyList();
+
+
+// Character actions
+
+    /**
      * Shows the current character info.
      */
     void getCharacterInfo();
+
+    /**
+     * Makes the current character to wait
+     */
+    void waitCharacter();
 
     /**
      * Makes the current character to attack another
@@ -48,9 +77,14 @@ public interface IGameController {
     void playerAttackCharacter(ICharacter objectiveCharacter);
 
     /**
-     * Makes the current character to wait
+     * Makes the current character to equip a weapon
+     * @param weapon to equip
+     * @param playerCharacter who equips
      */
-    void waitCharacter();
+    void equipWeaponToCharacter(IWeapon weapon, IPlayerCharacter playerCharacter);
+
+
+// Item management
 
     /**
      * Stores an item
@@ -76,6 +110,16 @@ public interface IGameController {
      */
     void dropItem(IItem item);
 
+
+// Creation methods
+
+    // Character creation methods
+
+    /**
+     * Creates an enemy and puts in a Queue
+     */
+    void createEnemy();
+
     /**
      * Creates a Player Character whose class/job is a White Mage
      */
@@ -89,7 +133,7 @@ public interface IGameController {
     /**
      * Creates a Player Character whose class/job is an Engineer
      */
-    void createEngineer();
+    void createEngineerPlayer();
 
     /**
      * Creates a Player Character whose class/job is a Knight
@@ -100,6 +144,9 @@ public interface IGameController {
      * Creates a Player Character whose class/job is a Thief
      */
     void createThiefPlayer();
+
+
+    // Weapon creation methods
 
     /**
      * Creates and stores a Bronze Axe

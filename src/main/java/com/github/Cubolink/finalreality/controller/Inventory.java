@@ -8,7 +8,7 @@ import java.util.Set;
 
 
 public class Inventory implements IInventory {
-    private static final Map<IItem, Integer> inventory = new HashMap<>();
+    private final Map<IItem, Integer> inventory = new HashMap<>();
 
     @Override
     public void storeItem(IItem item) {

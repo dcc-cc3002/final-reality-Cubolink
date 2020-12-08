@@ -1,5 +1,6 @@
 package com.github.Cubolink.finalreality.controller;
 
+import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
 import com.github.Cubolink.finalreality.model.character.enemy.IEnemyFactory;
@@ -21,59 +22,109 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameController implements IGameController{
-    private static final BlockingQueue<ICharacter> turnsQueue = new LinkedBlockingQueue<>();
-    private static final List<ICharacter> characters = new ArrayList<>();
-    private static final List<ICharacter> playerCharactersList = new ArrayList<>();
-    private static final List<ICharacter> enemiesList = new ArrayList<>();
-    private static ICharacter currentCharacter;
-
-    private static final IWeaponFactory weaponFactory = new WeaponFactory();
-    private static final IEnemyFactory enemyFactory = new EnemyFactory(turnsQueue);
-    private static final IPlayerCharacterFactory playerFactory = new PlayerCharacterFactory(turnsQueue);
-
-    private static final Inventory playerInventory = new Inventory();
-    private final FallenCharacterHandler fallenCharacterHandler = new FallenCharacterHandler(this);
+    // Event Handlers
+    private final EndGameHandler endGameHandler = new EndGameHandler(this);
+    private final FallenCharacterHandler fallenCharacterHandler = new FallenCharacterHandler(this, endGameHandler);
+    // Flow attributes
+    public static Random random;
+    private static Inventory playerInventory;
+    private static BlockingQueue<ICharacter> turnsQueue;
+    private static List<ICharacter> characters;
+    private static List<IPlayerCharacter> playerCharactersList;
+    private static List<Enemy> enemiesList;
+    // Creation tools
+    private static IWeaponFactory weaponFactory;
+    private static IEnemyFactory enemyFactory;
+    private static IPlayerCharacterFactory playerFactory;
+    // Creation rules
     private static final int MAX_PLAYER_CHARACTER_NUM = 4;
-    private static int current_number_of_player_characters = 0;
-    public static final Random random = new Random();
+    private static final int MAX_ENEMY_CHARACTER_NUM = 6;
+    // State variables
+    private int current_number_of_player_characters;
+    private int current_number_of_enemy_characters;
+    private ICharacter currentCharacter;
+
+    public GameController() {
+        random = new Random();
+        playerInventory = new Inventory();
+        turnsQueue = new LinkedBlockingQueue<>();
+        characters = new ArrayList<>();
+        playerCharactersList = new ArrayList<>();
+        enemiesList = new ArrayList<>();
+
+        weaponFactory = new WeaponFactory();
+        enemyFactory = new EnemyFactory(turnsQueue);
+        playerFactory = new PlayerCharacterFactory(turnsQueue);
+
+        current_number_of_player_characters = 0;
+        current_number_of_enemy_characters = 0;
+    }
 
     @Override
-    public void checkEndGame(/*ICharacter character*/) {
-        boolean playerCharacterAliveRemaining = false;
-        boolean enemiesAliveRemaining = false;
+    public void start() {
+        // Check both enemy and player parties have at least one member each
+        if (current_number_of_enemy_characters == 0 || current_number_of_player_characters == 0) {
+            return;
+        }
+
+        // Now we can put all characters to join to the turns queue
+        for (ICharacter character: characters) {
+            character.waitTurn();
+        }
+    }
+
+    @Override
+    public void end() {
+
+    }
+
+    @Override
+    public boolean isTheGameFinished() {
+        int alivePlayerCharacterNumber = 0;
+        int aliveEnemyNumber = 0;
 
         for (ICharacter character : characters) {
             if (character.isAlive()){
-                if (character.isPlayable()) {
-                    playerCharacterAliveRemaining = true;
-                } else {
-                    enemiesAliveRemaining = true;
+                if (playerCharactersList.contains(character)) {
+                    alivePlayerCharacterNumber++;
+                } else if (enemiesList.contains(character)) {
+                    aliveEnemyNumber++;
                 }
             }
         }
 
-        if (playerCharacterAliveRemaining && enemiesAliveRemaining){
-            return;
-        }  // else: no player characters alive remain or no enemies alive remain
-        System.out.println("The Game Ended.");
+        current_number_of_player_characters = alivePlayerCharacterNumber;
+        current_number_of_enemy_characters = aliveEnemyNumber;
 
-        if (playerCharacterAliveRemaining){
-            System.out.println("The player wins.");
-        } else {
-            System.out.println("The player was defeated.");
-        }
+        // else: no player characters alive remain or no enemies alive remain
+        return alivePlayerCharacterNumber == 0 || aliveEnemyNumber == 0;
+    }
+
+    @Override
+    public BlockingQueue<ICharacter> getTurnsQueue() {
+        return turnsQueue;
     }
 
     @Override
     public void nextCharacterInQueue() {
         currentCharacter = turnsQueue.poll();
-        getCharacterInfo();
+    }
+
+    @Override
+    public List<IPlayerCharacter> getCharacterPlayerList() {
+        return playerCharactersList;
+    }
+
+    @Override
+    public List<Enemy> getEnemyList() {
+        return enemiesList;
     }
 
     private void getCharacterInfo(IPlayerCharacter playerCharacter) {
         String s = playerCharacter.getName()
-                + " (" + playerCharacter.getCharacterClass().getClassname() + "). "
-                + "LIFE: " + playerCharacter.getHp() + "/" + playerCharacter.getMaxHp() + " "
+                + " (" + playerCharacter.getCharacterClass().getClassname() + ").\n"
+                + "LIFE: " + playerCharacter.getHp() + "/" + playerCharacter.getMaxHp() + "\n"
+                + "MANA: " + playerCharacter.getCharacterClass().getMana() + "\n"
                 + "WEAPON: " + playerCharacter.getEquippedWeapon();
         System.out.println(s);
     }
@@ -95,13 +146,47 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public void playerAttackCharacter(ICharacter objectiveCharacter) {
-        currentCharacter.attack(objectiveCharacter);
+    public void waitCharacter() {
+        currentCharacter.waitTurn();
     }
 
     @Override
-    public void waitCharacter() {
+    public void playerAttackCharacter(ICharacter objectiveCharacter) {
+        currentCharacter.attack(objectiveCharacter);
         currentCharacter.waitTurn();
+    }
+
+    @Override
+    public void equipWeaponToCharacter(IWeapon weapon, IPlayerCharacter playerCharacter) {
+        IWeapon previousEquippedWeapon = playerCharacter.getEquippedWeapon();
+
+        // We check if we're trying to equip the same weapon that he is already equipping.
+        if (weapon.equals(previousEquippedWeapon)) {
+            return;
+        }
+
+        // We check if the weapon we're trying to equip is on the inventory
+        IWeapon weaponToEquip = (IWeapon) takeItem(weapon);
+        if (weaponToEquip == null) {
+            return;
+        }
+
+        // We try to equip the weapon
+        playerCharacter.equip(weapon);
+        // Then we check if the character managed to equip the weapon
+        if (weapon.equals(playerCharacter.getEquippedWeapon())) {
+            // The equip action ended successfully
+
+            // Now we can store the previous weapon the character was equipping, if it was
+            if (previousEquippedWeapon == null) {
+                return;
+            }
+            storeItem(previousEquippedWeapon);
+        } else {
+            // The character could not equip the weapon, so we store it back to the inventory
+            storeItem(weapon);
+        }
+
     }
 
     @Override
@@ -124,11 +209,6 @@ public class GameController implements IGameController{
         playerInventory.dropItem(item);
     }
 
-    @Override
-    public void equipWeaponToCharacter(IWeapon weapon, IPlayerCharacter playerCharacter) {
-        playerCharacter.equip(weapon);
-    }
-
 
     private void characterCreationSetUp(ICharacter character) {
         character.addDefeatEventListener(fallenCharacterHandler);
@@ -137,20 +217,27 @@ public class GameController implements IGameController{
 
     private void enemyCreationSetUp(Enemy enemy) {
         characterCreationSetUp(enemy);
+        current_number_of_enemy_characters++;
+        enemiesList.add(enemy);
     }
     private void playerCharacterCreationSetUp(IPlayerCharacter playerCharacter) {
         characterCreationSetUp(playerCharacter);
         current_number_of_player_characters++;
+        playerCharactersList.add(playerCharacter);
+    }
+
+    private boolean canCreateEnemyPlayer() {
+        return current_number_of_enemy_characters < MAX_ENEMY_CHARACTER_NUM;
+    }
+    private boolean canCreateCharacterPlayer() {
+        return current_number_of_player_characters < MAX_PLAYER_CHARACTER_NUM;
     }
 
     @Override
-    public void createEnemy(){
-        enemyCreationSetUp(enemyFactory.createEnemy(random));
-    }
-
-
-    private boolean canCreateCharacterPlayer(){
-        return current_number_of_player_characters >= MAX_PLAYER_CHARACTER_NUM;
+    public void createEnemy() {
+        if (canCreateEnemyPlayer()) {
+            enemyCreationSetUp(enemyFactory.createEnemy(random));
+        }
     }
 
     @Override
@@ -169,7 +256,7 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public void createEngineer() {
+    public void createEngineerPlayer() {
         if (canCreateCharacterPlayer()) {
             playerCharacterCreationSetUp(playerFactory.createEngineerCharacter("Jill"));
         }

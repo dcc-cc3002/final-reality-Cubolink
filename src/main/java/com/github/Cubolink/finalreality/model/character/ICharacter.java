@@ -47,7 +47,8 @@ public interface ICharacter {
     void waitTurn();
 
     /**
-     * Attacks other entity. This entity's attack is executed only if is alive and its attack is enabled
+     * Attacks other entity. This entity's attack is executed only if is alive and its attack is enabled.
+     * After attacking the character waits.
      * @param character The character which this entity is attacking.
      */
     void attack(ICharacter character);
@@ -112,4 +113,6 @@ public interface ICharacter {
      * @param listener who will listen the event
      */
     void addDefeatEventListener(PropertyChangeListener listener);
+
+    void addReadyInQueueEventListener(PropertyChangeListener listener);
 }

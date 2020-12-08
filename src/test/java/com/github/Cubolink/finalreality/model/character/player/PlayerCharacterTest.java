@@ -145,6 +145,8 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     void getWeight() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
                 new Thief());
+        assertEquals(pcharact1.getWeight(), 0);
+
         pcharact1.equip(new Bow("Arco", 15, 7));
         assertEquals(pcharact1.getWeight(), pcharact1.getEquippedWeapon().getWeight());
     }

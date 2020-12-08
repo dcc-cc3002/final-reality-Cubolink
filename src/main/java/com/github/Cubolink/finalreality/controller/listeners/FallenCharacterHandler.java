@@ -4,12 +4,15 @@ import com.github.Cubolink.finalreality.controller.GameController;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class FallenCharacterHandler implements PropertyChangeListener {
     private final GameController controller;
+    private final PropertyChangeSupport characterDefeatedEvent = new PropertyChangeSupport(this);
 
-    public FallenCharacterHandler(GameController controller){
+    public FallenCharacterHandler(GameController controller, PropertyChangeListener endGameListener) {
         this.controller = controller;
+        characterDefeatedEvent.addPropertyChangeListener(endGameListener);
     }
 
     /**
@@ -19,6 +22,8 @@ public class FallenCharacterHandler implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        controller.checkEndGame();
+        if (controller.isTheGameFinished()) {
+            characterDefeatedEvent.firePropertyChange("Game Over", false, true);
+        }
     }
 }

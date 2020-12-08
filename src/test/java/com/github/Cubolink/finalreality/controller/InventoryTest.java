@@ -29,35 +29,35 @@ class InventoryTest {
     void storeItem() {
         // First we store an item one, then we check the item is stored and that the others aren't.
         // Then we store the next one
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
 
         inventoryTest.storeItem(itemTest1);
         assertTrue(inventoryTest.getItemSet().contains(itemTest1));
         assertFalse(inventoryTest.getItemSet().contains(itemTest2));
         assertFalse(inventoryTest.getItemSet().contains(itemTest3));
         assertFalse(inventoryTest.getItemSet().contains(itemTest4));
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
         inventoryTest.storeItem(itemTest2);
         assertTrue(inventoryTest.getItemSet().contains(itemTest1));
         assertTrue(inventoryTest.getItemSet().contains(itemTest2));
         assertFalse(inventoryTest.getItemSet().contains(itemTest3));
         assertFalse(inventoryTest.getItemSet().contains(itemTest4));
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
         inventoryTest.storeItem(itemTest3);
         assertTrue(inventoryTest.getItemSet().contains(itemTest1));
         assertTrue(inventoryTest.getItemSet().contains(itemTest2));
         assertTrue(inventoryTest.getItemSet().contains(itemTest3));
         assertFalse(inventoryTest.getItemSet().contains(itemTest4));
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
         inventoryTest.storeItem(itemTest4);
         assertTrue(inventoryTest.getItemSet().contains(itemTest1));
         assertTrue(inventoryTest.getItemSet().contains(itemTest2));
         assertTrue(inventoryTest.getItemSet().contains(itemTest3));
         assertTrue(inventoryTest.getItemSet().contains(itemTest4));
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
 
         // Now we check that we can store multiple times an item
@@ -73,18 +73,18 @@ class InventoryTest {
     void takeItem() {
         // First we check that once we store an item, we can't take items that aren't stored
         // then we check that we can take the stored item once, and if we try to take it again we won't get it.
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
         assertNull(inventoryTest.takeItem(itemTest1));
 
         inventoryTest.storeItem(itemTest1);
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
         assertNull(inventoryTest.takeItem(itemTest2));
         assertNull(inventoryTest.takeItem(itemTest3));
         assertNull(inventoryTest.takeItem(itemTest4));
 
         assertEquals(itemTest1, inventoryTest.takeItem(itemTest1));
         assertNull(inventoryTest.takeItem(itemTest1));
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
 
 
         // Now we check when we have multiple items that we can take them once but not twice
@@ -93,13 +93,13 @@ class InventoryTest {
         inventoryTest.storeItem(itemTest2);
         inventoryTest.storeItem(itemTest3);
         inventoryTest.storeItem(itemTest4);
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
         assertEquals(itemTest1, inventoryTest.takeItem(itemTest1));
         assertEquals(itemTest2, inventoryTest.takeItem(itemTest2));
         assertEquals(itemTest3, inventoryTest.takeItem(itemTest3));
         assertEquals(itemTest4, inventoryTest.takeItem(itemTest4));
 
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
         assertNotEquals(itemTest1, inventoryTest.takeItem(itemTest1));
         assertNotEquals(itemTest2, inventoryTest.takeItem(itemTest2));
         assertNotEquals(itemTest3, inventoryTest.takeItem(itemTest3));
@@ -107,7 +107,7 @@ class InventoryTest {
 
         // Now we check when we have stored multiple equal items,
         // we can take them multiple times until we've taken them all
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
         for (int i = 0; i < 10; i++) {
             inventoryTest.storeItem(itemTest1);
         }
@@ -127,15 +127,15 @@ class InventoryTest {
     void dropItem() {
         // First we check that we can't drop items that aren't stored.
         // then we check that we can drop the stored item.
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
         inventoryTest.dropItem(itemTest1);
 
         inventoryTest.storeItem(itemTest1);
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
         inventoryTest.dropItem(itemTest2);
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
         inventoryTest.dropItem(itemTest1);
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
 
 
         // Now we check when we have multiple items that we can take them once but not twice
@@ -145,19 +145,19 @@ class InventoryTest {
         inventoryTest.storeItem(itemTest3);
         inventoryTest.storeItem(itemTest4);
 
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
         inventoryTest.dropItem(itemTest1);
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
         inventoryTest.dropItem(itemTest2);
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
         inventoryTest.dropItem(itemTest3);
-        assertFalse(inventoryTest.getItemSet().isEmpty());
+        assertFalse(inventoryTest.isEmpty());
 
         inventoryTest.dropItem(itemTest4);
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
 
         // Now we check when we have stored multiple equal items,
         // we can drop them multiple times until we've taken them all
@@ -167,14 +167,14 @@ class InventoryTest {
             inventoryTest.storeItem(itemTest1);
         }
         for (int i = 0; i < 10; i++) {
-            assertFalse(inventoryTest.getItemSet().isEmpty());
+            assertFalse(inventoryTest.isEmpty());
 
             inventoryTest.dropItem(itemTest1);
             inventoryTest.dropItem(itemTest2);
             inventoryTest.dropItem(itemTest3);
             inventoryTest.dropItem(itemTest4);
         }
-        assertTrue(inventoryTest.getItemSet().isEmpty());
+        assertTrue(inventoryTest.isEmpty());
     }
 
     @Test
