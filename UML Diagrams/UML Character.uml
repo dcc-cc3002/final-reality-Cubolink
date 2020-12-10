@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.github.Cubolink.finalreality.model.character</OriginalElement>
+  <nodes>
+    <node x="83.20833333333331" y="456.0">com.github.Cubolink.finalreality.model.character.AbstractCharacter</node>
+    <node x="574.75" y="1178.0">com.github.Cubolink.finalreality.model.character.enemy</node>
+    <node x="0.0" y="0.0">com.github.Cubolink.finalreality.model.character.ICharacter</node>
+    <node x="110.0" y="1178.0">com.github.Cubolink.finalreality.model.character.player</node>
+    <node x="506.2083333333333" y="710.0">com.github.Cubolink.finalreality.model.character.AbstractCharacterTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.github.Cubolink.finalreality.model.character.AbstractCharacter" target="com.github.Cubolink.finalreality.model.character.ICharacter">
+      <point x="0.0" y="-336.0" />
+      <point x="284.7083333333333" y="431.0" />
+      <point x="282.75" y="431.0" />
+      <point x="94.25" y="203.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.character.player" target="com.github.Cubolink.finalreality.model.character.ICharacter">
+      <point x="-48.0" y="-14.5" />
+      <point x="134.0" y="1158.0" />
+      <point x="72.70833333333331" y="1158.0" />
+      <point x="72.70833333333331" y="431.0" />
+      <point x="94.25" y="431.0" />
+      <point x="-94.25" y="203.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.character.enemy" target="com.github.Cubolink.finalreality.model.character.AbstractCharacter">
+      <point x="-34.0" y="-14.5" />
+      <point x="608.75" y="1148.0" />
+      <point x="385.4583333333333" y="1148.0" />
+      <point x="100.75" y="336.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.character.player" target="com.github.Cubolink.finalreality.model.character.AbstractCharacterTest">
+      <point x="48.0" y="-14.5" />
+      <point x="230.0" y="1158.0" />
+      <point x="563.7083333333333" y="1158.0" />
+      <point x="-57.5" y="82.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.character.player" target="com.github.Cubolink.finalreality.model.character.AbstractCharacter">
+      <point x="0.0" y="-14.5" />
+      <point x="182.0" y="1158.0" />
+      <point x="183.95833333333331" y="1158.0" />
+      <point x="-100.75" y="336.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.character.enemy" target="com.github.Cubolink.finalreality.model.character.AbstractCharacterTest">
+      <point x="34.0" y="-14.5" />
+      <point x="676.75" y="1158.0" />
+      <point x="678.7083333333333" y="1158.0" />
+      <point x="57.5" y="82.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="274.0" y="954.0" />
+  <SelectedNodes>
+    <node>com.github.Cubolink.finalreality.model.character.AbstractCharacterTest</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

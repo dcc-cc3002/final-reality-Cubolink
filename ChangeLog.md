@@ -3,6 +3,15 @@ ChangeLog
 
 Version 3.0 (Tarea 2)
 -----------
+- (B.13) Documentation and UML diagrams updated.
+- (B.12) Controller package testing. 100% coverage and branches achieved.
+- (B.11) Refactor and testing.
+- (B.10) Model package testing.
+- (B.9) Package refactor.
+- (B.8) Implemented Controller.
+- (B.7) Deleted enumerations.
+  
+- (RC.3) New Pull Request (Entrega Parcial 4)
 - (B.6) More refactor and inheritance in testing and interfaces. Improved testing, 100% coverage achieved.
 - (B.5) Refactor in order to follow the correction of Tarea 1: Removed constructor overload. Inheritance in testing.
 

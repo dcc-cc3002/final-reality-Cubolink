@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.github.Cubolink.finalreality.controller</OriginalElement>
+  <nodes>
+    <node x="802.0" y="0.0">com.github.Cubolink.finalreality.controller.IInventory</node>
+    <node x="435.0" y="0.0">com.github.Cubolink.finalreality.controller.GameControllerTest</node>
+    <node x="0.0" y="962.0">com.github.Cubolink.finalreality.controller.GameController</node>
+    <node x="1033.0" y="0.0">com.github.Cubolink.finalreality.controller.InventoryTest</node>
+    <node x="776.0" y="192.0">com.github.Cubolink.finalreality.controller.Inventory</node>
+    <node x="1251.0" y="0.0">com.github.Cubolink.finalreality.controller.listeners</node>
+    <node x="15.0" y="0.0">com.github.Cubolink.finalreality.controller.IGameController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.github.Cubolink.finalreality.controller.GameController" target="com.github.Cubolink.finalreality.controller.IGameController">
+      <point x="0.0" y="-721.0" />
+      <point x="0.0" y="456.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.controller.Inventory" target="com.github.Cubolink.finalreality.controller.IInventory">
+      <point x="0.0" y="-82.5" />
+      <point x="0.0" y="71.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="805.0" y="165.0" />
+  <SelectedNodes>
+    <node>com.github.Cubolink.finalreality.controller.listeners</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
