@@ -102,6 +102,11 @@ public interface ICharacter {
     int getMaxHp();
 
     /**
+     * @return the Weight of the unit.
+     */
+    double getWeight();
+
+    /**
      * Checks if the entity is alive, updates its status if it's required.
      * Fires a property change if the character defeat event happens.
      * @return true if the entity is alive, and false otherwise.

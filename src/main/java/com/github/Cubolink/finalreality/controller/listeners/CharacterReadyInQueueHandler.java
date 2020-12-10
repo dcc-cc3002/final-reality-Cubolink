@@ -14,6 +14,6 @@ public class CharacterReadyInQueueHandler implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //controller.dostuff();
+        controller.aCharacterIsWaiting();
     }
 }

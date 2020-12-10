@@ -48,7 +48,7 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
     @Override
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutor.schedule(this::addToQueue, (int) (getWeight() / 10), TimeUnit.SECONDS);
+        scheduledExecutor.schedule(this::addToQueue, (int) (getWeight() * 100), TimeUnit.MILLISECONDS);
     }
 
     /**

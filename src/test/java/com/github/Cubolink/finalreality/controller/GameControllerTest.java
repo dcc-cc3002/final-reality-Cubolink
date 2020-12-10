@@ -7,27 +7,37 @@ import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacterFactory;
 import com.github.Cubolink.finalreality.model.items.IItem;
 import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
-import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Knife;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Random;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameControllerTest {
+    private static final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private static final PrintStream originalOut = System.out;
+
     GameController controller;
     WeaponFactory weaponFactory;
     PlayerCharacterFactory playerCharacterFactory;
     EnemyFactory enemyFactory;
 
+
+    void muteOutput() {
+        System.setOut(new PrintStream(outputStream));
+    }
+    void unmuteOutput() {
+        System.setOut(originalOut);
+    }
+
     @BeforeEach
     void setUp() {
+        muteOutput();
         controller = new GameController();
         weaponFactory = new WeaponFactory();
         playerCharacterFactory = new PlayerCharacterFactory(controller.getTurnsQueue());
@@ -37,7 +47,7 @@ class GameControllerTest {
 
     @AfterEach
     void tearDown() {
-
+        unmuteOutput();
     }
 
     @Test
@@ -62,7 +72,127 @@ class GameControllerTest {
     }
 
     @Test
-    void equipWeaponToCharacter() {
+    void testCheckEndGame() throws InterruptedException {
+        GameController.random = new Random(0);
+        controller.createSilverSword();
+        controller.createKnightPlayer();
+
+        controller.createEnemy();
+        controller.createEnemy();
+
+        controller.start();
+        Thread.sleep(10);
+        controller.nextCharacterInQueue();
+        ICharacter character = controller.getCurrentCharacter();
+        if (!character.isPlayable()) {
+            Thread.sleep(100);
+            controller.waitCharacter();
+            controller.nextCharacterInQueue();
+            character = controller.getCurrentCharacter();
+        }
+        assertTrue(character.isPlayable());
+
+        controller.equipWeaponToCharacter(weaponFactory.createSilverSword(), (IPlayerCharacter) character);
+        controller.getEnemyList().get(0).receiveDamage(99999);  // Defeat one enemy
+        controller.getEnemyList().get(1).receiveDamage(99999);  // Defeat all enemies
+
+    }
+
+    @Test
+    void testEnd() {
+        GameController.random = new Random(0);
+        controller.createKnightPlayer();
+        controller.createEnemy();
+        controller.start();
+        controller.getEnemyList().get(0).receiveDamage(99999);  // Defeat all enemies
+
+        controller = new GameController();
+        GameController.random = new Random(0);
+        controller.createKnightPlayer();
+        controller.createEnemy();
+        controller.start();
+        controller.getCharacterPlayerList().get(0).receiveDamage(99999);  // Defeat all player characters
+    }
+
+    @Test
+    void testGetCharacterInfo() throws InterruptedException {
+        GameController.random = new Random(0);
+        controller.createEnemy();
+        controller.createEnemy();
+        controller.createKnightPlayer();
+        controller.start();
+
+        Thread.sleep(100);
+        controller.nextCharacterInQueue();
+        controller.getCharacterInfo();
+        Thread.sleep(1000);
+
+        controller.waitCharacter();
+        controller.nextCharacterInQueue();
+        controller.getCharacterInfo();
+    }
+
+    @Test
+    void testPlayerAttackCharacter() throws InterruptedException {
+        GameController.random = new Random(0);
+
+        controller.createKnightPlayer();
+        controller.createEnemy();
+        controller.start();
+
+        ICharacter character;
+
+        Thread.sleep(1000);
+        controller.nextCharacterInQueue();
+        character = controller.getCurrentCharacter();
+        if (!character.isPlayable()) {
+            Thread.sleep(100);
+            controller.waitCharacter();
+            controller.nextCharacterInQueue();
+            character = controller.getCurrentCharacter();
+        }
+
+        assertTrue(character.isPlayable());
+        controller.createSilverSword();
+        controller.equipWeaponToCharacter(weaponFactory.createSilverSword(), (IPlayerCharacter) character);
+        assertEquals(controller.getEnemyList().get(0).getHp(), controller.getEnemyList().get(0).getMaxHp());
+        controller.playerAttackCharacter(controller.getEnemyList().get(0));
+        assertTrue(controller.getEnemyList().get(0).getHp() < controller.getEnemyList().get(0).getMaxHp());
+    }
+
+    @Test
+    void testWaitCharacter() throws InterruptedException {
+        controller.createKnightPlayer();
+        controller.createEnemy();
+        ICharacter currentCharacter;
+
+        // We make sure that the knight has less weight, so he should wait less than the enemy.
+        assertTrue(controller.getCharacterPlayerList().get(0).getWeight() < controller.getEnemyList().get(0).getWeight());
+
+        // Start, get the current character, assert that is a player character because we created it first
+        controller.start();
+        Thread.sleep(10);
+        controller.nextCharacterInQueue();
+        currentCharacter = controller.getCurrentCharacter();
+        assertTrue(currentCharacter.isPlayable());
+
+        // Make sure that when we make him wait, he will be ready before the enemy
+        controller.waitCharacter();
+        Thread.sleep(10);  // Wait a little bit the character, because even if his weight is 0, it uses a thread, so there should be some delay
+        controller.nextCharacterInQueue();
+        currentCharacter = controller.getCurrentCharacter();
+        assertTrue(currentCharacter.isPlayable());
+
+        // Make sure that if we wait after some time, the next character should be an enemy because we let him be ready
+        Thread.sleep(2000);
+        controller.waitCharacter();
+        controller.nextCharacterInQueue();
+        currentCharacter = controller.getCurrentCharacter();
+        assertFalse(currentCharacter.isPlayable());
+    }
+
+    @Test
+    void equipWeaponToCharacterTest() {
         controller.createKnightPlayer();
         IPlayerCharacter playerCharacter = controller.getCharacterPlayerList().get(0);
 
@@ -95,36 +225,11 @@ class GameControllerTest {
 
         // Trying to equip a weapon that is in the inventory, the character can equip,
         // and that he was actually already equipping an equal weapon
-        controller.createIronSword();
-        assertTrue(controller.getItemSet().contains(weaponFactory.createIronSword()));
-        controller.equipWeaponToCharacter(weaponFactory.createIronSword(), playerCharacter);
-        assertTrue(controller.getItemSet().contains(weaponFactory.createIronSword()));
-        assertEquals(weaponFactory.createIronSword(), controller.getCharacterPlayerList().get(0).getEquippedWeapon());
-    }
-
-    @Test
-    void testCheckEndGame() {
-        //controller.start();
-    }
-
-    @Test
-    void testNextCharacterInQueue() {
-        //controller.start();
-        //controller.nextCharacterInQueue();
-
-    }
-
-    @Test
-    void testGetCharacterInfo() {
-    }
-
-    @Test
-    void testPlayerAttackCharacter() {
-    }
-
-    @Test
-    void testWaitCharacter() {
-
+        controller.createSilverSword();
+        assertTrue(controller.getItemSet().contains(weaponFactory.createSilverSword()));
+        controller.equipWeaponToCharacter(weaponFactory.createSilverSword(), playerCharacter);
+        assertTrue(controller.getItemSet().contains(weaponFactory.createSilverSword()));
+        assertEquals(weaponFactory.createSilverSword(), controller.getCharacterPlayerList().get(0).getEquippedWeapon());
     }
 
     @Test
@@ -275,10 +380,6 @@ class GameControllerTest {
         assertTrue(controller.getItemSet().contains(testItem3));
         controller.dropItem(testItem3);
         assertFalse(controller.getItemSet().contains(testItem3));
-    }
-
-    @Test
-    void testEquipWeaponToCharacter() {
     }
 
     @Test

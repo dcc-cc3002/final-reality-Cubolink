@@ -1,5 +1,6 @@
 package com.github.Cubolink.finalreality.controller;
 
+import com.github.Cubolink.finalreality.controller.listeners.CharacterReadyInQueueHandler;
 import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
@@ -25,6 +26,7 @@ public class GameController implements IGameController{
     // Event Handlers
     private final EndGameHandler endGameHandler = new EndGameHandler(this);
     private final FallenCharacterHandler fallenCharacterHandler = new FallenCharacterHandler(this, endGameHandler);
+    private final CharacterReadyInQueueHandler characterReadyInQueueHandler = new CharacterReadyInQueueHandler(this);
     // Flow attributes
     public static Random random;
     private static Inventory playerInventory;
@@ -74,8 +76,19 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public void end() {
+    public void aCharacterIsWaiting() {
+        // In the future, this method, which is called by the handler that listens a character to put in the queue,
+        // will do something.
+    }
 
+    @Override
+    public void end() {
+        System.out.println("Game Over");
+        if (current_number_of_player_characters > 0) {
+            System.out.println("The Player has won");
+        } else {
+            System.out.println("The Enemy has beaten the player");
+        }
     }
 
     @Override
@@ -85,9 +98,9 @@ public class GameController implements IGameController{
 
         for (ICharacter character : characters) {
             if (character.isAlive()){
-                if (playerCharactersList.contains(character)) {
+                if (character.isPlayable()) {
                     alivePlayerCharacterNumber++;
-                } else if (enemiesList.contains(character)) {
+                } else {
                     aliveEnemyNumber++;
                 }
             }
@@ -103,6 +116,11 @@ public class GameController implements IGameController{
     @Override
     public BlockingQueue<ICharacter> getTurnsQueue() {
         return turnsQueue;
+    }
+
+    @Override
+    public ICharacter getCurrentCharacter() {
+        return currentCharacter;
     }
 
     @Override
@@ -212,6 +230,7 @@ public class GameController implements IGameController{
 
     private void characterCreationSetUp(ICharacter character) {
         character.addDefeatEventListener(fallenCharacterHandler);
+        character.addReadyInQueueEventListener(characterReadyInQueueHandler);
         characters.add(character);
     }
 

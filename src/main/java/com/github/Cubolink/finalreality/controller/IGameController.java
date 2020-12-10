@@ -27,6 +27,11 @@ public interface IGameController {
     void start();
 
     /**
+     * A character who gets in the queue call this method
+     */
+    void aCharacterIsWaiting();
+
+    /**
      * Ends the game
      */
     void end();
@@ -40,6 +45,11 @@ public interface IGameController {
      * @return the turns queue that the controller is using
      */
     BlockingQueue<ICharacter> getTurnsQueue();
+
+    /**
+     * @return the current character
+     */
+    ICharacter getCurrentCharacter();
 
     /**
      * Identifies which character is next in the queue.

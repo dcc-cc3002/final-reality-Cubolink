@@ -53,7 +53,7 @@ public class Enemy extends AbstractCharacter {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         //var enemy = (Enemy) this;
         scheduledExecutor
-                .schedule(this::addToQueue, (int) this.getWeight() / 10, TimeUnit.SECONDS);
+                .schedule(this::addToQueue, (int) (this.getWeight() * 100), TimeUnit.MILLISECONDS);
     }
 
     /**

@@ -169,6 +169,7 @@ public abstract class AbstractCharacter implements ICharacter {
     /**
      * {@inheritDoc}
      */
+    @Override
     abstract public double getWeight();
 
     /**
