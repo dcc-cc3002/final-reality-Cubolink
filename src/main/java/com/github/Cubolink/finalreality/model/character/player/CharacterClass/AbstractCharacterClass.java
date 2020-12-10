@@ -34,6 +34,9 @@ public abstract class AbstractCharacterClass implements  ICharacterClass {
         character.bePhysicallyAttacked(equippedWeapon.getPhysicalDamage());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMana() {
         return 0;

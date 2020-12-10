@@ -114,10 +114,14 @@ public interface ICharacter {
     boolean isAlive();
 
     /**
-     * Adds a listener to the character's defeat event
-     * @param listener who will listen the event
+     * Adds a listener to the character's defeat event.
+     * @param listener who will listen when the character is defeated.
      */
     void addDefeatEventListener(PropertyChangeListener listener);
 
+    /**
+     * Adds a listener to the character's ready in queue event.
+     * @param listener who will listen when the character puts himself into the queue and is waiting for his next action.
+     */
     void addReadyInQueueEventListener(PropertyChangeListener listener);
 }

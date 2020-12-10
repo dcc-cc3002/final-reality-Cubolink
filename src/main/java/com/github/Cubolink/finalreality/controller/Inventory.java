@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
+/**
+ * Inventory class. Manages the Items that the player has.
+ */
 public class Inventory implements IInventory {
     private final Map<IItem, Integer> inventory = new HashMap<>();
 

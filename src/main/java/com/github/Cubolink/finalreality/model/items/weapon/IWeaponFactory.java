@@ -2,6 +2,9 @@ package com.github.Cubolink.finalreality.model.items.weapon;
 
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
+/**
+ * Interface that defines what is a Weapon Factory, what things can create.
+ */
 public interface IWeaponFactory {
 
     /**

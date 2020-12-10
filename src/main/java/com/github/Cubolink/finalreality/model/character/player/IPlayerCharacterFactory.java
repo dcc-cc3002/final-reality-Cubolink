@@ -1,7 +1,8 @@
 package com.github.Cubolink.finalreality.model.character.player;
 
-import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
-
+/**
+ * Interface which determines what can a PlayerCharacterFactory create.
+ */
 public interface IPlayerCharacterFactory {
     /**
      * Creates a Player Character whose class/job is White Mage.

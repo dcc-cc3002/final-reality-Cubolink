@@ -6,6 +6,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * Event Handler for the controller. Handles the event of a character being defeated.
+ */
 public class FallenCharacterHandler implements PropertyChangeListener {
     private final GameController controller;
     private final PropertyChangeSupport characterDefeatedEvent = new PropertyChangeSupport(this);

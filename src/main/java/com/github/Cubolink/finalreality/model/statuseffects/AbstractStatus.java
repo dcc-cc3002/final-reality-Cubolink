@@ -2,6 +2,9 @@ package com.github.Cubolink.finalreality.model.statuseffects;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 
+/**
+ * Abstract class with common behavior of status effects.
+ */
 public abstract class AbstractStatus implements IStatus{
 
     @Override

@@ -5,6 +5,9 @@ import com.github.Cubolink.finalreality.model.character.player.CharacterClass.*;
 
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Factory of different kinds of Player Characters that can be created.
+ */
 public class PlayerCharacterFactory implements IPlayerCharacterFactory {
     private final BlockingQueue<ICharacter> turnsQueue;
 

@@ -3,6 +3,7 @@ ChangeLog
 
 Version 3.0 (Tarea 2)
 -----------
+- (B.14) Completed the few missing javadoc. Ready to pull request.
 - (B.13) Documentation and UML diagrams updated.
 - (B.12) Controller package testing. 100% coverage and branches achieved.
 - (B.11) Refactor and testing.

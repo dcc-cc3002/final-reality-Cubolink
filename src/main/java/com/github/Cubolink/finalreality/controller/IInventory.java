@@ -4,6 +4,10 @@ import com.github.Cubolink.finalreality.model.items.IItem;
 
 import java.util.Set;
 
+/**
+ * An interface for the Inventory
+ * An inventory is able to store different or the same items. It can also take or drop Items that were previously stored.
+ */
 public interface IInventory {
     /**
      * Stores an item into the inventory
@@ -11,6 +15,9 @@ public interface IInventory {
      */
     void storeItem(IItem item);
 
+    /**
+     * @return the item set keys that are stored on the inventory
+     */
     Set<IItem> getItemSet();
 
     /**

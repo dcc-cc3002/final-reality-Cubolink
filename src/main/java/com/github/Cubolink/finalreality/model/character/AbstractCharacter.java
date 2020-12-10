@@ -3,7 +3,6 @@ package com.github.Cubolink.finalreality.model.character;
 import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
 import org.jetbrains.annotations.NotNull;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -224,11 +223,17 @@ public abstract class AbstractCharacter implements ICharacter {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addDefeatEventListener(PropertyChangeListener listener) {
         characterDefeatedEvent.addPropertyChangeListener(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addReadyInQueueEventListener(PropertyChangeListener listener) {
         characterReadyInQueueEvent.addPropertyChangeListener(listener);
