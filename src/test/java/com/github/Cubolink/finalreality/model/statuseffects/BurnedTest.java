@@ -1,10 +1,10 @@
 package com.github.Cubolink.finalreality.model.statuseffects;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Black_Mage;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
-import com.github.Cubolink.finalreality.model.weapon.Staff;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Staff;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

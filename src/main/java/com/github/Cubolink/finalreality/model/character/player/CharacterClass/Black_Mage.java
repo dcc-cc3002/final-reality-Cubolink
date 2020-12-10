@@ -5,7 +5,7 @@ import java.util.Random;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.statuseffects.Burned;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 
 /**
@@ -16,7 +16,12 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
     private int mana=50;
 
     public Black_Mage() {
-        super("Mago Negro", EnumCharacterClass.blackMage);
+        super("Mago Negro");
+    }
+
+    @Override
+    public int getMana() {
+        return mana;
     }
 
     /**
@@ -60,13 +65,21 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
      * @param character the character to attack.
      */
     public void fire(ICharacter character, Random R) {
-        if (mana>=15){
+        if (mana >= 15){
             mana -= 15;
             character.beMagicallyAttacked(equippedWeapon.getMagicalDamage());
             if (R.nextDouble() < 0.2){
                 character.addStatus(new Burned(equippedWeapon.getMagicalDamage()));
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBlackMage() {
+        return true;
     }
 
     /**
@@ -80,16 +93,11 @@ public class Black_Mage extends AbstractCharacterClass implements IMage{
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Black_Mage)) {
-            return false;
-        }
-
-        final Black_Mage that = (Black_Mage) o;
-        return classEnum == that.classEnum;
+        return o instanceof Black_Mage;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(classEnum);
+        return Objects.hash(isBlackMage(), isWhiteMage(), isEngineer(), isKnight(), isThief());
     }
 }

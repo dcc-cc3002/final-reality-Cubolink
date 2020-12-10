@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.github.Cubolink.finalreality.model.items.weapon</OriginalElement>
+  <nodes>
+    <node x="1129.0" y="125.0">com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon</node>
+    <node x="354.0" y="1735.0">com.github.Cubolink.finalreality.model.items.weapon.AxeTest</node>
+    <node x="741.0" y="361.0">com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Bow</node>
+    <node x="256.0" y="1588.0">com.github.Cubolink.finalreality.model.items.weapon.AbstractWeaponTest</node>
+    <node x="1151.0" y="361.0">com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Staff</node>
+    <node x="288.0" y="0.0">com.github.Cubolink.finalreality.model.items.weapon.WeaponFactoryTest</node>
+    <node x="1570.0" y="361.0">com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword</node>
+    <node x="1369.0" y="361.0">com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Knife</node>
+    <node x="177.0" y="1735.0">com.github.Cubolink.finalreality.model.items.weapon.SwordTest</node>
+    <node x="17.5" y="0.0">com.github.Cubolink.finalreality.model.items.weapon.IWeaponFactory</node>
+    <node x="553.0" y="1735.0">com.github.Cubolink.finalreality.model.items.weapon.KnifeTest</node>
+    <node x="1181.5" y="0.0">com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon</node>
+    <node x="730.0" y="1735.0">com.github.Cubolink.finalreality.model.items.weapon.StaffTest</node>
+    <node x="0.0" y="1735.0">com.github.Cubolink.finalreality.model.items.weapon.BowTest</node>
+    <node x="946.0" y="361.0">com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Axe</node>
+    <node x="0.0" y="455.0">com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Bow" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon">
+      <point x="0.0" y="-71.5" />
+      <point x="833.5" y="331.0" />
+      <point x="1153.2" y="331.0" />
+      <point x="-96.79999999999995" y="93.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.AxeTest" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeaponTest">
+      <point x="0.0" y="-60.0" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon" target="com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon">
+      <point x="0.0" y="-93.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.KnifeTest" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeaponTest">
+      <point x="0.0" y="-60.0" />
+      <point x="631.5" y="1715.0" />
+      <point x="518.5" y="1715.0" />
+      <point x="75.0" y="48.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.BowTest" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeaponTest">
+      <point x="0.0" y="-60.0" />
+      <point x="78.5" y="1705.0" />
+      <point x="293.5" y="1705.0" />
+      <point x="-150.0" y="48.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Knife" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon">
+      <point x="0.0" y="-71.5" />
+      <point x="1459.5" y="341.0" />
+      <point x="1298.4" y="341.0" />
+      <point x="48.40000000000009" y="93.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon">
+      <point x="0.0" y="-71.5" />
+      <point x="1663.5" y="331.0" />
+      <point x="1346.8" y="331.0" />
+      <point x="96.79999999999995" y="93.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Axe" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon">
+      <point x="0.0" y="-71.5" />
+      <point x="1038.5" y="341.0" />
+      <point x="1201.6" y="341.0" />
+      <point x="-48.40000000000009" y="93.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory" target="com.github.Cubolink.finalreality.model.items.weapon.IWeaponFactory">
+      <point x="0.0" y="-544.0" />
+      <point x="0.0" y="202.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.StaffTest" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeaponTest">
+      <point x="0.0" y="-60.0" />
+      <point x="808.5" y="1705.0" />
+      <point x="593.5" y="1705.0" />
+      <point x="150.0" y="48.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.SwordTest" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeaponTest">
+      <point x="0.0" y="-60.0" />
+      <point x="255.5" y="1715.0" />
+      <point x="368.5" y="1715.0" />
+      <point x="-75.0" y="48.5" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Staff" target="com.github.Cubolink.finalreality.model.items.weapon.AbstractWeapon">
+      <point x="0.0" y="-71.5" />
+      <point x="0.0" y="93.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="382.0" y="1602.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

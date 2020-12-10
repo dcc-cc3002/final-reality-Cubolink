@@ -19,6 +19,21 @@ public interface IStatus {
     void disable_effect(ICharacter character);
 
     /**
+     * @return true if the status is a Burned Status
+     */
+    boolean isBurnedStatus();
+
+    /**
+     * @return true if the status is a Burned Status
+     */
+    boolean isParalyzedStatus();
+
+    /**
+     * @return true if the status is a Burned Status
+     */
+    boolean isPoisonedStatus();
+
+    /**
      * Sees if two status are of the same kind.
      * @param status the other status to compare types.
      * @return true if they're of the same kind, and false otherwise.

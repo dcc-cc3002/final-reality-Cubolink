@@ -1,12 +1,17 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.*;
+import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.*;
+
+import java.util.Random;
+import java.util.concurrent.BlockingQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractCharacterClassTest {
     protected IWeapon axe, bow, knife, staff, sword;
+    protected BlockingQueue<ICharacter> turns;
 
     void equipTestSetUp(){
         axe = new Axe("Hacha", 20, 15);

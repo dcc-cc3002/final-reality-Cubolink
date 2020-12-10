@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.weapon.*;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Knife;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +21,7 @@ class ThiefTest extends AbstractCharacterClassTest {
     void testConstruction(){
         ICharacterClass thief = new Thief();
         checkConstruction(thief, thiefTest.getClassname());
+        assertEquals(thiefTest.getMana(), 0);
     }
 
     @Test

@@ -2,6 +2,8 @@ package com.github.Cubolink.finalreality.model.character;
 
 import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
 
+import java.beans.PropertyChangeListener;
+
 /**
  * Interface of what represents a character in the game.
  * A character can be controlled by the player or by the CPU (an enemy).
@@ -10,6 +12,11 @@ import com.github.Cubolink.finalreality.model.statuseffects.IStatus;
  * @author Joaquín Cruz Cancino.
  */
 public interface ICharacter {
+
+    /**
+     * Checks if the character is playable or not
+     */
+    boolean isPlayable();
 
     /**
      * Add a status effect to the character.
@@ -40,7 +47,8 @@ public interface ICharacter {
     void waitTurn();
 
     /**
-     * Attacks other entity. This entity's attack is executed only if is alive and its attack is enabled
+     * Attacks other entity. This entity's attack is executed only if is alive and its attack is enabled.
+     * After attacking the character waits.
      * @param character The character which this entity is attacking.
      */
     void attack(ICharacter character);
@@ -94,8 +102,26 @@ public interface ICharacter {
     int getMaxHp();
 
     /**
+     * @return the Weight of the unit.
+     */
+    double getWeight();
+
+    /**
      * Checks if the entity is alive, updates its status if it's required.
+     * Fires a property change if the character defeat event happens.
      * @return true if the entity is alive, and false otherwise.
      */
     boolean isAlive();
+
+    /**
+     * Adds a listener to the character's defeat event.
+     * @param listener who will listen when the character is defeated.
+     */
+    void addDefeatEventListener(PropertyChangeListener listener);
+
+    /**
+     * Adds a listener to the character's ready in queue event.
+     * @param listener who will listen when the character puts himself into the queue and is waiting for his next action.
+     */
+    void addReadyInQueueEventListener(PropertyChangeListener listener);
 }

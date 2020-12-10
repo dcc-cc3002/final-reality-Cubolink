@@ -1,24 +1,20 @@
 package com.github.Cubolink.finalreality.model.character.player;
 
 import com.github.Cubolink.finalreality.model.character.AbstractCharacterTest;
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Black_Mage;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Knight;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Thief;
 import com.github.Cubolink.finalreality.model.character.player.CharacterClass.White_Mage;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.*;
 import com.github.Cubolink.finalreality.model.statuseffects.Burned;
 import com.github.Cubolink.finalreality.model.statuseffects.Paralyzed;
 import com.github.Cubolink.finalreality.model.statuseffects.Poisoned;
-import com.github.Cubolink.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,6 +28,20 @@ class PlayerCharacterTest extends AbstractCharacterTest {
                 new Knight());
         character.equip(new Sword("Templed Sword", 20, 10));
         testCharacters.add(character);
+    }
+
+    @Test
+    void checkConstructor(){
+        String name = "Ark";
+        int maxHp = 30, defense = 10, resistance = 0, attack_damage=10;
+        double weight = 10;
+
+        IPlayerCharacter playerCharacter2 = new PlayerCharacter(turns, name, maxHp, defense, attack_damage, new Knight());
+        assertTrue(playerCharacter2.isPlayable());
+        assertEquals(name, playerCharacter2.getName());
+        assertEquals(maxHp, playerCharacter2.getMaxHp());
+        assertEquals(maxHp, playerCharacter2.getHp());
+
     }
 
     /**
@@ -56,6 +66,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         pcharact2.equip(new Staff("Baculo escrito", atk, atk*2, 4));
 
         ICharacter enemy = new Enemy(turns, "Malladus", hp, 10, 3, 12);
+        ICharacter strongPlayer = new PlayerCharacter(turns, "Zelgius", hp, 99999, 555, new Knight());
 
         // Test character without an equipped weapon can't attack
         PlayerCharacter pcharactNoWeapon = new PlayerCharacter(turns, "Citizen", 10, 1, 1,
@@ -64,11 +75,17 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         pcharactNoWeapon.attack(enemy);
         assertEquals(enemy.getHp(), hp);
 
+        // Test normal physical attack to a strong player
+        pcharact1.attack(strongPlayer);
+        assertEquals(strongPlayer.getHp(), hp);
+        // Test magical attack (fire) to a strong player
+        ((Black_Mage) pcharact2.getCharacterClass()).fire(strongPlayer, new Random());
+        assertEquals(strongPlayer.getHp(), hp);
+
         // Test normal physical attack
         pcharact1.attack(enemy);
         assertEquals(enemy.getHp(), hp - (pcharact1.getEquippedWeapon().getPhysicalDamage()-def));
         hp -= pcharact1.getEquippedWeapon().getPhysicalDamage()-def;
-
         // Test magical attack (fire)
         ((Black_Mage) pcharact2.getCharacterClass()).fire(enemy, new Random());
         assertEquals(enemy.getHp(), hp - (pcharact2.getEquippedWeapon().getMagicalDamage())-res);
@@ -128,6 +145,8 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     void getWeight() {
         PlayerCharacter pcharact1 = new PlayerCharacter(turns, "Sothe", 50, 7, 5,
                 new Thief());
+        assertEquals(pcharact1.getWeight(), 0);
+
         pcharact1.equip(new Bow("Arco", 15, 7));
         assertEquals(pcharact1.getWeight(), pcharact1.getEquippedWeapon().getWeight());
     }
@@ -204,9 +223,6 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         playerCharacter.applyStatuses();
 
         assertEquals(playerCharacter.getHp(), 30);  // there shouldn't be status altering the hp
-
-
-
 
     }
 

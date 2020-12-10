@@ -1,9 +1,11 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.weapon.*;
-import org.junit.jupiter.api.BeforeAll;
+import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
+import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Staff;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -15,11 +17,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Black_MageTest extends AbstractCharacterClassTest {
-    //private LinkedBlockingQueue turns;
-    //private List<ICharacter> testCharacters;
+
     private Black_Mage blackMageTest;
     private ICharacter opponent;
-    protected BlockingQueue<ICharacter> turns;
 
     @BeforeEach
     void setUp(){
@@ -36,6 +36,7 @@ class Black_MageTest extends AbstractCharacterClassTest {
     void testConstruction(){
         ICharacterClass blackMage = new Black_Mage();
         checkConstruction(blackMage, blackMageTest.getClassname());
+        assertTrue(blackMageTest.getMana() > 0);
     }
 
     @Test
@@ -57,6 +58,32 @@ class Black_MageTest extends AbstractCharacterClassTest {
 
         blackMageTest.equip(staff);
         assertEquals(blackMageTest.getEquippedWeapon(), staff);
+    }
+
+    void wasteMana() {
+        ICharacter powerfulPlayer =
+                new PlayerCharacter(turns, "Saitama", 99999, 999, 999, new Knight());
+
+        int initialMana = blackMageTest.getMana();
+        for (int i=0; i<initialMana; i++) {
+            blackMageTest.fire(powerfulPlayer, new Random());
+            blackMageTest.thunder(powerfulPlayer, new Random());
+        }
+
+    }
+
+    @Test
+    void notEnoughManaTest() {
+
+        wasteMana();
+
+        int previousHp = opponent.getHp();
+        blackMageTest.fire(opponent, new Random());
+        assertEquals(previousHp, opponent.getHp());
+
+        blackMageTest.thunder(opponent, new Random());
+        assertEquals(previousHp, opponent.getHp());
+
     }
 
     @RepeatedTest(15)

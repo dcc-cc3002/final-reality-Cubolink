@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.weapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Engineer extends AbstractCharacterClass {
 
     public Engineer() {
-        super("Ingeniero", EnumCharacterClass.engineer);
+        super("Ingeniero");
     }
 
     /**
@@ -26,6 +26,14 @@ public class Engineer extends AbstractCharacterClass {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isEngineer() {
+        return true;
+    }
+
+    /**
      * Equals definition is set as same object, or instance with name.
      *
      * @param o the object to compare equality.
@@ -36,16 +44,11 @@ public class Engineer extends AbstractCharacterClass {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Engineer)) {
-            return false;
-        }
-
-        final Engineer that = (Engineer) o;
-        return classEnum == that.classEnum;
+        return o instanceof Engineer;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(classEnum);
+        return Objects.hash(isBlackMage(), isWhiteMage(), isEngineer(), isKnight(), isThief());
     }
 }

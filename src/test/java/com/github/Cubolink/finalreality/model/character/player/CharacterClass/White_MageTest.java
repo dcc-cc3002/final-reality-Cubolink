@@ -1,12 +1,15 @@
 package com.github.Cubolink.finalreality.model.character.player.CharacterClass;
 
-import com.github.Cubolink.finalreality.model.character.Enemy;
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
+import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
-import com.github.Cubolink.finalreality.model.weapon.*;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Staff;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -32,6 +35,7 @@ class White_MageTest extends AbstractCharacterClassTest {
     void testConstruction(){
         ICharacterClass white_mage = new White_Mage();
         checkConstruction(white_mage, white_mageTest.getClassname());
+        assertTrue(white_mageTest.getMana() > 0);
     }
 
     @Test
@@ -53,6 +57,47 @@ class White_MageTest extends AbstractCharacterClassTest {
 
         white_mageTest.equip(staff);
         assertEquals(white_mageTest.getEquippedWeapon(), staff);
+    }
+
+    void wasteMana() {
+        IPlayerCharacter powerfulPlayer =
+                new PlayerCharacter(turns, "Saitama", 999, 999, 999, new Knight());
+
+        int initialMana = white_mageTest.getMana();
+        for (int i=0; i<initialMana; i++) {
+            white_mageTest.poison(powerfulPlayer);
+            white_mageTest.paralyze(powerfulPlayer);
+            white_mageTest.cure(powerfulPlayer);
+        }
+
+    }
+
+    @Test
+    void notEnoughManaTest() {
+        wasteMana();
+
+        PlayerCharacter ally = new PlayerCharacter(turns, "AliadoRandom", 100, 0, 0,
+                new Engineer());
+        assertEquals(ally.getHp(), 100);
+        opponent.attack(ally);
+        assertTrue(ally.getHp() < 100);
+
+        // Test Cure not healing
+        int previousHp = ally.getHp();
+        white_mageTest.cure(ally);
+        assertEquals(previousHp, ally.getHp());
+
+        // Test Poison not poisoning
+        previousHp = opponent.getHp();
+        white_mageTest.poison(opponent);
+        opponent.applyStatuses();
+        assertEquals(opponent.getHp(), previousHp);
+
+        // Test Paralyze not paralyzing
+        white_mageTest.paralyze(opponent);
+        opponent.applyStatuses();
+        assertEquals(opponent.getHp(), previousHp);
+
     }
 
     @Test

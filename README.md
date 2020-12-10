@@ -16,17 +16,21 @@ enemies controlled by the computer.
 
 ---
 
-#### Execution Instructions
+### Execution Instructions
 As there's no graphic interface nor nothing, there's no execution implemented.
 
-#### Suppositions and Explanation
-##### Model
-There were defined Items classes and some Packages.
-For the Items, an interface defines what is an item, and there's an abstract item too with common behavior.
-There's other interface that defines what's a wearable item, with methods like isWearableByThief and so with all the character classes.
-As enemies can't hold items, then wearable items don't have methods for them.
+### Suppositions and Explanation
+#### Model
+The model is divided in three packages:
+* The character package
+* The items package
+* The status effects package
 
-The model package has status effects package, character package and weapon package. Weapon package inherit directly from model.
+##### Items
+
+There were defined what is an Item and a Wearable items, both with interface and abstract classes which defines them and
+have the common behavior. What mades a item a wearable item are that they have methods like isWearableByThief and so with all the character classes.
+As enemies can't hold items, then wearable items don't have methods for them.
 
 ###### Weapon
 A weapon is an Item, so extends the previous defined abstract item, but is also a wearable item, so it implements that interface.
@@ -34,37 +38,34 @@ It's defined a weapon interface too, with the behavior that a weapon has to have
 wearable items that are not weapon, items like helmets or stuff like that. That's why the interfaces wearable item and weapon are separate.
 
 There's an AbstractWeapon class, with all common behavior that weapons have, and implement both interfaces weapon and wearable item.
-In the beginning, it wasn't abstract, because I considered it would be useful to instantiate unusable weapons like 'broken sword'.
-I reconsidered it, and reached the conclusion for that would be better to use simply an item, and not a non wearable weapon.
-
 The classes Axe, Bow, Knife, Staff and Sword extends from this AbstractWeapon,
 overriding the methods isWearableBy those classes that can equip that weapon.
 
-###### Status Effects
+##### Status Effects
 An interface defines what is a status, and then the classes Burned, Paralyzed and Poisoned implements it.
 The statuses have methods that receive a character and apply effects to them.
 The statuses are developed thinking in that all characters have a list of statuses that have to apply.
 Those statuses decide what to do once the character ask them to do something. 
 
-###### Character
-An interface defines what a character is, and then an abstract character is defined too.
-Characters can wait, attack, receive damage, and other things. They have a list with statuses, and they can add and drop statuses from the list. 
+##### Character
+An interface defines what a character is.
+Characters can wait, attack, receive damage, and other things. They have a list with statuses, and they can add and drop statuses from the list.
+There's an abstract character that have the common behavior for characters. There're two types of characters: Enemies and Player Characters.
 
-Enemy extends from character, so it doesn't include other things that players can do with their characters.
-The enemy has a weight, because they can't equip weapons.
-It was made the assumption that characters can attack all kinds of characters, including allies.
-The enemies have resistance 0 to magical attacks, but that information is stored like a normal character.
-I know that if I won't be using resistance, I shouldn't being implementing it and it should be a particularity of player characters,
-but I considered that it would be more extensible for possible magical enemies.
-This was actually on purpose, because
+Characters can attack each other, no matter what type they are, even if they are allies.
 --off topic-- I remember be very surprised when I played a Final Fantasy when I was a kid, and I was able to attack my allies,
 but then an enemy send one of my characters to sleep (this can't happen in this final reality, unless I define a special enemy with that ability) and
 I decided trying to attack my sleeping character instead of waiting that the enemy attacked him, or healing it with magic or an item. And it worked,
-and I attacked weakly, so it was kind of fast. So I wanted to include that characteristic. 
+and I attacked weakly, so it was kind of fast. So I wanted to include that characteristic.
 
-The Package player is defined here.
+###### Enemy
+Enemy extends from character, so it doesn't include other things that players can do with their characters.
+The enemy has a weight, because they can't equip weapons.
+The enemies have resistance 0 to magical attacks, but that information is stored like a normal character.
+I know that if I won't be using resistance, I shouldn't being implementing it and it should be a particularity of player characters,
+but I considered that it would be more extensible for possible magical enemies.
 
-###### Player
+* ###### Player
 Player Character extends from our abstract character, and includes things that enemies can't do like equip weapons or heal.
 Player Character implements an interface also.
 To equip weapons and attack, player characters have their own class/job, and they delegate those actions to it.
@@ -73,11 +74,34 @@ When the player character wants to equip a weapon, then they ask their class/job
 That was thought like a person only knows how to use a tool if they study and acquired a job that can use it.
 To attack is the same, they attack by their job.
 
-In this package there iss another package for those Player Character Classes (jobs)
+In this package there is another package for those Player Character Classes (jobs)
 
-###### Character Class
-In this package there're all the classes/jobs that a player character can have (only one per character).
+* * ###### Character Class
+In this package there are all the classes/jobs that a player character can have (only one per character).
 There's an interface to define what a character class is. There's an interface for magic classes too.
 When player characters try to equip weapons, they send the weapon to their class/job and then is this class that equips it, but they use double dispatch.
 The class/job ask the weapon if they can equip, and if the weapon says true, the class equip, not the player.
 To attack, the player attacks by his class/job, and this class uses the equipped weapon to attack the other character.
+
+### Controller
+In this package there is all the methods that the player from the real world will use to control the model.
+It is defined the interaction between the player and the model.
+The controller manages the flux of the program, using turns queues with wait time.
+It manages the player inventory, using an external class Inventory, which has an interface that defines it.
+
+The inventory can store multiple Items of different kinds or even the same item multiple times.
+The controller can take a weapon from the inventory and equip it, for example, to a player character.
+Then the amount of weapons of that kind decreased, because it was taken from the inventory.
+
+The controller has Event Handlers, which listens to certain events for avoiding busy waiting.
+Those handlers are in the package listeners
+
+#### Listeners
+This package has the Event Handlers that the controller uses to listen to certain events.
+When a character ends its turn, they tell to the listener CharacterReadyInQueueHandler, which listens those events.
+Then this listener handles that event doing something in the controller to let him know that a player is ready for his next turn.
+
+When a character is defeated, a listener FallenCharacterHandler listens that event and let the controller know that a character was defeated.
+The controller then checks if there are remaining characters to know if the battle is over.
+When that is the case, other event is fired, and the EndGameHandler listens to it.
+Then it lets the controller know that the game is over.
