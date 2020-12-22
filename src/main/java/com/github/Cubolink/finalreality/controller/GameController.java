@@ -3,6 +3,7 @@ package com.github.Cubolink.finalreality.controller;
 import com.github.Cubolink.finalreality.controller.listeners.CharacterReadyInQueueHandler;
 import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
+import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
 import com.github.Cubolink.finalreality.model.character.enemy.IEnemyFactory;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacterFactory;
@@ -28,6 +29,7 @@ public class GameController implements IGameController{
     private final FallenCharacterHandler fallenCharacterHandler = new FallenCharacterHandler(this, endGameHandler);
     private final CharacterReadyInQueueHandler characterReadyInQueueHandler = new CharacterReadyInQueueHandler(this);
     // Flow attributes
+    private static IGamePhase currentGamePhase;
     public static Random random;
     private static Inventory playerInventory;
     private static BlockingQueue<ICharacter> turnsQueue;
@@ -45,6 +47,7 @@ public class GameController implements IGameController{
     private int current_number_of_player_characters;
     private int current_number_of_enemy_characters;
     private ICharacter currentCharacter;
+    private short indexPointedByCursor = 0;
 
     public GameController() {
         random = new Random();
@@ -75,8 +78,35 @@ public class GameController implements IGameController{
         }
     }
 
+    public void setCurrentGamePhase(IGamePhase newPhase) {
+        if (currentGamePhase == null) {
+            return;
+        }
+        currentGamePhase = newPhase;
+        resetIndexPointedByCursor();
+    }
+
+    public short getIndexPointedByCursor() {
+        return indexPointedByCursor;
+    }
+
+    public void resetIndexPointedByCursor() {
+        indexPointedByCursor = 0;
+    }
+
+    public void moveCursorRight() {
+        indexPointedByCursor += 1;
+    }
+    public void moveCursorLeft() {
+        indexPointedByCursor -= 1;
+    }
+
     @Override
     public void aCharacterIsWaiting() {
+        if (currentGamePhase.isWaitingPhase()) {
+            nextCharacterInQueue();
+            currentGamePhase.nextPhase();
+        }
         // In the future, this method, which is called by the handler that listens a character to put in the queue,
         // will do something.
     }
@@ -128,6 +158,10 @@ public class GameController implements IGameController{
         currentCharacter = turnsQueue.poll();
     }
 
+    public List<ICharacter> getCharacterList() {
+        return characters;
+    }
+
     @Override
     public List<IPlayerCharacter> getCharacterPlayerList() {
         return playerCharactersList;
@@ -169,7 +203,7 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public void playerAttackCharacter(ICharacter objectiveCharacter) {
+    public void attackCharacter(ICharacter objectiveCharacter) {
         currentCharacter.attack(objectiveCharacter);
         currentCharacter.waitTurn();
     }
@@ -227,6 +261,9 @@ public class GameController implements IGameController{
         playerInventory.dropItem(item);
     }
 
+    public List<IWeapon> getWeaponList() {
+        return playerInventory.getWeaponList();
+    }
 
     private void characterCreationSetUp(ICharacter character) {
         character.addDefeatEventListener(fallenCharacterHandler);

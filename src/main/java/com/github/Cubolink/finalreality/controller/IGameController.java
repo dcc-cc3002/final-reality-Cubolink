@@ -84,7 +84,7 @@ public interface IGameController {
      * Makes the current character to attack another
      * @param objectiveCharacter to be attacked
      */
-    void playerAttackCharacter(ICharacter objectiveCharacter);
+    void attackCharacter(ICharacter objectiveCharacter);
 
     /**
      * Makes the current character to equip a weapon

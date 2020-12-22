@@ -1,10 +1,9 @@
 package com.github.Cubolink.finalreality.controller;
 
 import com.github.Cubolink.finalreality.model.items.IItem;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Inventory class. Manages the Items that the player has.
@@ -43,6 +42,17 @@ public class Inventory implements IInventory {
                 inventory.remove(item);
             }
         }
+    }
+
+    public List<IWeapon> getWeaponList() {
+        Set<IItem> itemSet = inventory.keySet();
+        List<IWeapon> weaponList = new ArrayList<>();
+        for (IItem item: itemSet) {
+            if (item.isAWearableItem()) {
+                weaponList.add((IWeapon) item);
+            }
+        }
+        return weaponList;
     }
 
     @Override

@@ -1,8 +1,13 @@
 ChangeLog
 =========
 
+Version 4.0 (Tarea 3)
+-----------
+- (B.1) The game uses phases to control the flow.
+
 Version 3.0 (Tarea 2)
 -----------
+- (RC.4) Pull Request
 - (B.14) Completed the few missing javadoc. Ready to pull request.
 - (B.13) Documentation and UML diagrams updated.
 - (B.12) Controller package testing. 100% coverage and branches achieved.

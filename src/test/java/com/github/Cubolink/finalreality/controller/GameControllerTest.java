@@ -156,7 +156,7 @@ class GameControllerTest {
         controller.createSilverSword();
         controller.equipWeaponToCharacter(weaponFactory.createSilverSword(), (IPlayerCharacter) character);
         assertEquals(controller.getEnemyList().get(0).getHp(), controller.getEnemyList().get(0).getMaxHp());
-        controller.playerAttackCharacter(controller.getEnemyList().get(0));
+        controller.attackCharacter(controller.getEnemyList().get(0));
         assertTrue(controller.getEnemyList().get(0).getHp() < controller.getEnemyList().get(0).getMaxHp());
     }
 
