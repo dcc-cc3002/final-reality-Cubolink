@@ -65,6 +65,13 @@ public class GameController implements IGameController{
         current_number_of_enemy_characters = 0;
     }
 
+    public int getMaxPlayerCharacterNum() {
+        return MAX_PLAYER_CHARACTER_NUM;
+    }
+    public int getMaxEnemyCharacterNum() {
+        return MAX_ENEMY_CHARACTER_NUM;
+    }
+
     @Override
     public void start() {
         // Check both enemy and player parties have at least one member each
@@ -107,8 +114,6 @@ public class GameController implements IGameController{
             nextCharacterInQueue();
             currentGamePhase.nextPhase();
         }
-        // In the future, this method, which is called by the handler that listens a character to put in the queue,
-        // will do something.
     }
 
     @Override
