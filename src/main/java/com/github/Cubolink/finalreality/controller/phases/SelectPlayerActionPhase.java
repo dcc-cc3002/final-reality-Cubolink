@@ -18,7 +18,26 @@ public class SelectPlayerActionPhase extends AbstractPhase {
 
     @Override
     public void nextPhase() {
-        IGamePhase nextGamePhase = possibleActions.get(gameController.getIndexPointedByCursor() % possibleActions.size());
+        IGamePhase nextGamePhase = possibleActions.get(getModuleOfIndexPointedByCursor(possibleActions.size()));
         gameController.setCurrentGamePhase(nextGamePhase);
+    }
+
+    @Override
+    public String getPhaseInfo() {
+        return "Select the action you want "+gameController.getCurrentCharacter().getName()+ " to do.";
+    }
+
+    @Override
+    public String[] getPhaseOptions() {
+        String[] strings = new String[3];
+        strings[0] = "Attack";
+        strings[1] = "Equip";
+        strings[2] = "Wait";
+
+        int selectedOption = getModuleOfIndexPointedByCursor(possibleActions.size());
+        strings[selectedOption] = "*" + strings[selectedOption];
+
+        return strings;
+
     }
 }

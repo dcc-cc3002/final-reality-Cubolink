@@ -118,3 +118,10 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 /pautasrc/
+/src/main/java/com/github/Cubolink/finalreality/gui/nodes/
+/src/main/java/com/github/Cubolink/finalreality/gui/CitricLiquid.java
+/src/main/resources/background.jpg
+/src/main/resources/ejemplo.jpg
+/src/main/resources/landing_page.jpg
+/src/main/resources/prfvr.wav
+/src/main/resources/sprite.png

@@ -19,7 +19,9 @@ public abstract class AbstractPhase implements IGamePhase{
 
     @Override
     public void prevPhase() {
-        gameController.setCurrentGamePhase(previousPhase);
+        if (previousPhase != null) {
+            gameController.setCurrentGamePhase(previousPhase);
+        }
     }
 
     @Override
@@ -27,4 +29,17 @@ public abstract class AbstractPhase implements IGamePhase{
         return false;
     }
 
+    @Override
+    public abstract String getPhaseInfo();
+
+    @Override
+    public abstract String[] getPhaseOptions();
+
+    protected int getModuleOfIndexPointedByCursor(int module) {
+        if (module == 0) {
+            return 0;
+        }
+        int x = (gameController.getIndexPointedByCursor() % module);
+        return x  >= 0 ? x: x+module;
+    }
 }

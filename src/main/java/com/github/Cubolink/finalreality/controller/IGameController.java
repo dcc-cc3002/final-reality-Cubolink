@@ -73,7 +73,7 @@ public interface IGameController {
     /**
      * Shows the current character info.
      */
-    void getCharacterInfo();
+    String getCharacterInfo();
 
     /**
      * Makes the current character to wait

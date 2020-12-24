@@ -39,12 +39,13 @@ import java.util.Random;
 public class FinalReality extends Application {
   private static final String RESOURCE_PATH = "src/main/resources/";
   private static final GameController controller = new GameController();
-  private static final double width = 600;
+  private static final double width = 850;
   private static final double height = 600;
 
   private static final Label[] playerCharacterLabels = new Label[controller.getMaxPlayerCharacterNum()];
   private static final Label[] enemyCharacterLabels = new Label[controller.getMaxEnemyCharacterNum()];
-  private static final Label[] userOptionLabels = new Label[3];
+  private static final Label phaseInstructionsLabel = new Label();
+  private static final Label[] userOptionLabels = new Label[controller.getMaxPlayerCharacterNum()+ controller.getMaxEnemyCharacterNum()];
 
   public static void main(String[] args) {
     launch(args);
@@ -52,8 +53,9 @@ public class FinalReality extends Application {
 
   @Override
   public void start(Stage primaryStage) throws FileNotFoundException {
+    controller.setUp();
     primaryStage.setTitle("Final reality");
-    primaryStage.setResizable(false);
+    primaryStage.setResizable(true);
 
     Group root = new Group();
 
@@ -109,10 +111,11 @@ public class FinalReality extends Application {
     ImageView img_A = new ImageView(new Image(new FileInputStream(RESOURCE_PATH + "A.png")));
     ImageView img_B = new ImageView(new Image(new FileInputStream(RESOURCE_PATH + "B.png")));
     // buttons
-    Button button_A = setupButton("A", 7*width/8, 6*height/8, width/8, height/8, img_A, FinalReality::playSound);
-    Button button_B = setupButton("B", 5*width/8, 7*height/8, width/8, height/8, img_B, FinalReality::playSound);
-    Button button_CRight = setupButton("Right", 3*width/8, 7*height/8, width/8, height/8, img_CRight, FinalReality::playSound);
-    Button button_CLeft = setupButton("Left", width/8, 7*height/8, width/8, height/8, img_CLeft, FinalReality::playSound);
+    double size = Math.min(height, width)/8;
+    Button button_A = setupButton("A", 7*width/8, 6*height/8, size, size, img_A, FinalReality::buttonAAction);
+    Button button_B = setupButton("B", 5*width/8, 7*height/8, size, size, img_B, FinalReality::buttonBAction);
+    Button button_CRight = setupButton("Right", 3*width/8, 7*height/8, size, size, img_CRight, FinalReality::buttonC_RightAction);
+    Button button_CLeft = setupButton("Left", width/8, 7*height/8, size, size, img_CLeft, FinalReality::buttonC_LeftAction);
     // add to root
     bottomGroup.getChildren().addAll(button_A, button_B, button_CLeft, button_CRight);
 
@@ -127,9 +130,13 @@ public class FinalReality extends Application {
     userOptionsGrid.setHgap(width/20);
     userOptionsGrid.setVgap(height/20);
 
+    phaseInstructionsLabel.setLayoutX(width/20);
+    phaseInstructionsLabel.setLayoutY(height/2);
+    userOptionsGroup.getChildren().add(phaseInstructionsLabel);
+
     for (int i = 0; i < userOptionLabels.length; i++) {
       userOptionLabels[i] = new Label("User option "+i);
-      GridPane.setConstraints(userOptionLabels[i], i, 0);
+      GridPane.setConstraints(userOptionLabels[i], i, 1);
     }
     userOptionsGrid.getChildren().addAll(userOptionLabels);
 
@@ -163,6 +170,37 @@ public class FinalReality extends Application {
     return mainVisualDisplayGroup;
   }
 
+  private void setupTimer() {
+    AnimationTimer timer = new AnimationTimer() {
+      @Override
+      public void handle(final long now) {
+        phaseInstructionsLabel.setText(controller.getPhase());
+
+        // userOptionLabels update
+        String[] phaseOptions = controller.getPhaseOptions();
+        for (int i = 0; i < userOptionLabels.length; i++) {
+          if (i < phaseOptions.length) {
+            userOptionLabels[i].setText(phaseOptions[i]);
+          } else {
+            userOptionLabels[i].setText("");
+          }
+        }
+
+        // playerCharactersInfo update
+        String[] playerCharactersInfo = controller.getPlayerCharactersInfo();
+        for (int i = 0; i < playerCharactersInfo.length; i++) {
+          playerCharacterLabels[i].setText(playerCharactersInfo[i]);
+        }
+        // enemyCharactersInfo update
+        String[] enemyCharactersInfo = controller.getEnemyCharactersInfo();
+        for (int i = 0; i < enemyCharactersInfo.length; i++) {
+          enemyCharacterLabels[i].setText(enemyCharactersInfo[i]);
+        }
+      }
+    };
+    timer.start();
+  }
+
   private static void playSound(ActionEvent event) {
     String audioFilePath = RESOURCE_PATH + "sound.wav";
     try {
@@ -177,21 +215,25 @@ public class FinalReality extends Application {
     }
   }
 
-  private void setupTimer() {
-    AnimationTimer timer = new AnimationTimer() {
-      @Override
-      public void handle(final long now) {
-        for (Label pCharacterLabel: playerCharacterLabels) {
-          String txt = "" + new Random().nextInt(10);
-          pCharacterLabel.setText(txt);
-        }
-        for (Label enemyCharacterLabel: enemyCharacterLabels) {
-          String txt = "" + new Random().nextInt(10);
-          enemyCharacterLabel.setText(txt);
-        }
-      }
-    };
-    timer.start();
+  private static void buttonAAction(ActionEvent event) {
+    playSound(event);
+    System.out.println("A PRESSED");
+    controller.next();
+  }
+  private static void buttonBAction(ActionEvent event) {
+    playSound(event);
+    System.out.println("B PRESSED");
+    controller.prev();
+  }
+  private static void buttonC_LeftAction(ActionEvent event) {
+    playSound(event);
+    System.out.println("C-L PRESSED");
+    controller.moveCursorLeft();
+  }
+  private static void buttonC_RightAction(ActionEvent event) {
+    playSound(event);
+    System.out.println("C-R PRESSED");
+    controller.moveCursorRight();
   }
 
 }

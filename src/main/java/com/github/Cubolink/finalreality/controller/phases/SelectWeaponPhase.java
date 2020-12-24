@@ -19,4 +19,26 @@ public class SelectWeaponPhase extends AbstractPhase {
 
         prevPhase();
     }
+
+    @Override
+    public String getPhaseInfo() {
+        return "Select the weapon you want the character to equip.";
+    }
+
+    @Override
+    public String[] getPhaseOptions() {
+        List<IWeapon> weapons = gameController.getWeaponList();
+        int indexPointed = getModuleOfIndexPointedByCursor(weapons.size());
+
+        String[] strings = new String[gameController.getWeaponList().size()];
+
+        for (int i = 0; i < weapons.size(); i++) {
+            if (i == indexPointed) {
+                strings[i] = "*" + weapons.get(i).getName();
+            } else {
+                strings[i] = weapons.get(i).getName();
+            }
+        }
+        return strings;
+    }
 }

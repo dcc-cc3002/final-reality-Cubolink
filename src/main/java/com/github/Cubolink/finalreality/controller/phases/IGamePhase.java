@@ -6,4 +6,8 @@ public interface IGamePhase {
     void prevPhase();
 
     boolean isWaitingPhase();
+
+    String getPhaseInfo();
+
+    String[] getPhaseOptions();
 }

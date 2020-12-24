@@ -51,6 +51,14 @@ class GameControllerTest {
     }
 
     @Test
+    void testControllerSetUp() throws InterruptedException {
+        controller.setUp();
+        Thread.sleep(6000);
+        assertFalse(controller.getTurnsQueue().isEmpty());
+        System.out.println(controller.getPhase());
+    }
+
+    @Test
     void testStart() throws InterruptedException {
         // Check the game doesn't start when we don't have neither enemies nor player characters
         controller.start();

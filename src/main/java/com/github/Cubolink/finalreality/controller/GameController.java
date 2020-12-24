@@ -4,6 +4,7 @@ import com.github.Cubolink.finalreality.controller.listeners.CharacterReadyInQue
 import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
+import com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
 import com.github.Cubolink.finalreality.model.character.enemy.IEnemyFactory;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacterFactory;
@@ -72,6 +73,18 @@ public class GameController implements IGameController{
         return MAX_ENEMY_CHARACTER_NUM;
     }
 
+    public void setUp() {
+        createKnightPlayer();
+        createThiefPlayer();
+        createEngineerPlayer();
+        createBlackMagePlayer();
+
+        for (int i = 0; i < MAX_ENEMY_CHARACTER_NUM; i++) {
+            createEnemy();
+        }
+        start();
+    }
+
     @Override
     public void start() {
         // Check both enemy and player parties have at least one member each
@@ -83,14 +96,33 @@ public class GameController implements IGameController{
         for (ICharacter character: characters) {
             character.waitTurn();
         }
+        new WaitNextTurnPhase(this);
     }
 
     public void setCurrentGamePhase(IGamePhase newPhase) {
-        if (currentGamePhase == null) {
-            return;
-        }
+
         currentGamePhase = newPhase;
         resetIndexPointedByCursor();
+    }
+    public String getPhase() {
+        return currentGamePhase.getPhaseInfo();
+    }
+    public String[] getPhaseOptions() {
+        return currentGamePhase.getPhaseOptions();
+    }
+    public String[] getPlayerCharactersInfo() {
+        String[] charactersInfo = new String[current_number_of_player_characters];
+        for (int i = 0; i < current_number_of_player_characters; i++) {
+            charactersInfo[i] = getCharacterInfo(playerCharactersList.get(i));
+        }
+        return charactersInfo;
+    }
+    public String[] getEnemyCharactersInfo() {
+        String[] charactersInfo = new String[current_number_of_enemy_characters];
+        for (int i = 0; i < current_number_of_enemy_characters; i++) {
+            charactersInfo[i] = getCharacterInfo(enemiesList.get(i));
+        }
+        return charactersInfo;
     }
 
     public short getIndexPointedByCursor() {
@@ -114,6 +146,15 @@ public class GameController implements IGameController{
             nextCharacterInQueue();
             currentGamePhase.nextPhase();
         }
+    }
+
+    public void next() {
+        if (!currentGamePhase.isWaitingPhase()) {
+            currentGamePhase.nextPhase();
+        }
+    }
+    public void prev() {
+        currentGamePhase.prevPhase();
     }
 
     @Override
@@ -177,28 +218,26 @@ public class GameController implements IGameController{
         return enemiesList;
     }
 
-    private void getCharacterInfo(IPlayerCharacter playerCharacter) {
-        String s = playerCharacter.getName()
+    private String getCharacterInfo(IPlayerCharacter playerCharacter) {
+        return playerCharacter.getName()
                 + " (" + playerCharacter.getCharacterClass().getClassname() + ").\n"
                 + "LIFE: " + playerCharacter.getHp() + "/" + playerCharacter.getMaxHp() + "\n"
                 + "MANA: " + playerCharacter.getCharacterClass().getMana() + "\n"
                 + "WEAPON: " + playerCharacter.getEquippedWeapon();
-        System.out.println(s);
     }
 
-    private void getCharacterInfo(Enemy enemy) {
-        String s = enemy.getName()
-                + " (Enemy). "
+    private String getCharacterInfo(Enemy enemy) {
+        return enemy.getName()
+                + " (Enemy).\n"
                 + "LIFE: " + enemy.getHp() + "/" + enemy.getMaxHp();
-        System.out.println(s);
     }
 
     @Override
-    public void getCharacterInfo() {
+    public String getCharacterInfo() {
         if (currentCharacter.isPlayable()) {
-            getCharacterInfo((IPlayerCharacter) currentCharacter);
+            return getCharacterInfo((IPlayerCharacter) currentCharacter);
         } else {
-            getCharacterInfo((Enemy) currentCharacter);
+            return getCharacterInfo((Enemy) currentCharacter);
         }
     }
 
