@@ -55,7 +55,7 @@ class GameControllerTest {
         controller.setUp();
         Thread.sleep(6000);
         assertFalse(controller.getTurnsQueue().isEmpty());
-        System.out.println(controller.getPhase());
+        System.out.println(controller.getPhaseInfo());
     }
 
     @Test
@@ -90,7 +90,6 @@ class GameControllerTest {
 
         controller.start();
         Thread.sleep(10);
-        controller.nextCharacterInQueue();
         ICharacter character = controller.getCurrentCharacter();
         if (!character.isPlayable()) {
             Thread.sleep(100);
@@ -123,24 +122,6 @@ class GameControllerTest {
     }
 
     @Test
-    void testGetCharacterInfo() throws InterruptedException {
-        GameController.random = new Random(0);
-        controller.createEnemy();
-        controller.createEnemy();
-        controller.createKnightPlayer();
-        controller.start();
-
-        Thread.sleep(100);
-        controller.nextCharacterInQueue();
-        controller.getCharacterInfo();
-        Thread.sleep(1000);
-
-        controller.waitCharacter();
-        controller.nextCharacterInQueue();
-        controller.getCharacterInfo();
-    }
-
-    @Test
     void testPlayerAttackCharacter() throws InterruptedException {
         GameController.random = new Random(0);
 
@@ -156,7 +137,7 @@ class GameControllerTest {
         if (!character.isPlayable()) {
             Thread.sleep(100);
             controller.waitCharacter();
-            controller.nextCharacterInQueue();
+            Thread.sleep(10);
             character = controller.getCurrentCharacter();
         }
 
@@ -179,23 +160,29 @@ class GameControllerTest {
 
         // Start, get the current character, assert that is a player character because we created it first
         controller.start();
-        Thread.sleep(10);
-        controller.nextCharacterInQueue();
+        Thread.sleep(100);
         currentCharacter = controller.getCurrentCharacter();
         assertTrue(currentCharacter.isPlayable());
 
-        // Make sure that when we make him wait, he will be ready before the enemy
+        // Make sure when we wait, the current character is now null
         controller.waitCharacter();
-        Thread.sleep(10);  // Wait a little bit the character, because even if his weight is 0, it uses a thread, so there should be some delay
-        controller.nextCharacterInQueue();
+        assertNull(controller.getCurrentCharacter());
+        // Make sure after a while, the current character is not null
+        Thread.sleep(100);
+        assertNotNull(controller.getCurrentCharacter());
+
+        // Make sure this player without weapon is ready before the enemy
+
         currentCharacter = controller.getCurrentCharacter();
         assertTrue(currentCharacter.isPlayable());
 
-        // Make sure that if we wait after some time, the next character should be an enemy because we let him be ready
+        // Make sure that if we stay some time and then wait, the enemy will be ready before.
         Thread.sleep(2000);
         controller.waitCharacter();
+        Thread.sleep(1000);
+        assertNull(controller.getCurrentCharacter());  // We have to take the character manually
         controller.nextCharacterInQueue();
-        currentCharacter = controller.getCurrentCharacter();
+        currentCharacter = controller.getCurrentCharacter();  //
         assertFalse(currentCharacter.isPlayable());
     }
 

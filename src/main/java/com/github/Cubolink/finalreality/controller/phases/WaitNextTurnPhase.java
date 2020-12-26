@@ -1,10 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.GameController;
-import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
-
-import java.util.List;
 
 public class WaitNextTurnPhase extends AbstractPhase{
 
@@ -15,17 +11,18 @@ public class WaitNextTurnPhase extends AbstractPhase{
 
     @Override
     public void nextPhase() {
+        gameController.nextCharacterInQueue();
+        if (gameController.getCurrentCharacter() == null) {
+            return;
+        }
+
+        System.out.println("current: " + gameController.getCurrentCharacter().getName());
+
         if (gameController.getCurrentCharacter().isPlayable()) {
             gameController.setCurrentGamePhase(new SelectPlayerActionPhase(gameController));
 
         } else {
-            int index = GameController.random.nextInt();
-            List<IPlayerCharacter> playerCharacters = gameController.getCharacterPlayerList();
-            IPlayerCharacter target = playerCharacters.get(index % playerCharacters.size());
-
-            gameController.attackCharacter(target);
-
-            gameController.setCurrentGamePhase(new WaitNextTurnPhase(gameController));
+            gameController.setCurrentGamePhase(new EnemyActionPhase(gameController));
         }
     }
 

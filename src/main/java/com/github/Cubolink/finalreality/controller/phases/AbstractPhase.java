@@ -10,8 +10,8 @@ public abstract class AbstractPhase implements IGamePhase{
 
     public AbstractPhase(GameController gameController, IGamePhase previousPhase) {
         this.gameController = gameController;
-        gameController.setCurrentGamePhase(this);
         this.previousPhase = previousPhase;
+        gameController.setCurrentGamePhase(this);
     }
 
     @Override

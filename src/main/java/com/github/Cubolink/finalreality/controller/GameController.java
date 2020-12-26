@@ -3,6 +3,7 @@ package com.github.Cubolink.finalreality.controller;
 import com.github.Cubolink.finalreality.controller.listeners.CharacterReadyInQueueHandler;
 import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
+import com.github.Cubolink.finalreality.controller.listeners.NextTurnHandler;
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
 import com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
@@ -29,6 +30,7 @@ public class GameController implements IGameController{
     private final EndGameHandler endGameHandler = new EndGameHandler(this);
     private final FallenCharacterHandler fallenCharacterHandler = new FallenCharacterHandler(this, endGameHandler);
     private final CharacterReadyInQueueHandler characterReadyInQueueHandler = new CharacterReadyInQueueHandler(this);
+    private final NextTurnHandler nextTurnHandler = new NextTurnHandler(this);
     // Flow attributes
     private static IGamePhase currentGamePhase;
     public static Random random;
@@ -49,6 +51,26 @@ public class GameController implements IGameController{
     private int current_number_of_enemy_characters;
     private ICharacter currentCharacter;
     private short indexPointedByCursor = 0;
+
+    public static class Mutex {
+        private boolean isLocked = false;
+
+        public synchronized void lock() {
+            while (isLocked) {
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            isLocked = true;
+        }
+
+        public synchronized void unlock() {
+            isLocked = false;
+            notify();
+        }
+    }
 
     public GameController() {
         random = new Random();
@@ -79,6 +101,12 @@ public class GameController implements IGameController{
         createEngineerPlayer();
         createBlackMagePlayer();
 
+        createBronzeSword();
+        createBronzeKnife();
+        createBronzeBow();
+        createBronzeAxe();
+        createNormalStaff();
+
         for (int i = 0; i < MAX_ENEMY_CHARACTER_NUM; i++) {
             createEnemy();
         }
@@ -104,7 +132,10 @@ public class GameController implements IGameController{
         currentGamePhase = newPhase;
         resetIndexPointedByCursor();
     }
-    public String getPhase() {
+    public boolean inWaitingPhase() {
+        return currentGamePhase.isWaitingPhase();
+    }
+    public String getPhaseInfo() {
         return currentGamePhase.getPhaseInfo();
     }
     public String[] getPhaseOptions() {
@@ -142,16 +173,16 @@ public class GameController implements IGameController{
 
     @Override
     public void aCharacterIsWaiting() {
-        if (currentGamePhase.isWaitingPhase()) {
-            nextCharacterInQueue();
+        if (currentGamePhase.isWaitingPhase() && thereAreCharactersWaiting()) {
             currentGamePhase.nextPhase();
         }
     }
+    public boolean thereAreCharactersWaiting() {
+        return !turnsQueue.isEmpty();
+    }
 
     public void next() {
-        if (!currentGamePhase.isWaitingPhase()) {
-            currentGamePhase.nextPhase();
-        }
+        currentGamePhase.nextPhase();
     }
     public void prev() {
         currentGamePhase.prevPhase();
@@ -244,12 +275,13 @@ public class GameController implements IGameController{
     @Override
     public void waitCharacter() {
         currentCharacter.waitTurn();
+        currentCharacter = null;
     }
 
     @Override
     public void attackCharacter(ICharacter objectiveCharacter) {
         currentCharacter.attack(objectiveCharacter);
-        currentCharacter.waitTurn();
+        waitCharacter();
     }
 
     @Override

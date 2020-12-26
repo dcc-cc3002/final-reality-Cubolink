@@ -14,8 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,9 +22,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.Method;
-import java.util.Random;
 
 /**
  * Main entry point for the application.
@@ -174,7 +169,7 @@ public class FinalReality extends Application {
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(final long now) {
-        phaseInstructionsLabel.setText(controller.getPhase());
+        phaseInstructionsLabel.setText(controller.getPhaseInfo());
 
         // userOptionLabels update
         String[] phaseOptions = controller.getPhaseOptions();
