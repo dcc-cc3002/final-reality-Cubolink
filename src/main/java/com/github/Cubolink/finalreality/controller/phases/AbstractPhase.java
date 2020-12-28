@@ -28,6 +28,10 @@ public abstract class AbstractPhase implements IGamePhase{
     public boolean isWaitingPhase() {
         return false;
     }
+    @Override
+    public boolean isEnemyPhase() {
+        return false;
+    }
 
     @Override
     public abstract String getPhaseInfo();

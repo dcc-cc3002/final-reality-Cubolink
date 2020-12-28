@@ -22,7 +22,7 @@ public class SelectWeaponPhase extends AbstractPhase {
 
     @Override
     public String getPhaseInfo() {
-        return "Select the weapon you want the character to equip.";
+        return "Select the weapon you want " + gameController.getCurrentCharacter().getName() + " to equip.";
     }
 
     @Override

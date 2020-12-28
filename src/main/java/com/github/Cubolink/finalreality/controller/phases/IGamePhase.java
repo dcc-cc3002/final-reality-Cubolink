@@ -7,6 +7,8 @@ public interface IGamePhase {
 
     boolean isWaitingPhase();
 
+    boolean isEnemyPhase();
+
     String getPhaseInfo();
 
     String[] getPhaseOptions();

@@ -3,7 +3,6 @@ package com.github.Cubolink.finalreality.controller;
 import com.github.Cubolink.finalreality.controller.listeners.CharacterReadyInQueueHandler;
 import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
-import com.github.Cubolink.finalreality.controller.listeners.NextTurnHandler;
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
 import com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
@@ -18,6 +17,7 @@ import com.github.Cubolink.finalreality.model.items.weapon.IWeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,7 +30,9 @@ public class GameController implements IGameController{
     private final EndGameHandler endGameHandler = new EndGameHandler(this);
     private final FallenCharacterHandler fallenCharacterHandler = new FallenCharacterHandler(this, endGameHandler);
     private final CharacterReadyInQueueHandler characterReadyInQueueHandler = new CharacterReadyInQueueHandler(this);
-    private final NextTurnHandler nextTurnHandler = new NextTurnHandler(this);
+    // Events
+    private final PropertyChangeSupport nextTurnEvent = new PropertyChangeSupport(this);
+
     // Flow attributes
     private static IGamePhase currentGamePhase;
     public static Random random;
@@ -52,26 +54,6 @@ public class GameController implements IGameController{
     private ICharacter currentCharacter;
     private short indexPointedByCursor = 0;
 
-    public static class Mutex {
-        private boolean isLocked = false;
-
-        public synchronized void lock() {
-            while (isLocked) {
-                try {
-                    wait();
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            isLocked = true;
-        }
-
-        public synchronized void unlock() {
-            isLocked = false;
-            notify();
-        }
-    }
-
     public GameController() {
         random = new Random();
         playerInventory = new Inventory();
@@ -79,6 +61,8 @@ public class GameController implements IGameController{
         characters = new ArrayList<>();
         playerCharactersList = new ArrayList<>();
         enemiesList = new ArrayList<>();
+
+        nextTurnEvent.addPropertyChangeListener(new EnemyIA(this));
 
         weaponFactory = new WeaponFactory();
         enemyFactory = new EnemyFactory(turnsQueue);
@@ -135,6 +119,9 @@ public class GameController implements IGameController{
     public boolean inWaitingPhase() {
         return currentGamePhase.isWaitingPhase();
     }
+    public boolean inEnemyPhase() {
+        return currentGamePhase.isEnemyPhase();
+    }
     public String getPhaseInfo() {
         return currentGamePhase.getPhaseInfo();
     }
@@ -172,9 +159,11 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public void aCharacterIsWaiting() {
+    public synchronized void aCharacterIsWaiting() {
         if (currentGamePhase.isWaitingPhase() && thereAreCharactersWaiting()) {
             currentGamePhase.nextPhase();
+
+            nextTurnEvent.firePropertyChange("EnemyIA listens the new phase", false, true);
         }
     }
     public boolean thereAreCharactersWaiting() {
@@ -250,11 +239,15 @@ public class GameController implements IGameController{
     }
 
     private String getCharacterInfo(IPlayerCharacter playerCharacter) {
+
+        IWeapon weapon = playerCharacter.getEquippedWeapon();
+        String weaponName = (weapon != null) ? weapon.getName(): "None.";
+
         return playerCharacter.getName()
                 + " (" + playerCharacter.getCharacterClass().getClassname() + ").\n"
                 + "LIFE: " + playerCharacter.getHp() + "/" + playerCharacter.getMaxHp() + "\n"
                 + "MANA: " + playerCharacter.getCharacterClass().getMana() + "\n"
-                + "WEAPON: " + playerCharacter.getEquippedWeapon();
+                + "WEAPON: " + weaponName;
     }
 
     private String getCharacterInfo(Enemy enemy) {
@@ -341,26 +334,53 @@ public class GameController implements IGameController{
         return playerInventory.getWeaponList();
     }
 
+    /**
+     * Setup method for creating characters.
+     * When characters are created, the controller has to put them the listeners, and add them to the characters list.
+     *
+     * @param character that is being created.
+     */
     private void characterCreationSetUp(ICharacter character) {
         character.addDefeatEventListener(fallenCharacterHandler);
         character.addReadyInQueueEventListener(characterReadyInQueueHandler);
         characters.add(character);
     }
 
+    /**
+     * Setup method to create enemy characters.
+     * When creating enemies, the controller has to add them to the enemies list, and
+     * increase the number of enemies counter.
+     *
+     * @param enemy that is being created.
+     */
     private void enemyCreationSetUp(Enemy enemy) {
         characterCreationSetUp(enemy);
         current_number_of_enemy_characters++;
         enemiesList.add(enemy);
     }
+
+    /**
+     * Setup method to create player characters.
+     * When creating player characters, the controller has to add them to the player characters list, and
+     * increase the number of player characters counter.
+     *
+     * @param playerCharacter that is being created.
+     */
     private void playerCharacterCreationSetUp(IPlayerCharacter playerCharacter) {
         characterCreationSetUp(playerCharacter);
         current_number_of_player_characters++;
         playerCharactersList.add(playerCharacter);
     }
 
+    /**
+     * @return true if the game has not reached the maximum number of enemy characters allowed
+     */
     private boolean canCreateEnemyPlayer() {
         return current_number_of_enemy_characters < MAX_ENEMY_CHARACTER_NUM;
     }
+    /**
+     * @return true if the game has not reached the maximum number of player characters allowed
+     */
     private boolean canCreateCharacterPlayer() {
         return current_number_of_player_characters < MAX_PLAYER_CHARACTER_NUM;
     }

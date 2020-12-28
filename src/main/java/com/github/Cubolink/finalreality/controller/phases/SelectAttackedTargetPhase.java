@@ -19,11 +19,11 @@ public class SelectAttackedTargetPhase extends AbstractPhase {
         List<ICharacter> characters = gameController.getCharacterList();
         ICharacter target = characters.get(gameController.getIndexPointedByCursor() % characters.size());
         if (target.isAlive()) {
-            System.out.println("Trying to attack "+target.getName());
+            System.out.println(gameController.getCurrentCharacter().getName() + " tries to attack "+target.getName());
             gameController.attackCharacter(target);
             IGamePhase newPhase = new WaitNextTurnPhase(gameController);
             gameController.setCurrentGamePhase(newPhase);
-            System.out.println("we're here");
+            System.out.println("Attack performed.\n");
         } else {
             prevPhase();
         }

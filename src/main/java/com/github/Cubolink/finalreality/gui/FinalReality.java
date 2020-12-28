@@ -212,22 +212,18 @@ public class FinalReality extends Application {
 
   private static void buttonAAction(ActionEvent event) {
     playSound(event);
-    System.out.println("A PRESSED");
     controller.next();
   }
   private static void buttonBAction(ActionEvent event) {
     playSound(event);
-    System.out.println("B PRESSED");
     controller.prev();
   }
   private static void buttonC_LeftAction(ActionEvent event) {
     playSound(event);
-    System.out.println("C-L PRESSED");
     controller.moveCursorLeft();
   }
   private static void buttonC_RightAction(ActionEvent event) {
     playSound(event);
-    System.out.println("C-R PRESSED");
     controller.moveCursorRight();
   }
 

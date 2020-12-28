@@ -3,11 +3,19 @@ package com.github.Cubolink.finalreality.controller.phases;
 import com.github.Cubolink.finalreality.controller.EnemyIA;
 import com.github.Cubolink.finalreality.controller.GameController;
 
+import java.beans.PropertyChangeSupport;
+
 public class EnemyActionPhase extends AbstractPhase {
     private final EnemyIA enemyIA;
+
     public EnemyActionPhase(GameController gameController) {
         super(gameController, null);
          enemyIA = new EnemyIA(gameController);
+    }
+
+    @Override
+    public boolean isEnemyPhase() {
+        return true;
     }
 
     @Override
@@ -18,7 +26,7 @@ public class EnemyActionPhase extends AbstractPhase {
 
     @Override
     public String getPhaseInfo() {
-        return "The Enemy wants to attack!";
+        return "¡The Enemy (" + gameController.getCurrentCharacter().getName() + ") wants to attack!";
     }
 
     @Override
