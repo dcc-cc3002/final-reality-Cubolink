@@ -2,6 +2,10 @@ package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.GameController;
 
+/**
+ * Select Player Action Phase. When the game is in this phase, the player has to choose what a player character will do.
+ * The player can choose between attack, equip or wait as actions for the character to do.
+ */
 public class SelectPlayerActionPhase extends AbstractPhase {
     /**
      * Private interface to provide phase transition execution methods.
@@ -47,6 +51,9 @@ public class SelectPlayerActionPhase extends AbstractPhase {
         super(gameController, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void nextPhase() {
         actions[getModuleOfIndexPointedByCursor(actions.length)].execute(gameController, this);
@@ -54,11 +61,17 @@ public class SelectPlayerActionPhase extends AbstractPhase {
         // gameController.setCurrentGamePhase(nextGamePhase);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPhaseInfo() {
         return "Select the action you want "+gameController.getCurrentCharacter().getName()+ " to do.";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getPhaseOptions() {
         String[] strings = phaseTransitionNames.clone();

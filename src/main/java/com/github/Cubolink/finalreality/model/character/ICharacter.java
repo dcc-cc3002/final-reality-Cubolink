@@ -14,11 +14,6 @@ import java.beans.PropertyChangeListener;
 public interface ICharacter {
 
     /**
-     * Checks if the character is playable or not
-     */
-    boolean isPlayable();
-
-    /**
      * Add a status effect to the character.
      * @see IStatus
      *
@@ -39,6 +34,10 @@ public interface ICharacter {
      * @see IStatus
      */
     void applyStatuses();
+
+
+
+
 
     /**
      * Sets a scheduled executor to make this character (thread) wait for {@code speed / 10}.
@@ -76,6 +75,13 @@ public interface ICharacter {
 
 
     /**
+     * Checks if the entity is alive, updates its status if it's required.
+     * Fires a property change if the character defeat event happens.
+     * @return true if the entity is alive, and false otherwise.
+     */
+    boolean isAlive();
+
+    /**
      * @return true if the character can attack, false otherwise.
      */
     boolean isAttack_enabled();
@@ -85,6 +91,15 @@ public interface ICharacter {
      * @param attack_enabled true to enable, false to disable.
      */
     void setAttack_enabled(boolean attack_enabled);
+
+
+
+
+
+    /**
+     * Checks if the character is playable or not
+     */
+    boolean isPlayable();
 
     /**
      * Returns this character's name.
@@ -106,12 +121,9 @@ public interface ICharacter {
      */
     double getWeight();
 
-    /**
-     * Checks if the entity is alive, updates its status if it's required.
-     * Fires a property change if the character defeat event happens.
-     * @return true if the entity is alive, and false otherwise.
-     */
-    boolean isAlive();
+
+
+
 
     /**
      * Adds a listener to the character's defeat event.

@@ -11,6 +11,9 @@ public class EnemyFactory implements IEnemyFactory {
         this.turnsQueue = turnsQueue;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Enemy createEnemy(Random random){
         double randomValue = random.nextDouble();
@@ -27,18 +30,30 @@ public class EnemyFactory implements IEnemyFactory {
 
     }
 
+    /**
+     * @return a slime Enemy.
+     */
     private Enemy createSlime(){
         return new Enemy(turnsQueue, "Slime", 30, 10, 5, 8);
     }
 
+    /**
+     * @return a skeleton Enemy.
+     */
     private Enemy createSkeleton(){
         return new Enemy(turnsQueue, "Skeleton", 50, 6, 8, 10);
     }
 
+    /**
+     * @return a dark knight Enemy.
+     */
     private Enemy createDarkKnight(){
         return new Enemy(turnsQueue, "Dark Knight", 60, 12, 15, 15);
     }
 
+    /**
+     * @return a dragon Enemy.
+     */
     private Enemy createDragon(){
         return new Enemy(turnsQueue, "Dragon", 180, 25, 50, 30);
     }

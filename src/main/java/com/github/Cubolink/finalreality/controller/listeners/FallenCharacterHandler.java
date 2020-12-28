@@ -13,6 +13,11 @@ public class FallenCharacterHandler implements PropertyChangeListener {
     private final GameController controller;
     private final PropertyChangeSupport characterDefeatedEvent = new PropertyChangeSupport(this);
 
+    /**
+     * Instantiates the handler.
+     * @param controller to which it is attached.
+     * @param endGameListener which listens the events this handler manages.
+     */
     public FallenCharacterHandler(GameController controller, PropertyChangeListener endGameListener) {
         this.controller = controller;
         characterDefeatedEvent.addPropertyChangeListener(endGameListener);

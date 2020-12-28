@@ -2,18 +2,26 @@ package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.GameController;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
-import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
-import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
-import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
-
 
 import java.util.List;
 
+/**
+ * Select Attacked Target Phase. When the game is in this phase, the player has to choose a target to attack.
+ *
+ */
 public class SelectAttackedTargetPhase extends AbstractPhase {
+    /**
+     * Instantiates a SelectAttackedTargetPhase.
+     * @param gameController which will be in this phase.
+     * @param previousPhase the phase the game was in before changing to this.
+     */
     public SelectAttackedTargetPhase(GameController gameController, IGamePhase previousPhase) {
         super(gameController, previousPhase);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void nextPhase() {
         List<ICharacter> characters = gameController.getCharacterList();
@@ -30,11 +38,17 @@ public class SelectAttackedTargetPhase extends AbstractPhase {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPhaseInfo() {
         return "Select the target you want "+ gameController.getCurrentCharacter().getName()+ " to Attack";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getPhaseOptions() {
         List<ICharacter> characters = gameController.getCharacterList();

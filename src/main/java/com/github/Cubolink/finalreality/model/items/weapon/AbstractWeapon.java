@@ -4,13 +4,13 @@ import com.github.Cubolink.finalreality.model.items.AbstractWearableItem;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
 /**
- * An abstract class with common things that weapon have.
+ * An abstract class with common things that weapon have. Weapons are wearable items.
  */
 public abstract class AbstractWeapon extends AbstractWearableItem implements IWeapon {
     private final int physical_damage;
 
     /**
-     * Instantiate a generic weapon.
+     * Default constructor for weapons.
      * @param name its name.
      * @param physical_damage its base damage when attacking physically.
      * @param weight its weight.

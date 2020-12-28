@@ -54,6 +54,9 @@ public abstract class AbstractCharacter implements ICharacter {
         this.alive = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract boolean isPlayable();
 
@@ -66,21 +69,6 @@ public abstract class AbstractCharacter implements ICharacter {
         characterReadyInQueueEvent.firePropertyChange(getName()+" ready. ", false, true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAttack_enabled() {
-        return attack_enabled;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setAttack_enabled(boolean attack_enabled) {
-        this.attack_enabled = attack_enabled;
-    }
 
     /**
      * {@inheritDoc}
@@ -135,54 +123,15 @@ public abstract class AbstractCharacter implements ICharacter {
 
     }
 
+
+
+
+
     /**
      * {@inheritDoc}
      */
     @Override
     abstract public void waitTurn();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getHp() {
-        return hp;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getMaxHp() {
-        return maxHp;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    abstract public double getWeight();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAlive() {
-        if (alive && hp<=0){
-            alive = false;
-            characterDefeatedEvent.firePropertyChange(getName()+" defeated.", true, false);
-        }
-
-        return alive;
-    }
 
     /**
      * {@inheritDoc}
@@ -222,6 +171,77 @@ public abstract class AbstractCharacter implements ICharacter {
             receiveDamage(magical_damage);
         }
     }
+
+
+
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAlive() {
+        if (alive && hp<=0){
+            alive = false;
+            characterDefeatedEvent.firePropertyChange(getName()+" defeated.", true, false);
+        }
+
+        return alive;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAttack_enabled() {
+        return attack_enabled;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setAttack_enabled(boolean attack_enabled) {
+        this.attack_enabled = attack_enabled;
+    }
+
+
+
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHp() {
+        return hp;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    abstract public double getWeight();
+
+
+
+
 
     /**
      * {@inheritDoc}

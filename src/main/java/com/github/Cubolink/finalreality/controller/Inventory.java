@@ -11,6 +11,9 @@ import java.util.*;
 public class Inventory implements IInventory {
     private final Map<IItem, Integer> inventory = new HashMap<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void storeItem(IItem item) {
         if (inventory.containsKey(item)) {
@@ -20,11 +23,17 @@ public class Inventory implements IInventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<IItem> getItemSet() {
         return inventory.keySet();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IItem takeItem(IItem item) {
         if (inventory.containsKey(item)){
@@ -34,6 +43,9 @@ public class Inventory implements IInventory {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dropItem(IItem item) {
         if (inventory.containsKey(item)) {
@@ -44,6 +56,10 @@ public class Inventory implements IInventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<IWeapon> getWeaponList() {
         Set<IItem> itemSet = inventory.keySet();
         List<IWeapon> weaponList = new ArrayList<>();
@@ -55,6 +71,9 @@ public class Inventory implements IInventory {
         return weaponList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return inventory.isEmpty();

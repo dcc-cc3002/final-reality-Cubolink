@@ -38,20 +38,45 @@ public final class WeaponFactory implements IWeaponFactory {
     private static final double SWORD_FACTOR = 1;
 
 
+    /**
+     * Calculates the name of the weapon based on the material and the kind of weapon.
+     * @param materialName the name of the material the weapon is made of.
+     * @param weaponName the weapon-kind name.
+     * @return the name of the weapon.
+     */
     private String calculateName(String materialName, String weaponName) {
         return materialName + " " + weaponName;
     }
 
+    /**
+     * Calculates the damage of the weapon based on the material and the kind of weapon.
+     * @param materialBaseDmg base damage of the material the weapon is made of.
+     * @param weaponFactor weapon factor characteristic.
+     * @return the damage of the weapon.
+     */
     private int calculateDamage(int materialBaseDmg, double weaponFactor) {
         return (int) (materialBaseDmg * weaponFactor);
     }
 
+    /**
+     * Calculates the weight of the weapon based on the material and the kind of weapon.
+     * @param materialBaseWeight base weight of the material the weapon is made of.
+     * @param weaponFactor weapon factor characteristic.
+     * @return the weight of the weapon.
+     */
     private int calculateWeight(int materialBaseWeight, double weaponFactor) {
         return (int) (materialBaseWeight * weaponFactor);
     }
 
 
 
+    /**
+     * Method with the common behavior when creating an axe.
+     * @param materialName the name of the material.
+     * @param materialBaseDmg the base damage of this material.
+     * @param materialBaseWeight the base weight of this material.
+     * @return an axe with these characteristics.
+     */
     private IWeapon createAxe(String materialName, int materialBaseDmg, int materialBaseWeight) {
         return new Axe(calculateName(materialName, AXE_NAME),
                 calculateDamage(materialBaseDmg, AXE_FACTOR),
@@ -79,6 +104,13 @@ public final class WeaponFactory implements IWeaponFactory {
     }
 
 
+    /**
+     * Method with the common behavior when creating a bow.
+     * @param materialName the name of the material.
+     * @param materialBaseDmg the base damage of this material.
+     * @param materialBaseWeight the base weight of this material.
+     * @return a bow with these characteristics.
+     */
     private IWeapon createBow(String materialName, int materialBaseDmg, int materialBaseWeight) {
         return new Bow(calculateName(materialName, BOW_NAME),
                 calculateDamage(materialBaseDmg, BOW_FACTOR),
@@ -106,6 +138,13 @@ public final class WeaponFactory implements IWeaponFactory {
     }
 
 
+    /**
+     * Method with the common behavior when creating a knife.
+     * @param materialName the name of the material.
+     * @param materialBaseDmg the base damage of this material.
+     * @param materialBaseWeight the base weight of this material.
+     * @return a knife with these characteristics.
+     */
     private IWeapon createKnife(String materialName, int materialBaseDmg, int materialBaseWeight) {
         return new Knife(calculateName(materialName, KNIFE_NAME),
                 calculateDamage(materialBaseDmg, KNIFE_FACTOR),
@@ -133,6 +172,13 @@ public final class WeaponFactory implements IWeaponFactory {
     }
 
 
+    /**
+     * Method with the common behavior when creating a sword.
+     * @param materialName the name of the material.
+     * @param materialBaseDmg the base damage of this material.
+     * @param materialBaseWeight the base weight of this material.
+     * @return a sword with these characteristics.
+     */
     private IWeapon createSword(String materialName, int materialBaseDmg, int materialBaseWeight) {
         return new Sword(calculateName(materialName, SWORD_NAME),
                 calculateDamage(materialBaseDmg, SWORD_FACTOR),
@@ -163,6 +209,7 @@ public final class WeaponFactory implements IWeaponFactory {
     public IWeapon createNormalStaff() {
         return new Staff(STAFF_NAME, 2, 10, 10);
     }
+
 
     @Override
     public int hashCode() {

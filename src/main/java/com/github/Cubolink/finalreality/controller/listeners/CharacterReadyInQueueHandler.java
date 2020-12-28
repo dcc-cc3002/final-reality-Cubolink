@@ -12,6 +12,10 @@ import java.beans.PropertyChangeListener;
 public class CharacterReadyInQueueHandler implements PropertyChangeListener {
     private final GameController controller;
 
+    /**
+     * Instantiates the handler.
+     * @param controller to which it is attached.
+     */
     public CharacterReadyInQueueHandler(GameController controller) {
         this.controller = controller;
     }

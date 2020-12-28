@@ -12,6 +12,10 @@ import java.beans.PropertyChangeListener;
 public class EndGameHandler implements PropertyChangeListener {
     private final GameController controller;
 
+    /**
+     * Instantiates the handler.
+     * @param controller to which it is attached.
+     */
     public EndGameHandler(GameController controller) {
         this.controller = controller;
     }

@@ -5,10 +5,18 @@ package com.github.Cubolink.finalreality.model.items;
  */
 public abstract class AbstractWearableItem extends AbstractItem{
 
+    /**
+     * Default constructor for wearable items.
+     * @param name of the wearable item.
+     * @param weight of the wearable item.
+     */
     public AbstractWearableItem(String name, double weight) {
         super(name, weight);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAWearableItem(){
         return true;

@@ -7,11 +7,19 @@ public abstract class AbstractItem implements  IItem{
     protected final String name;
     protected final double weight;
 
+    /**
+     * Default constructor for Items
+     * @param name of the item.
+     * @param weight of the item.
+     */
     public AbstractItem(String name, double weight) {
         this.name = name;
         this.weight = weight;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract boolean isAWearableItem();
 

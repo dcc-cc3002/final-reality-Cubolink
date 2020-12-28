@@ -6,11 +6,23 @@ import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapo
 
 import java.util.List;
 
+/**
+ * Select Weapon Phase. When the game is in this phase, the player has to choose a weapon to equip.
+ */
 public class SelectWeaponPhase extends AbstractPhase {
+
+    /**
+     * Instantiates a SelectWeaponPhase.
+     * @param gameController which will be in this phase.
+     * @param previousPhase the phase the game was in before changing to this.
+     */
     public SelectWeaponPhase(GameController gameController, IGamePhase previousPhase) {
         super(gameController, previousPhase);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void nextPhase() {
         List<IWeapon> weapons = gameController.getWeaponList();
@@ -20,11 +32,17 @@ public class SelectWeaponPhase extends AbstractPhase {
         prevPhase();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPhaseInfo() {
         return "Select the weapon you want " + gameController.getCurrentCharacter().getName() + " to equip.";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getPhaseOptions() {
         List<IWeapon> weapons = gameController.getWeaponList();
