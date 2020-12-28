@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
-import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 
 /**
  * Select Player Action Phase. When the game is in this phase, the player has to choose what a player character will do.
@@ -16,7 +16,7 @@ public class SelectPlayerActionPhase extends AbstractPhase {
          * @param gameController to which the phase will be associated.
          * @param previousPhase the phase that was previous to the new phase
          */
-        void execute(GameController gameController, IGamePhase previousPhase);
+        void execute(IGameController gameController, IGamePhase previousPhase);
     }
 
     /**
@@ -47,7 +47,7 @@ public class SelectPlayerActionPhase extends AbstractPhase {
      * Select Player Action Phase default constructor.
      * @param gameController which this gamePhase is associated to.
      */
-    public SelectPlayerActionPhase(GameController gameController) {
+    public SelectPlayerActionPhase(IGameController gameController) {
         super(gameController, null);
     }
 

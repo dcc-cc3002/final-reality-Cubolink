@@ -71,14 +71,16 @@ public class GameController implements IGameController{
         current_number_of_player_characters = 0;
         current_number_of_enemy_characters = 0;
     }
-
+    @Override
     public int getMaxPlayerCharacterNum() {
         return MAX_PLAYER_CHARACTER_NUM;
     }
+    @Override
     public int getMaxEnemyCharacterNum() {
         return MAX_ENEMY_CHARACTER_NUM;
     }
 
+    @Override
     public void setUp() {
         createKnightPlayer();
         createThiefPlayer();
@@ -111,23 +113,26 @@ public class GameController implements IGameController{
         new WaitNextTurnPhase(this);
     }
 
+    @Override
     public void setCurrentGamePhase(IGamePhase newPhase) {
 
         currentGamePhase = newPhase;
         resetIndexPointedByCursor();
     }
-    public boolean inWaitingPhase() {
-        return currentGamePhase.isWaitingPhase();
-    }
-    public boolean inEnemyPhase() {
+
+    @Override
+    public boolean inEnemyTurn() {
         return currentGamePhase.isEnemyPhase();
     }
+    @Override
     public String getPhaseInfo() {
         return currentGamePhase.getPhaseInfo();
     }
+    @Override
     public String[] getPhaseOptions() {
         return currentGamePhase.getPhaseOptions();
     }
+    @Override
     public String[] getPlayerCharactersInfo() {
         String[] charactersInfo = new String[current_number_of_player_characters];
         for (int i = 0; i < current_number_of_player_characters; i++) {
@@ -135,6 +140,7 @@ public class GameController implements IGameController{
         }
         return charactersInfo;
     }
+    @Override
     public String[] getEnemyCharactersInfo() {
         String[] charactersInfo = new String[current_number_of_enemy_characters];
         for (int i = 0; i < current_number_of_enemy_characters; i++) {
@@ -143,17 +149,21 @@ public class GameController implements IGameController{
         return charactersInfo;
     }
 
+    @Override
     public short getIndexPointedByCursor() {
         return indexPointedByCursor;
     }
 
+    @Override
     public void resetIndexPointedByCursor() {
         indexPointedByCursor = 0;
     }
 
+    @Override
     public void moveCursorRight() {
         indexPointedByCursor += 1;
     }
+    @Override
     public void moveCursorLeft() {
         indexPointedByCursor -= 1;
     }
@@ -166,13 +176,17 @@ public class GameController implements IGameController{
             nextTurnEvent.firePropertyChange("EnemyIA listens the new phase", false, true);
         }
     }
+
+    @Override
     public boolean thereAreCharactersWaiting() {
         return !turnsQueue.isEmpty();
     }
 
+    @Override
     public void next() {
         currentGamePhase.nextPhase();
     }
+    @Override
     public void prev() {
         currentGamePhase.prevPhase();
     }
@@ -209,8 +223,10 @@ public class GameController implements IGameController{
         return alivePlayerCharacterNumber == 0 || aliveEnemyNumber == 0;
     }
 
-    @Override
-    public BlockingQueue<ICharacter> getTurnsQueue() {
+    /**
+     * @return the turns queue that the controller is using
+     */
+    protected BlockingQueue<ICharacter> getTurnsQueue() {
         return turnsQueue;
     }
 
@@ -224,6 +240,7 @@ public class GameController implements IGameController{
         currentCharacter = turnsQueue.poll();
     }
 
+    @Override
     public List<ICharacter> getCharacterList() {
         return characters;
     }
@@ -256,14 +273,11 @@ public class GameController implements IGameController{
                 + "LIFE: " + enemy.getHp() + "/" + enemy.getMaxHp();
     }
 
-    @Override
-    public String getCharacterInfo() {
-        if (currentCharacter.isPlayable()) {
-            return getCharacterInfo((IPlayerCharacter) currentCharacter);
-        } else {
-            return getCharacterInfo((Enemy) currentCharacter);
-        }
-    }
+
+
+
+
+//    Character Actions
 
     @Override
     public void waitCharacter() {
@@ -310,6 +324,11 @@ public class GameController implements IGameController{
 
     }
 
+
+
+//    Inventory management
+
+
     @Override
     public void storeItem(IItem item) {
         playerInventory.storeItem(item);
@@ -330,9 +349,14 @@ public class GameController implements IGameController{
         playerInventory.dropItem(item);
     }
 
+    @Override
     public List<IWeapon> getWeaponList() {
         return playerInventory.getWeaponList();
     }
+
+
+//    Character Creation
+
 
     /**
      * Setup method for creating characters.
@@ -429,6 +453,9 @@ public class GameController implements IGameController{
         }
     }
 
+
+
+    //    Weapon Creation
     @Override
     public void createBronzeAxe() {
         storeItem(weaponFactory.createBronzeAxe());

@@ -54,7 +54,7 @@ class GameControllerTest {
     void testControllerSetUp() throws InterruptedException {
         controller.setUp();
         Thread.sleep(6000);
-        assertFalse(controller.getTurnsQueue().isEmpty());
+        assertTrue(controller.thereAreCharactersWaiting());
         System.out.println(controller.getPhaseInfo());
     }
 
@@ -62,12 +62,12 @@ class GameControllerTest {
     void testStart() throws InterruptedException {
         // Check the game doesn't start when we don't have neither enemies nor player characters
         controller.start();
-        assertTrue(controller.getTurnsQueue().isEmpty());
+        assertFalse(controller.thereAreCharactersWaiting());
 
         // Check the game doesn't start when we don't have player characters
         controller.createEnemy();
         controller.start();
-        assertTrue(controller.getTurnsQueue().isEmpty());
+        assertFalse(controller.thereAreCharactersWaiting());
 
         // Check the game does start when our player characters and enemies are ready
         controller.createKnightPlayer();
@@ -75,7 +75,7 @@ class GameControllerTest {
         controller.equipWeaponToCharacter(weaponFactory.createIronSword(), controller.getCharacterPlayerList().get(0));
         controller.start();
         Thread.sleep(6000);
-        assertFalse(controller.getTurnsQueue().isEmpty());
+        assertTrue(controller.thereAreCharactersWaiting());
 
     }
 

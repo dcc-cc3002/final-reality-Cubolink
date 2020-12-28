@@ -10,13 +10,13 @@ import java.util.List;
  * EnemyIA Handler. Listens the turn events and execute actions when the controller is in an enemy phase.
  */
 public class EnemyIA implements PropertyChangeListener {
-    private final GameController gameController;
+    private final IGameController gameController;
 
     /**
      * Default constructor for the EnemyIA. Instantiates the IA.
      * @param gameController to which the IA is associated.
      */
-    public EnemyIA(GameController gameController) {
+    public EnemyIA(IGameController gameController) {
         this.gameController = gameController;
     }
 
@@ -28,7 +28,7 @@ public class EnemyIA implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt){
         System.out.println("Enemy listens the New phase");
-        if (gameController.inEnemyPhase()) {
+        if (gameController.inEnemyTurn()) {
             System.out.println("In Enemy phase => Enemy do stuff");
             gameController.next();// action();
         } else {

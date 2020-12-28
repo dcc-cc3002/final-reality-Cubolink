@@ -1,12 +1,12 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
-import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 
 /**
  * Abstract class with common Game Phases behaviour.
  */
 public abstract class AbstractPhase implements IGamePhase{
-    protected GameController gameController;
+    protected IGameController gameController;
     protected IGamePhase previousPhase;
 
     /**
@@ -14,7 +14,7 @@ public abstract class AbstractPhase implements IGamePhase{
      * @param gameController which will be on the instantiated phase.
      * @param previousPhase the previous phase.
      */
-    public AbstractPhase(GameController gameController, IGamePhase previousPhase) {
+    public AbstractPhase(IGameController gameController, IGamePhase previousPhase) {
         this.gameController = gameController;
         this.previousPhase = previousPhase;
         gameController.setCurrentGamePhase(this);

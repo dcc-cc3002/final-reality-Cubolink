@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
-import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class SelectAttackedTargetPhase extends AbstractPhase {
      * @param gameController which will be in this phase.
      * @param previousPhase the phase the game was in before changing to this.
      */
-    public SelectAttackedTargetPhase(GameController gameController, IGamePhase previousPhase) {
+    public SelectAttackedTargetPhase(IGameController gameController, IGamePhase previousPhase) {
         super(gameController, previousPhase);
     }
 

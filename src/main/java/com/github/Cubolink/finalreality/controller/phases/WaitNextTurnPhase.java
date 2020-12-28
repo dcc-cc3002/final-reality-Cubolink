@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
-import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 
 /**
  * Wait Next Turn Phase. When the controller is in this phase,
@@ -12,7 +12,7 @@ public class WaitNextTurnPhase extends AbstractPhase{
      * Instantiates a WaitNextTurnPhase.
      * @param gameController which will be in this phase.
      */
-    public WaitNextTurnPhase(GameController gameController) {
+    public WaitNextTurnPhase(IGameController gameController) {
         super(gameController, null);
     }
 

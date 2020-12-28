@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.gui;
 
 import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -33,7 +34,7 @@ import java.io.IOException;
  */
 public class FinalReality extends Application {
   private static final String RESOURCE_PATH = "src/main/resources/";
-  private static final GameController controller = new GameController();
+  private static final IGameController controller = new GameController();
   private static final double width = 850;
   private static final double height = 600;
 

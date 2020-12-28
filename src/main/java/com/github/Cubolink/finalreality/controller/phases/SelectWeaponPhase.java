@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
-import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
@@ -16,7 +16,7 @@ public class SelectWeaponPhase extends AbstractPhase {
      * @param gameController which will be in this phase.
      * @param previousPhase the phase the game was in before changing to this.
      */
-    public SelectWeaponPhase(GameController gameController, IGamePhase previousPhase) {
+    public SelectWeaponPhase(IGameController gameController, IGamePhase previousPhase) {
         super(gameController, previousPhase);
     }
 

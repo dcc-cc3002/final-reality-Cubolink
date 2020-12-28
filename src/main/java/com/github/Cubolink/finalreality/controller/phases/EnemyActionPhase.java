@@ -1,9 +1,7 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.EnemyIA;
-import com.github.Cubolink.finalreality.controller.GameController;
-
-import java.beans.PropertyChangeSupport;
+import com.github.Cubolink.finalreality.controller.IGameController;
 
 /**
  * Enemy Action Phase. The controller being in this phase indicates that it's the enemy turn.
@@ -16,7 +14,7 @@ public class EnemyActionPhase extends AbstractPhase {
      * Instantiates an Enemy Action Phase.
      * @param gameController which will be in this phase.
      */
-    public EnemyActionPhase(GameController gameController) {
+    public EnemyActionPhase(IGameController gameController) {
         super(gameController, null);
          enemyIA = new EnemyIA(gameController);
     }
