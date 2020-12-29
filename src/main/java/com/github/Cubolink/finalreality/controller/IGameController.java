@@ -131,8 +131,6 @@ public interface IGameController {
      */
     String[] getPhaseOptions();
 
-
-
     /**
      * A character who gets in the queue call this method
      */

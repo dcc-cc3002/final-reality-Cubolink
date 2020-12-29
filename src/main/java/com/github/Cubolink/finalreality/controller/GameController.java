@@ -71,14 +71,6 @@ public class GameController implements IGameController{
         current_number_of_player_characters = 0;
         current_number_of_enemy_characters = 0;
     }
-    @Override
-    public int getMaxPlayerCharacterNum() {
-        return MAX_PLAYER_CHARACTER_NUM;
-    }
-    @Override
-    public int getMaxEnemyCharacterNum() {
-        return MAX_ENEMY_CHARACTER_NUM;
-    }
 
     @Override
     public void setUp() {
@@ -99,18 +91,57 @@ public class GameController implements IGameController{
         start();
     }
 
+    // Controller user methods
+
+    @Override
+    public void next() {
+        currentGamePhase.nextPhase();
+    }
+
+    @Override
+    public void prev() {
+        currentGamePhase.prevPhase();
+    }
+
+    @Override
+    public void moveCursorRight() {
+        indexPointedByCursor += 1;
+    }
+
+    @Override
+    public void moveCursorLeft() {
+        indexPointedByCursor -= 1;
+    }
+
+    // Controller flow methods
+
     @Override
     public void start() {
         // Check both enemy and player parties have at least one member each
         if (current_number_of_enemy_characters == 0 || current_number_of_player_characters == 0) {
             return;
         }
+        new WaitNextTurnPhase(this);
 
         // Now we can put all characters to join to the turns queue
         for (ICharacter character: characters) {
             character.waitTurn();
         }
-        new WaitNextTurnPhase(this);
+    }
+
+    @Override
+    public void end() {
+        System.out.println("Game Over");
+        if (current_number_of_player_characters > 0) {
+            System.out.println("The Player has won");
+        } else {
+            System.out.println("The Enemy has beaten the player");
+        }
+    }
+
+    @Override
+    public void nextCharacterInQueue() {
+        currentCharacter = turnsQueue.poll();
     }
 
     @Override
@@ -118,35 +149,6 @@ public class GameController implements IGameController{
 
         currentGamePhase = newPhase;
         resetIndexPointedByCursor();
-    }
-
-    @Override
-    public boolean inEnemyTurn() {
-        return currentGamePhase.isEnemyPhase();
-    }
-    @Override
-    public String getPhaseInfo() {
-        return currentGamePhase.getPhaseInfo();
-    }
-    @Override
-    public String[] getPhaseOptions() {
-        return currentGamePhase.getPhaseOptions();
-    }
-    @Override
-    public String[] getPlayerCharactersInfo() {
-        String[] charactersInfo = new String[current_number_of_player_characters];
-        for (int i = 0; i < current_number_of_player_characters; i++) {
-            charactersInfo[i] = getCharacterInfo(playerCharactersList.get(i));
-        }
-        return charactersInfo;
-    }
-    @Override
-    public String[] getEnemyCharactersInfo() {
-        String[] charactersInfo = new String[current_number_of_enemy_characters];
-        for (int i = 0; i < current_number_of_enemy_characters; i++) {
-            charactersInfo[i] = getCharacterInfo(enemiesList.get(i));
-        }
-        return charactersInfo;
     }
 
     @Override
@@ -159,13 +161,78 @@ public class GameController implements IGameController{
         indexPointedByCursor = 0;
     }
 
+    // General game information
+
     @Override
-    public void moveCursorRight() {
-        indexPointedByCursor += 1;
+    public List<ICharacter> getCharacterList() {
+        return characters;
+    }
+
+    @Override
+    public List<IPlayerCharacter> getCharacterPlayerList() {
+        return playerCharactersList;
+    }
+
+    @Override
+    public List<Enemy> getEnemyList() {
+        return enemiesList;
+    }
+
+    private String getCharacterInfo(IPlayerCharacter playerCharacter) {
+
+        IWeapon weapon = playerCharacter.getEquippedWeapon();
+        String weaponName = (weapon != null) ? weapon.getName(): "None.";
+
+        return playerCharacter.getName()
+                + " (" + playerCharacter.getCharacterClass().getClassname() + ").\n"
+                + "LIFE: " + playerCharacter.getHp() + "/" + playerCharacter.getMaxHp() + "\n"
+                + "MANA: " + playerCharacter.getCharacterClass().getMana() + "\n"
+                + "WEAPON: " + weaponName;
+    }
+
+    private String getCharacterInfo(Enemy enemy) {
+        return enemy.getName()
+                + " (Enemy).\n"
+                + "LIFE: " + enemy.getHp() + "/" + enemy.getMaxHp();
+    }
+
+    @Override
+    public String[] getPlayerCharactersInfo() {
+        String[] charactersInfo = new String[current_number_of_player_characters];
+        for (int i = 0; i < current_number_of_player_characters; i++) {
+            charactersInfo[i] = getCharacterInfo(playerCharactersList.get(i));
+        }
+        return charactersInfo;
+    }
+
+    @Override
+    public String[] getEnemyCharactersInfo() {
+        String[] charactersInfo = new String[current_number_of_enemy_characters];
+        for (int i = 0; i < current_number_of_enemy_characters; i++) {
+            charactersInfo[i] = getCharacterInfo(enemiesList.get(i));
+        }
+        return charactersInfo;
+    }
+
+    @Override
+    public int getMaxPlayerCharacterNum() {
+        return MAX_PLAYER_CHARACTER_NUM;
     }
     @Override
-    public void moveCursorLeft() {
-        indexPointedByCursor -= 1;
+    public int getMaxEnemyCharacterNum() {
+        return MAX_ENEMY_CHARACTER_NUM;
+    }
+
+    // Game temporal information
+
+
+    @Override
+    public String getPhaseInfo() {
+        return currentGamePhase.getPhaseInfo();
+    }
+    @Override
+    public String[] getPhaseOptions() {
+        return currentGamePhase.getPhaseOptions();
     }
 
     @Override
@@ -183,22 +250,8 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public void next() {
-        currentGamePhase.nextPhase();
-    }
-    @Override
-    public void prev() {
-        currentGamePhase.prevPhase();
-    }
-
-    @Override
-    public void end() {
-        System.out.println("Game Over");
-        if (current_number_of_player_characters > 0) {
-            System.out.println("The Player has won");
-        } else {
-            System.out.println("The Enemy has beaten the player");
-        }
+    public boolean inEnemyTurn() {
+        return currentGamePhase.isEnemyPhase();
     }
 
     @Override
@@ -234,46 +287,6 @@ public class GameController implements IGameController{
     public ICharacter getCurrentCharacter() {
         return currentCharacter;
     }
-
-    @Override
-    public void nextCharacterInQueue() {
-        currentCharacter = turnsQueue.poll();
-    }
-
-    @Override
-    public List<ICharacter> getCharacterList() {
-        return characters;
-    }
-
-    @Override
-    public List<IPlayerCharacter> getCharacterPlayerList() {
-        return playerCharactersList;
-    }
-
-    @Override
-    public List<Enemy> getEnemyList() {
-        return enemiesList;
-    }
-
-    private String getCharacterInfo(IPlayerCharacter playerCharacter) {
-
-        IWeapon weapon = playerCharacter.getEquippedWeapon();
-        String weaponName = (weapon != null) ? weapon.getName(): "None.";
-
-        return playerCharacter.getName()
-                + " (" + playerCharacter.getCharacterClass().getClassname() + ").\n"
-                + "LIFE: " + playerCharacter.getHp() + "/" + playerCharacter.getMaxHp() + "\n"
-                + "MANA: " + playerCharacter.getCharacterClass().getMana() + "\n"
-                + "WEAPON: " + weaponName;
-    }
-
-    private String getCharacterInfo(Enemy enemy) {
-        return enemy.getName()
-                + " (Enemy).\n"
-                + "LIFE: " + enemy.getHp() + "/" + enemy.getMaxHp();
-    }
-
-
 
 
 
