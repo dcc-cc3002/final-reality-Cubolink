@@ -2,6 +2,8 @@ package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
 
+import java.util.List;
+
 /**
  * Abstract class with common Game Phases behaviour.
  */
@@ -22,12 +24,12 @@ public abstract class AbstractPhase implements IGamePhase{
 
     /**
      * Gets the controller index pointed by cursor and returns the module.
-     * @param module Usually the length of an array.
-     * @return the module of the index pointed by cursor, in order to the number not be out of range.
+     * @param module Usually the length of an array. This parameter must not be zero (the array can't be empty).
+     * @return module integer of the index pointed by cursor.
      */
     protected int getModuleOfIndexPointedByCursor(int module) {
         if (module == 0) {
-            return 0;
+            return -1;
         }
         int x = (gameController.getIndexPointedByCursor() % module);
         return x  >= 0 ? x: x+module;

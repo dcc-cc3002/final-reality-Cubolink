@@ -3,6 +3,7 @@ package com.github.Cubolink.finalreality.controller.phases;
 import com.github.Cubolink.finalreality.controller.IGameController;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,10 +25,12 @@ public class SelectAttackedTargetPhase extends AbstractPhase {
      */
     @Override
     public void nextPhase() {
-        List<ICharacter> characters = gameController.getCharacterList();
-        ICharacter target = characters.get(gameController.getIndexPointedByCursor() % characters.size());
+        List<ICharacter> aliveCharacters = gameController.getAliveCharactersList();
+
+        ICharacter target = aliveCharacters.get(getModuleOfIndexPointedByCursor(aliveCharacters.size()));
+
         if (target.isAlive()) {
-            System.out.println(gameController.getCurrentCharacter().getName() + " tries to attack "+target.getName());
+            System.out.println(gameController.getCurrentCharacter().getName() + " tries to attack " + target.getName());
             gameController.attackCharacter(target);
             IGamePhase newPhase = new WaitNextTurnPhase(gameController);
             gameController.setCurrentGamePhase(newPhase);
@@ -51,7 +54,7 @@ public class SelectAttackedTargetPhase extends AbstractPhase {
      */
     @Override
     public String[] getPhaseOptions() {
-        List<ICharacter> characters = gameController.getCharacterList();
+        List<ICharacter> characters = gameController.getAliveCharactersList();
         String[] strings = new String[characters.size()];
 
         for (int i = 0; i < characters.size(); i++) {

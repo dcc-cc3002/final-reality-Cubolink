@@ -14,15 +14,15 @@ public final class WeaponFactory implements IWeaponFactory {
     private static final String STEEL_NAME = "Steel";
     private static final String SILVER_NAME = "Silver";
     // Material Base Damage constants
-    private static final int BRONZE_BASE_DMG = 4;
-    private static final int IRON_BASE_DMG = 5;
-    private static final int STEEL_BASE_DMG = 6;
-    private static final int SILVER_BASE_DMG = 7;
+    private static final int BRONZE_BASE_DMG = 11;
+    private static final int IRON_BASE_DMG = 14;
+    private static final int STEEL_BASE_DMG = 18;
+    private static final int SILVER_BASE_DMG = 24;
     // Material Base Weight constants
-    private static final int BRONZE_BASE_WEIGHT = 8;
-    private static final int IRON_BASE_WEIGHT = 6;
-    private static final int STEEL_BASE_WEIGHT = 7;
-    private static final int SILVER_BASE_WEIGHT = 10;
+    private static final int BRONZE_BASE_WEIGHT = 9;
+    private static final int IRON_BASE_WEIGHT = 7;
+    private static final int STEEL_BASE_WEIGHT = 8;
+    private static final int SILVER_BASE_WEIGHT = 11;
 
     // Weapon String constants name
     private static final String AXE_NAME = "Axe";
@@ -31,7 +31,7 @@ public final class WeaponFactory implements IWeaponFactory {
     private static final String STAFF_NAME = "Staff";
     private static final String SWORD_NAME = "Sword";
     // Weapon Factor
-    private static final double AXE_FACTOR = 1.3;
+    private static final double AXE_FACTOR = 1.2;
     private static final double BOW_FACTOR = 0.8;
     private static final double KNIFE_FACTOR = 0.6;
     private static final double STAFF_FACTOR = 0.4;

@@ -11,7 +11,7 @@ application {
     mainClassName = "$moduleName/com.github.Cubolink.finalreality.gui.FinalReality"
 }
 
-group = "com.github.cc3002"
+group = "com.Cubolink.cc3002"
 version = "1.0-RELEASE"
 
 repositories {

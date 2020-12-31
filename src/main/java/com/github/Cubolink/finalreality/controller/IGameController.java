@@ -82,9 +82,9 @@ public interface IGameController {
 //  General game information
 
     /**
-     * @return the list of characters
+     * @return the list of characters that are alive
      */
-    List<ICharacter> getCharacterList();
+    List<ICharacter> getAliveCharactersList();
 
     /**
      * @return the list of the player characters

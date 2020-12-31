@@ -26,7 +26,10 @@ public class SelectWeaponPhase extends AbstractPhase {
     @Override
     public void nextPhase() {
         List<IWeapon> weapons = gameController.getWeaponList();
-        IWeapon selectedWeapon = weapons.get(gameController.getIndexPointedByCursor());
+        if (weapons.size() == 0) {
+            return;
+        }
+        IWeapon selectedWeapon = weapons.get(getModuleOfIndexPointedByCursor(weapons.size()));
         gameController.equipWeaponToCharacter(selectedWeapon, (IPlayerCharacter) gameController.getCurrentCharacter());
 
         prevPhase();

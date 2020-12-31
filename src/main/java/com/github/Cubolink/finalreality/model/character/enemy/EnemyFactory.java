@@ -34,14 +34,14 @@ public class EnemyFactory implements IEnemyFactory {
      * @return a slime Enemy.
      */
     private Enemy createSlime(){
-        return new Enemy(turnsQueue, "Slime", 30, 10, 5, 8);
+        return new Enemy(turnsQueue, "Slime", 30, 4, 5, 8);
     }
 
     /**
      * @return a skeleton Enemy.
      */
     private Enemy createSkeleton(){
-        return new Enemy(turnsQueue, "Skeleton", 50, 6, 8, 10);
+        return new Enemy(turnsQueue, "Skeleton", 50, 8, 8, 10);
     }
 
     /**

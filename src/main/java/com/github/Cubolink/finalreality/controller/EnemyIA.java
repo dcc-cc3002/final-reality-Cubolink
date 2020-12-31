@@ -30,7 +30,7 @@ public class EnemyIA implements PropertyChangeListener {
         System.out.println("Enemy listens the New phase");
         if (gameController.inEnemyTurn()) {
             System.out.println("In Enemy phase => Enemy do stuff");
-            gameController.next();// action();
+            gameController.next();
         } else {
             System.out.println("Not in enemy phase => Enemy doesn't do anything");
         }

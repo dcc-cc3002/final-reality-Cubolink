@@ -142,11 +142,14 @@ public class GameController implements IGameController{
     @Override
     public void nextCharacterInQueue() {
         currentCharacter = turnsQueue.poll();
+        if (currentCharacter != null && !currentCharacter.isAlive()) {
+            // we remove the character of the turns queue via passing him
+            nextCharacterInQueue();
+        }
     }
 
     @Override
     public void setCurrentGamePhase(IGamePhase newPhase) {
-
         currentGamePhase = newPhase;
         resetIndexPointedByCursor();
     }
@@ -164,8 +167,11 @@ public class GameController implements IGameController{
     // General game information
 
     @Override
-    public List<ICharacter> getCharacterList() {
-        return characters;
+    public List<ICharacter> getAliveCharactersList() {
+        List<ICharacter> aliveCharacters = new ArrayList<>(List.copyOf(characters));
+        aliveCharacters.removeIf(character -> !character.isAlive());
+
+        return aliveCharacters;
     }
 
     @Override

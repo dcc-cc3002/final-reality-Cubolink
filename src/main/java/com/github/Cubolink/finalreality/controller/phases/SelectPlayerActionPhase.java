@@ -57,8 +57,6 @@ public class SelectPlayerActionPhase extends AbstractPhase {
     @Override
     public void nextPhase() {
         actions[getModuleOfIndexPointedByCursor(actions.length)].execute(gameController, this);
-        // IGamePhase nextGamePhase = possibleActions.get(getModuleOfIndexPointedByCursor(possibleActions.size()));
-        // gameController.setCurrentGamePhase(nextGamePhase);
     }
 
     /**
