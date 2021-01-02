@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
+import com.github.Cubolink.finalreality.gui.CursorSprite;
 
 import java.util.List;
 
@@ -78,4 +79,11 @@ public abstract class AbstractPhase implements IGamePhase{
      */
     @Override
     public abstract String[] getPhaseOptions();
+
+    @Override
+    public void setCursorSpritePosition(CursorSprite cursorSprite) {
+        // we hide de cursor
+        cursorSprite.setCx(-50);
+        cursorSprite.setCy(-50);
+    }
 }

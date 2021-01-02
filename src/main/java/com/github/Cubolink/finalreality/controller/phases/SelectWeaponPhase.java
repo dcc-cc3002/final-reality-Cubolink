@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
+import com.github.Cubolink.finalreality.gui.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
@@ -61,5 +62,11 @@ public class SelectWeaponPhase extends AbstractPhase {
             }
         }
         return strings;
+    }
+
+    @Override
+    public void setCursorSpritePosition(CursorSprite cursorSprite) {
+        cursorSprite.setCx(0);
+        cursorSprite.setCy(0);
     }
 }

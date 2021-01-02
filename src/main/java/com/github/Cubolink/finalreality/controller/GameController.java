@@ -5,6 +5,9 @@ import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
 import com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase;
+import com.github.Cubolink.finalreality.gui.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.CursorSprite;
+import com.github.Cubolink.finalreality.gui.FinalReality;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
 import com.github.Cubolink.finalreality.model.character.enemy.IEnemyFactory;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacterFactory;
@@ -16,8 +19,12 @@ import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.items.weapon.IWeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
+import javafx.scene.image.Image;
+import javafx.util.Pair;
 
 import java.beans.PropertyChangeSupport;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -41,6 +48,9 @@ public class GameController implements IGameController{
     private static List<ICharacter> characters;
     private static List<IPlayerCharacter> playerCharactersList;
     private static List<Enemy> enemiesList;
+    // Sprite control
+    private List<CharacterSpriteGroup> characterSprites;
+    private CursorSprite cursorSprite;
     // Creation tools
     private static IWeaponFactory weaponFactory;
     private static IEnemyFactory enemyFactory;
@@ -164,7 +174,17 @@ public class GameController implements IGameController{
         indexPointedByCursor = 0;
     }
 
+    @Override
+    public void updateCursorSpritePosition() {
+        currentGamePhase.setCursorSpritePosition(cursorSprite);
+    }
+
     // General game information
+
+    @Override
+    public int getTotalNumberOfCharacters() {
+        return playerCharactersList.size() + enemiesList.size();
+    }
 
     @Override
     public List<ICharacter> getAliveCharactersList() {
@@ -294,9 +314,25 @@ public class GameController implements IGameController{
         return currentCharacter;
     }
 
+    @Override
+    public double getSpriteCharacterCx(int i_sprite) {
+        return characterSprites.get(i_sprite).getCx();
+    }
+    @Override
+    public double getSpriteCharacterCy(int i_sprite) {
+        return characterSprites.get(i_sprite).getCy();
+    }
 
+    @Override
+    public void updateCharacterSpritesInformation() {
 
-//    Character Actions
+        for (int i = 0; i < characterSprites.size(); i++) {
+            characterSprites.get(i).setName(characters.get(i).getName());
+            characterSprites.get(i).setSubtitle(characters.get(i).getHp() + "/" + characters.get(i).getMaxHp());
+        }
+    }
+
+    //    Character Actions
 
     @Override
     public void waitCharacter() {
@@ -472,7 +508,45 @@ public class GameController implements IGameController{
         }
     }
 
+    @Override
+    public void linkCursorSprite(CursorSprite cursorSprite) {
+        this.cursorSprite = cursorSprite;
+    }
 
+    @Override
+    public void linkCharacterSprites(CharacterSpriteGroup[] characterSpritesList, double player_cy, double enemy_cy) throws FileNotFoundException {
+        double player_step = playerCharactersList.size() + 1;
+        int player_cont = 1;
+
+        double enemy_step = enemiesList.size() + 1;
+        int enemy_cont = 1;
+
+        characterSprites = new ArrayList<>();
+        for (int i=0; i < characters.size(); i++) {
+            characterSprites.add(characterSpritesList[i]);
+
+            // set images
+            String[] fileNames = characters.get(i).getSpriteFileNames();
+            Image[] images = new Image[fileNames.length];
+            for (int j = 0; j < fileNames.length; j++) {
+                images[j] = new Image(new FileInputStream(fileNames[j]));
+            }
+            characterSprites.get(i).setImages(images);
+
+            // set cx, cy
+            if (characters.get(i).isPlayable()) {
+                characterSprites.get(i).setCx(((double) player_cont) * FinalReality.getWidth() /player_step);
+                characterSprites.get(i).setCy(player_cy);
+                player_cont++;
+            } else {
+                characterSprites.get(i).setCx(((double) enemy_cont) * FinalReality.getWidth()/enemy_step);
+                characterSprites.get(i).setCy(enemy_cy);
+                enemy_cont++;
+            }
+
+            characterSprites.get(i).updateDrawing(0);
+        }
+    }
 
     //    Weapon Creation
     @Override

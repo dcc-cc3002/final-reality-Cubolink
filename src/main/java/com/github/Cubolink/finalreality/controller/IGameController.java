@@ -1,12 +1,15 @@
 package com.github.Cubolink.finalreality.controller;
 
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
+import com.github.Cubolink.finalreality.gui.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.items.IItem;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Set;
 
@@ -77,6 +80,11 @@ public interface IGameController {
      */
     void resetIndexPointedByCursor();
 
+    /**
+     * Updates the cursor's sprite position.
+     */
+    void updateCursorSpritePosition();
+
 
 
 //  General game information
@@ -105,6 +113,11 @@ public interface IGameController {
      * @return an array of Strings with the information of each enemy in the game.
      */
     String[] getEnemyCharactersInfo();
+
+    /**
+     * @return the number of characters that are in the game, alive of not.
+     */
+    int getTotalNumberOfCharacters();
 
     /**
      * @return the max number of player characters allowed in the game.
@@ -157,6 +170,13 @@ public interface IGameController {
      */
     ICharacter getCurrentCharacter();
 
+    double getSpriteCharacterCx(int i_sprite);
+    double getSpriteCharacterCy(int i_sprite);
+
+    /**
+     * Update the information of each character sprite.
+     */
+    void updateCharacterSpritesInformation();
 
 
 //  Character actions
@@ -247,11 +267,20 @@ public interface IGameController {
      */
     void createThiefPlayer();
 
+    /**
+     * Receives a cursor sprite, then the controller links it with its not graphic cursor.
+     * @param cursorSprite the sprite of the cursor to link.
+     */
+    void linkCursorSprite(CursorSprite cursorSprite);
 
+    /**
+     * Receives an array of sprites, then the controller links each of them to a character in the game.
+     * @param characterSpritesArray the sprite list to link.
+     */
+    void linkCharacterSprites(CharacterSpriteGroup[] characterSpritesArray, double player_cy, double enemy_cy) throws FileNotFoundException;
 
 
 //    Weapon creation methods
-
 
     /**
      * Creates and stores a Bronze Axe

@@ -1,5 +1,7 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
+import com.github.Cubolink.finalreality.gui.CursorSprite;
+
 /**
  * Interface to define what represents a Game Phase.
  * A Game Phase can move to other game phases,
@@ -35,4 +37,9 @@ public interface IGamePhase {
      * @return a string array with the actions that the phase can take.
      */
     String[] getPhaseOptions();
+
+    /**
+     * Sets the controller's cursor position.
+     */
+    void setCursorSpritePosition(CursorSprite cursorSprite);
 }

@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
+import com.github.Cubolink.finalreality.gui.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 
 import java.util.Collections;
@@ -66,5 +67,14 @@ public class SelectAttackedTargetPhase extends AbstractPhase {
         }
 
         return strings;
+    }
+
+    @Override
+    public void setCursorSpritePosition(CursorSprite cursorSprite) {
+        //int cursor = getModuleOfIndexPointedByCursor(gameController.getTotalNumberOfCharacters());
+        int cursor = getModuleOfIndexPointedByCursor(gameController.getAliveCharactersList().size());
+
+        cursorSprite.setCx(gameController.getSpriteCharacterCx(cursor));
+        cursorSprite.setCy(gameController.getSpriteCharacterCy(cursor));
     }
 }

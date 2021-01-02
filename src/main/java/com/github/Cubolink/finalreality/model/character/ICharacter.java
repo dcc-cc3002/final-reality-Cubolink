@@ -14,6 +14,17 @@ import java.beans.PropertyChangeListener;
 public interface ICharacter {
 
     /**
+     * Sets a list of image file names which conform the animation of the character
+     * @param fileNames of the animation' images.
+     */
+    void setSpriteFileNames(String[] fileNames);
+
+    /**
+     * Get the image file names which conform the animation of the character.
+     */
+    String[] getSpriteFileNames();
+
+    /**
      * Add a status effect to the character.
      * @see IStatus
      *

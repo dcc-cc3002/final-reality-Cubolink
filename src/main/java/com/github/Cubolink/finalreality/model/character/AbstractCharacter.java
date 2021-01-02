@@ -18,6 +18,8 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public abstract class AbstractCharacter implements ICharacter {
 
+    protected String[] spriteFileNames;
+
     protected ScheduledExecutorService scheduledExecutor;
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
@@ -52,6 +54,19 @@ public abstract class AbstractCharacter implements ICharacter {
         this.statuses = new ArrayList<>();  // limited number of simultaneous status effects
         this.attack_enabled = true;
         this.alive = true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setSpriteFileNames(String[] fileNames) {
+        spriteFileNames = fileNames;
+    }
+
+    @Override
+    public String[] getSpriteFileNames() {
+        return new String[]{"src/main/resources/skeleton1.png"};
     }
 
     /**

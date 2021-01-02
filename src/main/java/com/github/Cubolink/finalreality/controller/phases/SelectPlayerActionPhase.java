@@ -1,6 +1,7 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
+import com.github.Cubolink.finalreality.gui.CursorSprite;
 
 /**
  * Select Player Action Phase. When the game is in this phase, the player has to choose what a player character will do.
@@ -79,6 +80,13 @@ public class SelectPlayerActionPhase extends AbstractPhase {
 
         return strings;
 
+    }
+
+
+    @Override
+    public void setCursorSpritePosition(CursorSprite cursorSprite) {
+        cursorSprite.setCx(0);
+        cursorSprite.setCy(0);
     }
 
 }

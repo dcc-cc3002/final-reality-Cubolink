@@ -4,6 +4,7 @@ import com.github.Cubolink.finalreality.controller.GameController;
 import com.github.Cubolink.finalreality.controller.IGameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,9 +12,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -35,11 +38,11 @@ import java.io.IOException;
 public class FinalReality extends Application {
   private static final String RESOURCE_PATH = "src/main/resources/";
   private static final IGameController controller = new GameController();
-  private static final double width = 850;
+  private static final double width = 900;
   private static final double height = 600;
 
+  private static CursorSprite cursorSprite;
   private static final Label[] playerCharacterLabels = new Label[controller.getMaxPlayerCharacterNum()];
-  private static final Label[] enemyCharacterLabels = new Label[controller.getMaxEnemyCharacterNum()];
   private static final Label phaseInstructionsLabel = new Label();
   private static final Label[] userOptionLabels = new Label[controller.getMaxPlayerCharacterNum()+ controller.getMaxEnemyCharacterNum()];
 
@@ -58,15 +61,55 @@ public class FinalReality extends Application {
     Group bottomGroup = makeBottomGroup();
     Group userOptionsGroup = makeUserOptionsGroup();
     Group mainVisualDisplayGroup = makeMainVisualDisplayGroup();
-    root.getChildren().addAll(mainVisualDisplayGroup, userOptionsGroup, bottomGroup);
+    Group background = makeBackgroundLayer();
+    Group spriteLayer = makeSpritesLayer();
+    Group cursorLayer = makeCursorLayer();
+    root.getChildren().addAll(background, spriteLayer, cursorLayer, mainVisualDisplayGroup, userOptionsGroup, bottomGroup);
 
-    // This sets the size of the Scene to be 400px wide, 200px high
     Scene scene = new Scene(root, width, height);
+    setOnKeyLink(scene);
 
     setupTimer();
 
     primaryStage.setScene(scene);
     primaryStage.show();
+  }
+
+  public static double getWidth() {
+    return width;
+  }
+
+  public static double getHeight() {
+    return height;
+  }
+
+  private void setOnKeyLink(Scene scene) {
+    scene.setOnKeyPressed(event -> {
+      switch (event.getCode()) {
+        case LEFT:
+          controller.moveCursorLeft();
+          break;
+
+        case RIGHT:
+          controller.moveCursorRight();
+          break;
+
+        case SPACE:
+          // sames as ENTER
+        case ENTER:
+          controller.next();
+          break;
+
+        case BACK_SPACE:
+          // same as X
+        case X:
+          controller.prev();
+          break;
+
+        case ESCAPE:
+          Platform.exit();
+      }
+    });
   }
 
 
@@ -81,9 +124,9 @@ public class FinalReality extends Application {
    * @param actionValue action that the button will do when activated.
    * @return the Button created.
    */
-  private @NotNull Button setupButton(String name, double cx, double cy, double w, double h,
+  private @NotNull Hyperlink setupButton(String name, double cx, double cy, double w, double h,
                                       ImageView imgNode, EventHandler<ActionEvent> actionValue) {
-    Button button = new Button(/*name*/);
+    Hyperlink button = new Hyperlink(/*name*/);
 
     button.setLayoutX(cx-w/2);
     button.setLayoutY(cy-h/2);
@@ -92,6 +135,9 @@ public class FinalReality extends Application {
     button.setPrefSize(w, h);
 
     button.setGraphic(imgNode);
+    imgNode.setPreserveRatio(true);
+    imgNode.autosize();
+
     button.setFocusTraversable(false);
     button.setOnAction(actionValue);
 
@@ -107,11 +153,11 @@ public class FinalReality extends Application {
     ImageView img_A = new ImageView(new Image(new FileInputStream(RESOURCE_PATH + "A.png")));
     ImageView img_B = new ImageView(new Image(new FileInputStream(RESOURCE_PATH + "B.png")));
     // buttons
-    double size = Math.min(height, width)/8;
-    Button button_A = setupButton("A", 7*width/8, 6*height/8, size, size, img_A, FinalReality::buttonAAction);
-    Button button_B = setupButton("B", 5*width/8, 7*height/8, size, size, img_B, FinalReality::buttonBAction);
-    Button button_CRight = setupButton("Right", 3*width/8, 7*height/8, size, size, img_CRight, FinalReality::buttonC_RightAction);
-    Button button_CLeft = setupButton("Left", width/8, 7*height/8, size, size, img_CLeft, FinalReality::buttonC_LeftAction);
+    double size = Math.min(height, width)/16;
+    Hyperlink button_A = setupButton("A", 15*width/16, 12*height/16, size, size, img_A, FinalReality::buttonAAction);
+    Hyperlink button_B = setupButton("B", 14*width/16, 27*height/32, size, size, img_B, FinalReality::buttonBAction);
+    Hyperlink button_CRight = setupButton("Right", 13*width/16, 7*height/8, size, size, img_CRight, FinalReality::buttonC_RightAction);
+    Hyperlink button_CLeft = setupButton("Left", 12*width/16, 7*height/8, size, size, img_CLeft, FinalReality::buttonC_LeftAction);
     // add to root
     bottomGroup.getChildren().addAll(button_A, button_B, button_CLeft, button_CRight);
 
@@ -122,12 +168,12 @@ public class FinalReality extends Application {
     Group userOptionsGroup = new Group();
 
     GridPane userOptionsGrid = new GridPane();
-    userOptionsGrid.setPadding(new Insets(height/2, width/10, 3*height/4, width/10));
+    userOptionsGrid.setPadding(new Insets(7*height/8, width/10, 4*height/4, width/10));
     userOptionsGrid.setHgap(width/20);
     userOptionsGrid.setVgap(height/20);
 
     phaseInstructionsLabel.setLayoutX(width/20);
-    phaseInstructionsLabel.setLayoutY(height/2);
+    phaseInstructionsLabel.setLayoutY(7*height/8);
     userOptionsGroup.getChildren().add(phaseInstructionsLabel);
 
     for (int i = 0; i < userOptionLabels.length; i++) {
@@ -144,7 +190,7 @@ public class FinalReality extends Application {
     Group mainVisualDisplayGroup = new Group();
 
     GridPane mainInformationGrid = new GridPane();
-    mainInformationGrid.setPadding(new Insets(height/20, width/20, height/2, width/20));
+    mainInformationGrid.setPadding(new Insets(3*height/4, width/20, 7*height/8, width/20));
     mainInformationGrid.setHgap(width/20);
     mainInformationGrid.setVgap(height/20);
 
@@ -152,13 +198,8 @@ public class FinalReality extends Application {
       playerCharacterLabels[i] = new Label("character"+i);
       GridPane.setConstraints(playerCharacterLabels[i], i, 0);
     }
-    for (int i = 0; i < controller.getMaxEnemyCharacterNum(); i++) {
-      enemyCharacterLabels[i] = new Label("enemy"+i);
-      GridPane.setConstraints(enemyCharacterLabels[i], i, 1);
-    }
 
     mainInformationGrid.getChildren().addAll(playerCharacterLabels);
-    mainInformationGrid.getChildren().addAll(enemyCharacterLabels);
     mainInformationGrid.setAlignment(Pos.CENTER);
 
     mainVisualDisplayGroup.getChildren().add(mainInformationGrid);
@@ -166,10 +207,48 @@ public class FinalReality extends Application {
     return mainVisualDisplayGroup;
   }
 
+  private @NotNull Group makeBackgroundLayer() throws FileNotFoundException {
+    ImageView imageView = new ImageView(new Image(new FileInputStream(RESOURCE_PATH + "Background.bmp")));
+    imageView.setFitWidth(width);
+    imageView.setFitHeight(3*height/4);
+    Group background = new Group();
+    background.getChildren().add(imageView);
+
+    return background;
+  }
+
+  private @NotNull Group makeForegroundLayer() {
+    return new Group();
+  }
+
+  private @NotNull Group makeSpritesLayer() throws FileNotFoundException {
+    Group sprites = new Group();
+
+    CharacterSpriteGroup[] characterSpriteGroups = new CharacterSpriteGroup[controller.getTotalNumberOfCharacters()];
+
+    for (int i = 0; i < characterSpriteGroups.length; i++){
+        characterSpriteGroups[i] = new CharacterSpriteGroup();
+        sprites.getChildren().add(characterSpriteGroups[i].getGroup());
+    }
+    controller.linkCharacterSprites(characterSpriteGroups, 7*height/16, height/16);
+
+    return sprites;
+  }
+
+  private @NotNull Group makeCursorLayer() throws FileNotFoundException {
+    cursorSprite = new CursorSprite(RESOURCE_PATH+"cursor.png");
+    controller.linkCursorSprite(cursorSprite);
+    return cursorSprite.getGroup();
+  }
+
   private void setupTimer() {
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(final long now) {
+        controller.updateCharacterSpritesInformation();
+        controller.updateCursorSpritePosition();
+        cursorSprite.updateDrawing(((double) System.currentTimeMillis())/1000);
+
         phaseInstructionsLabel.setText(controller.getPhaseInfo());
 
         // userOptionLabels update
@@ -186,11 +265,6 @@ public class FinalReality extends Application {
         String[] playerCharactersInfo = controller.getPlayerCharactersInfo();
         for (int i = 0; i < playerCharactersInfo.length; i++) {
           playerCharacterLabels[i].setText(playerCharactersInfo[i]);
-        }
-        // enemyCharactersInfo update
-        String[] enemyCharactersInfo = controller.getEnemyCharactersInfo();
-        for (int i = 0; i < enemyCharactersInfo.length; i++) {
-          enemyCharacterLabels[i].setText(enemyCharactersInfo[i]);
         }
       }
     };
