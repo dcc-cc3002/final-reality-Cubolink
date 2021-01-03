@@ -85,7 +85,10 @@ public interface IGameController {
      */
     void updateCursorSpritePosition();
 
-
+    /**
+     * Updates the information about which characters are alive and which are not.
+     */
+    void updateAliveCharacters();
 
 //  General game information
 

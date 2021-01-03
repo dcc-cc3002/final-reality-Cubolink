@@ -49,6 +49,7 @@ public class GameController implements IGameController{
     private static List<IPlayerCharacter> playerCharactersList;
     private static List<Enemy> enemiesList;
     // Sprite control
+    private List<CharacterSpriteGroup> aliveCharacterSprites;
     private List<CharacterSpriteGroup> characterSprites;
     private CursorSprite cursorSprite;
     // Creation tools
@@ -177,6 +178,16 @@ public class GameController implements IGameController{
     @Override
     public void updateCursorSpritePosition() {
         currentGamePhase.setCursorSpritePosition(cursorSprite);
+    }
+
+    @Override
+    public void updateAliveCharacters() {
+        aliveCharacterSprites = new ArrayList<>();
+        for (int i=0; i<characters.size(); i++) {
+            if (characters.get(i).isAlive()) {
+                aliveCharacterSprites.add(characterSprites.get(i));
+            }
+        }
     }
 
     // General game information
@@ -316,11 +327,11 @@ public class GameController implements IGameController{
 
     @Override
     public double getSpriteCharacterCx(int i_sprite) {
-        return characterSprites.get(i_sprite).getCx();
+        return aliveCharacterSprites.get(i_sprite).getCx();
     }
     @Override
     public double getSpriteCharacterCy(int i_sprite) {
-        return characterSprites.get(i_sprite).getCy();
+        return aliveCharacterSprites.get(i_sprite).getCy();
     }
 
     @Override
@@ -546,6 +557,13 @@ public class GameController implements IGameController{
             }
 
             characterSprites.get(i).updateDrawing(((double) System.currentTimeMillis())/((double) 1000));
+        }
+
+        aliveCharacterSprites = new ArrayList<>();
+        for (int i = 0; i < characters.size(); i++) {
+            if (characters.get(i).isAlive()) {
+                aliveCharacterSprites.add(characterSprites.get(i));
+            }
         }
     }
 

@@ -33,5 +33,6 @@ public class FallenCharacterHandler implements PropertyChangeListener {
         if (controller.isTheGameFinished()) {
             characterDefeatedEvent.firePropertyChange("Game Over", false, true);
         }
+        controller.updateAliveCharacters();
     }
 }
