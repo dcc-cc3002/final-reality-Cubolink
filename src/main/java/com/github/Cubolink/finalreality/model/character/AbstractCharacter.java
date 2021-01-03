@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -66,7 +67,8 @@ public abstract class AbstractCharacter implements ICharacter {
 
     @Override
     public String[] getSpriteFileNames() {
-        return new String[]{"src/main/resources/skeleton1.png"};
+        return Objects.requireNonNullElseGet(spriteFileNames, () -> new String[]{"src/main/resources/skeleton4.png"});
+
     }
 
     /**

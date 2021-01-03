@@ -11,12 +11,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -58,13 +56,13 @@ public class FinalReality extends Application {
 
     Group root = new Group();
 
-    Group bottomGroup = makeBottomGroup();
     Group userOptionsGroup = makeUserOptionsGroup();
     Group mainVisualDisplayGroup = makeMainVisualDisplayGroup();
     Group background = makeBackgroundLayer();
     Group spriteLayer = makeSpritesLayer();
     Group cursorLayer = makeCursorLayer();
-    root.getChildren().addAll(background, spriteLayer, cursorLayer, mainVisualDisplayGroup, userOptionsGroup, bottomGroup);
+    Group foreground = makeForegroundLayer();
+    root.getChildren().addAll(background, spriteLayer, cursorLayer, mainVisualDisplayGroup, userOptionsGroup, foreground);
 
     Scene scene = new Scene(root, width, height);
     setOnKeyLink(scene);
@@ -144,7 +142,7 @@ public class FinalReality extends Application {
     return button;
   }
 
-  private @NotNull Group makeBottomGroup() throws FileNotFoundException {
+  private @NotNull Group makeButtonsGroup() throws FileNotFoundException {
     Group bottomGroup = new Group();
 
     // img nodes
@@ -217,8 +215,10 @@ public class FinalReality extends Application {
     return background;
   }
 
-  private @NotNull Group makeForegroundLayer() {
-    return new Group();
+  private @NotNull Group makeForegroundLayer() throws FileNotFoundException {
+    Group foreground = new Group();
+    foreground.getChildren().add(makeButtonsGroup());
+    return foreground;
   }
 
   private @NotNull Group makeSpritesLayer() throws FileNotFoundException {

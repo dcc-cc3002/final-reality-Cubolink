@@ -329,6 +329,7 @@ public class GameController implements IGameController{
         for (int i = 0; i < characterSprites.size(); i++) {
             characterSprites.get(i).setName(characters.get(i).getName());
             characterSprites.get(i).setSubtitle(characters.get(i).getHp() + "/" + characters.get(i).getMaxHp());
+            characterSprites.get(i).updateDrawing(((double) System.currentTimeMillis()) / ((double) 1000));
         }
     }
 
@@ -544,7 +545,7 @@ public class GameController implements IGameController{
                 enemy_cont++;
             }
 
-            characterSprites.get(i).updateDrawing(0);
+            characterSprites.get(i).updateDrawing(((double) System.currentTimeMillis())/((double) 1000));
         }
     }
 

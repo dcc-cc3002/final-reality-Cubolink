@@ -11,6 +11,7 @@ public class CharacterSpriteGroup implements SpriteGroup{
     private final Label spriteNameLabel;
     private final Label spriteSubtitleLabel;
     private ImageView[] imageViews;
+    private Group currentImageViewGroup;
     private ImageView currentImageView;
 
 
@@ -24,6 +25,7 @@ public class CharacterSpriteGroup implements SpriteGroup{
     public CharacterSpriteGroup() {
 
         spriteGroup = new Group();
+        currentImageViewGroup = new Group();
         spriteNameLabel = new Label();
         spriteNameLabel.setTextFill(Color.rgb(190, 255, 190));
         spriteSubtitleLabel = new Label();
@@ -31,9 +33,9 @@ public class CharacterSpriteGroup implements SpriteGroup{
         cx = 0;
         cy = 0;
 
-        dtAnimation = 0.25;
+        dtAnimation = 0.4;
 
-        spriteGroup.getChildren().setAll(spriteNameLabel, spriteSubtitleLabel);
+        spriteGroup.getChildren().setAll(spriteNameLabel, spriteSubtitleLabel, currentImageViewGroup);
     }
 
     public void setCx(double cx) {
@@ -64,11 +66,12 @@ public class CharacterSpriteGroup implements SpriteGroup{
         width = images[0].getWidth();
         height = images[0].getHeight();
         currentImageView = imageViews[0];
-        spriteGroup.getChildren().setAll(currentImageView, spriteNameLabel, spriteSubtitleLabel);
+        currentImageViewGroup.getChildren().setAll(currentImageView);
+        spriteGroup.getChildren().setAll(currentImageViewGroup, spriteNameLabel, spriteSubtitleLabel);
     }
 
     private int currentImageFrame(double currentTime) {
-        return (int) (currentTime/dtAnimation) % imageViews.length;
+        return (int) ((currentTime/dtAnimation) % imageViews.length);
     }
 
     @Override
@@ -78,15 +81,14 @@ public class CharacterSpriteGroup implements SpriteGroup{
 
     @Override
     public void updateDrawing(double currentTime) {
-        spriteNameLabel.setText("Entity");
         spriteNameLabel.setLayoutX(width/2);
         spriteNameLabel.setLayoutY(0);
 
-        spriteSubtitleLabel.setText("hp/max");
         spriteSubtitleLabel.setLayoutX(width/2);
         spriteSubtitleLabel.setLayoutY(height);
 
         currentImageView = imageViews[currentImageFrame(currentTime)];
+        currentImageViewGroup.getChildren().setAll(currentImageView);
 
         spriteGroup.setLayoutX(cx);
         spriteGroup.setLayoutY(cy);
