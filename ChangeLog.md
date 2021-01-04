@@ -3,7 +3,7 @@ ChangeLog
 
 Version 4.0 (Tarea 3)
 -----------
-
+- (B.15) Balanced game and fixed a bug of displayed hp in death characters.
 - (B.14) Javadoc and markdowns update.
 - (B.13) Added more tests.
 - (B.12) Fixed cursor bug.

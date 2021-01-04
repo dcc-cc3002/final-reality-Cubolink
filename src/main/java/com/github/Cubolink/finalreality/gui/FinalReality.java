@@ -38,7 +38,7 @@ import java.io.IOException;
 public class FinalReality extends Application {
   private static final String RESOURCE_PATH = "src/main/resources/";
   private static final IGameController controller = new GameController();
-  private static final double width = 900;
+  private static final double width = 1000;
   private static final double height = 600;
 
   private static CursorSprite cursorSprite;

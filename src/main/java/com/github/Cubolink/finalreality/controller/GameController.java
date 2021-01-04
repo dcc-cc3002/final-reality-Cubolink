@@ -57,7 +57,7 @@ public class GameController implements IGameController{
     private static IEnemyFactory enemyFactory;
     private static IPlayerCharacterFactory playerFactory;
     // Creation rules
-    private static final int MAX_PLAYER_CHARACTER_NUM = 4;
+    private static final int MAX_PLAYER_CHARACTER_NUM = 5;
     private static final int MAX_ENEMY_CHARACTER_NUM = 6;
     // State variables
     private int current_number_of_player_characters;
@@ -89,11 +89,14 @@ public class GameController implements IGameController{
         createThiefPlayer();
         createEngineerPlayer();
         createBlackMagePlayer();
+        createWhiteMagePlayer();
 
         createBronzeSword();
         createBronzeKnife();
         createBronzeBow();
         createBronzeAxe();
+        createIronAxe();
+        createNormalStaff();
         createNormalStaff();
 
         for (int i = 0; i < MAX_ENEMY_CHARACTER_NUM; i++) {
@@ -247,8 +250,8 @@ public class GameController implements IGameController{
 
     @Override
     public String[] getPlayerCharactersInfo() {
-        String[] charactersInfo = new String[current_number_of_player_characters];
-        for (int i = 0; i < current_number_of_player_characters; i++) {
+        String[] charactersInfo = new String[playerCharactersList.size()];
+        for (int i = 0; i < playerCharactersList.size(); i++) {
             charactersInfo[i] = getCharacterInfo(playerCharactersList.get(i));
         }
         return charactersInfo;

@@ -25,6 +25,10 @@ public class WaitNextTurnPhase extends AbstractPhase{
         if (gameController.getCurrentCharacter() == null) {
             return;
         }
+        if (gameController.isTheGameFinished()) {
+            gameController.setCurrentGamePhase(new EndGamePhase(gameController));
+            return;
+        }
 
         System.out.println("current: " + gameController.getCurrentCharacter().getName());
 

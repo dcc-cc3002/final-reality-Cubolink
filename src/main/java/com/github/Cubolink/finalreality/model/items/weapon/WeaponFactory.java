@@ -31,11 +31,11 @@ public final class WeaponFactory implements IWeaponFactory {
     private static final String STAFF_NAME = "Staff";
     private static final String SWORD_NAME = "Sword";
     // Weapon Factor
-    private static final double AXE_FACTOR = 1.2;
-    private static final double BOW_FACTOR = 0.8;
-    private static final double KNIFE_FACTOR = 0.6;
-    private static final double STAFF_FACTOR = 0.4;
-    private static final double SWORD_FACTOR = 1;
+    private static final double AXE_FACTOR = 1.3;
+    private static final double BOW_FACTOR = 0.9;
+    private static final double KNIFE_FACTOR = 0.7;
+    private static final double STAFF_FACTOR = 0.6;
+    private static final double SWORD_FACTOR = 1.1;
 
 
     /**
