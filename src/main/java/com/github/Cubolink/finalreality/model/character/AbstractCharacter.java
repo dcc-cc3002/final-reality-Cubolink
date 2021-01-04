@@ -65,10 +65,12 @@ public abstract class AbstractCharacter implements ICharacter {
         spriteFileNames = fileNames;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getSpriteFileNames() {
         return Objects.requireNonNullElseGet(spriteFileNames, () -> new String[]{"src/main/resources/skeleton4.png"});
-
     }
 
     /**

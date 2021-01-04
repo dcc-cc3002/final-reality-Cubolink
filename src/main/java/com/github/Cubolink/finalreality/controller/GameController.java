@@ -3,6 +3,7 @@ package com.github.Cubolink.finalreality.controller;
 import com.github.Cubolink.finalreality.controller.listeners.CharacterReadyInQueueHandler;
 import com.github.Cubolink.finalreality.controller.listeners.EndGameHandler;
 import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler;
+import com.github.Cubolink.finalreality.controller.phases.EndGamePhase;
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
 import com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase;
 import com.github.Cubolink.finalreality.gui.CharacterSpriteGroup;
@@ -143,12 +144,21 @@ public class GameController implements IGameController{
     @Override
     public void end() {
         System.out.println("Game Over");
-        if (current_number_of_player_characters > 0) {
-            System.out.println("The Player has won");
-        } else {
-            System.out.println("The Enemy has beaten the player");
-        }
+        System.out.println(getWinner());
+        new EndGamePhase(this);
     }
+
+    @Override
+    public String getWinner() {
+        if (current_number_of_player_characters > 0) {
+            if (current_number_of_enemy_characters > 0) {
+                return "Draw";
+            }
+            return "The Player has won";
+        }
+        return "The Enemy has won";
+    }
+
 
     @Override
     public void nextCharacterInQueue() {
@@ -182,6 +192,9 @@ public class GameController implements IGameController{
 
     @Override
     public void updateAliveCharacters() {
+        if (characterSprites == null) {  // there are no sprites linked
+            return;
+        }
         aliveCharacterSprites = new ArrayList<>();
         for (int i=0; i<characters.size(); i++) {
             if (characters.get(i).isAlive()) {
@@ -519,6 +532,8 @@ public class GameController implements IGameController{
             playerCharacterCreationSetUp(playerFactory.createThiefCharacter("Sothe"));
         }
     }
+
+    // Link sprite methods
 
     @Override
     public void linkCursorSprite(CursorSprite cursorSprite) {

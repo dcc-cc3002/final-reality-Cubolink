@@ -7,9 +7,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class CharacterSpriteGroup implements SpriteGroup{
-    private final Group spriteGroup;
-    private final Label spriteNameLabel;
-    private final Label spriteSubtitleLabel;
+    private Group spriteGroup;
+    private Label spriteNameLabel;
+    private Label spriteSubtitleLabel;
     private ImageView[] imageViews;
     private Group currentImageViewGroup;
     private ImageView currentImageView;

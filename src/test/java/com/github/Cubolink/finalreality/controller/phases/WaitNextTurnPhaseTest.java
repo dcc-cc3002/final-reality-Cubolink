@@ -46,10 +46,18 @@ class WaitNextTurnPhaseTest {
         assertNull(gameController.getCurrentCharacter());
 
         // chek after a while, we have a current character
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         assertNotNull(gameController.getCurrentCharacter());
+    }
 
+    @Test
+    void informationTest() {
+        WaitNextTurnPhase dummyWaitNextTurnPhase = new WaitNextTurnPhase(new GameController());
+        // check we don't have multiple options written in a waiting phase
+        assertTrue(dummyWaitNextTurnPhase.getPhaseOptions().length <= 1);
 
+        // check the word wait is in the information
+        assertTrue(dummyWaitNextTurnPhase.getPhaseInfo().contains("wait") || dummyWaitNextTurnPhase.getPhaseInfo().contains("Wait"));
     }
 
 }

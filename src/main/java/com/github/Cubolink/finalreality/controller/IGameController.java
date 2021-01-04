@@ -59,6 +59,11 @@ public interface IGameController {
     void end();
 
     /**
+     * @return the winner of the game.
+     */
+    String getWinner();
+
+    /**
      * Identifies which character is next in the queue.
      * Sets the character as the current character.
      */
@@ -269,6 +274,8 @@ public interface IGameController {
      * Creates a Player Character whose class/job is a Thief
      */
     void createThiefPlayer();
+
+    // Link sprites methods
 
     /**
      * Receives a cursor sprite, then the controller links it with its not graphic cursor.

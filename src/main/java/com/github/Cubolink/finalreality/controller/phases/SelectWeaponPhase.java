@@ -64,9 +64,4 @@ public class SelectWeaponPhase extends AbstractPhase {
         return strings;
     }
 
-    @Override
-    public void setCursorSpritePosition(CursorSprite cursorSprite) {
-        cursorSprite.setCx(0);
-        cursorSprite.setCy(0);
-    }
 }

@@ -1,5 +1,7 @@
 package com.github.Cubolink.finalreality.controller;
 
+import com.github.Cubolink.finalreality.gui.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
@@ -10,9 +12,12 @@ import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Knife;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword;
+import javafx.application.Application;
+import javafx.scene.Group;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Random;
@@ -149,7 +154,14 @@ class GameControllerTest {
         controller.getCharacterPlayerList().get(0).receiveDamage(99999);  // Defeat all player characters
     }
 
+    // Information tests
 
+    @Test
+    void testCharacterNumbers() {
+        assertTrue(controller.getTotalNumberOfCharacters() <= controller.getMaxPlayerCharacterNum()
+                + controller.getMaxEnemyCharacterNum());
+
+    }
 
 
     // Character Actions test
@@ -584,6 +596,45 @@ class GameControllerTest {
         assertFalse(controller.getCharacterPlayerList().contains(playerCharacterFactory.createThiefCharacter("Sothe")));
         controller.createThiefPlayer();
         assertTrue(controller.getCharacterPlayerList().contains(playerCharacterFactory.createThiefCharacter("Sothe")));
+    }
+
+    // Link sprite methods
+
+    @Test
+    void linkCursorSpriteTest() throws FileNotFoundException, InterruptedException {
+        controller.createKnightPlayer();
+        controller.createEnemy();
+        controller.start();
+
+        Thread.sleep(3000);
+        assertTrue(controller.getCurrentCharacter().isPlayable());
+        controller.next();
+        Thread.sleep(100);
+
+        // link cursor sprite
+        Application.launch();  // we need to call this static method in order to instantiate characterSpriteGroups, because of the labels.
+        CursorSprite cursorSprite = new CursorSprite("src/main/resources/cursor.png");
+        CharacterSpriteGroup characterSpriteGroup = new CharacterSpriteGroup();
+        controller.linkCursorSprite(cursorSprite);
+
+        controller.updateCursorSpritePosition();
+        double prevX = cursorSprite.getGroup().getChildren().get(0).getLayoutX();
+        double prevY = cursorSprite.getGroup().getChildren().get(0).getLayoutY();
+
+        // check cursor sprite's position is consistent
+        controller.updateCursorSpritePosition();
+        assertEquals(prevX, cursorSprite.getGroup().getChildren().get(0).getLayoutX());
+        assertEquals(prevY, cursorSprite.getGroup().getChildren().get(0).getLayoutY());
+
+        // check cursor sprite's position changes when we move the controller's cursor
+
+        controller.moveCursorRight();
+        assertNotEquals(prevX, cursorSprite.getGroup().getChildren().get(0).getLayoutX());
+        assertNotEquals(prevY, cursorSprite.getGroup().getChildren().get(0).getLayoutY());
+        // as there are only two characters, after moving the cursor twice we should get back the positions we stored.
+        controller.moveCursorRight();
+        assertEquals(prevX, cursorSprite.getGroup().getChildren().get(0).getLayoutX());
+        assertEquals(prevY, cursorSprite.getGroup().getChildren().get(0).getLayoutY());
     }
 
 //  Weapon Creation tests

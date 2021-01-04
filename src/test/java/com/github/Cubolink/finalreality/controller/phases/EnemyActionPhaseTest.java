@@ -54,4 +54,21 @@ class EnemyActionPhaseTest {
 
     }
 
+    @Test
+    void informationTest() throws InterruptedException {
+        GameController gameController = new GameController();
+        gameController.createKnightPlayer();
+        gameController.createBlackMagePlayer();
+        gameController.createEnemy();
+        gameController.start();
+        Thread.sleep(3000);
+
+        EnemyActionPhase dummyEnemyActionPhase = new EnemyActionPhase(gameController);
+        // check we don't have multiple options written in a waiting phase
+        assertTrue(dummyEnemyActionPhase.getPhaseOptions().length <= 1);
+
+        // check the word enemy is in the information
+        assertTrue(dummyEnemyActionPhase.getPhaseInfo().contains("enemy") || dummyEnemyActionPhase.getPhaseInfo().contains("Enemy"));
+    }
+
 }

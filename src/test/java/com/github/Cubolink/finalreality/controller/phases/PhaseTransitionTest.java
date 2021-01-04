@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PhaseTransitionTest {
     IGameController gameController = new GameController();
-    IGamePhase waitPhase, selectPlayerActionPhase, selectAttackedTargetPhase, selectWeaponPhase, enemyActionPhase;
 
     @BeforeEach
     void setUp() throws InterruptedException {
@@ -19,7 +18,7 @@ class PhaseTransitionTest {
         gameController.createEnemy();
         gameController.start();
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
 
 
     }
@@ -51,6 +50,7 @@ class PhaseTransitionTest {
             if (gameController.getCurrentCharacter() != null) {
                 if (gameController.getCurrentCharacter().isPlayable()) {
                     gameController.next();
+                    Thread.sleep(100);
                 } else {
                     assertTrue(gameController.inEnemyTurn());
                 }

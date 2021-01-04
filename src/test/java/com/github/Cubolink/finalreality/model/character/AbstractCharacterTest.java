@@ -1,5 +1,10 @@
 package com.github.Cubolink.finalreality.model.character;
 
+import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Black_Mage;
+import com.github.Cubolink.finalreality.model.character.player.CharacterClass.Knight;
+import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
+import com.github.Cubolink.finalreality.model.character.player.PlayerCharacter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +23,36 @@ public abstract class AbstractCharacterTest {
     public void preSetUp(){
         turns = new LinkedBlockingQueue<>();
         testCharacters = new ArrayList<>();
+
+    }
+
+    boolean checkStringArrayEquals(String[] s1, String[] s2) {
+        if (s1.length != s2.length) {
+            return false;
+        }
+        for (int i=0; i<s1.length; i++) {
+            if ( !s1[i].equals(s2[i]) ) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    void spriteFileNameTest() {
+
+        IPlayerCharacter playerCharacter1 = new PlayerCharacter(turns, "Ridia", 15, 3, 4, new Black_Mage());
+        IPlayerCharacter playerCharacter2 = new PlayerCharacter(turns, "Cecil", 15, 3, 4, new Knight());
+        Enemy enemy = new Enemy(turns, "Golbez", 300, 50, 30, 20);
+
+        // check when we don't set the sprite filename, it returns a generic sprite filename.
+        assertTrue(checkStringArrayEquals(playerCharacter1.getSpriteFileNames(), playerCharacter2.getSpriteFileNames()));
+        assertTrue(checkStringArrayEquals(playerCharacter2.getSpriteFileNames(), enemy.getSpriteFileNames()));
+
+        // check consistent get/set sprite file names
+        String[] fileNames = new String[]{"file1", "file2", "file3", "pikachu.png"};
+        playerCharacter1.setSpriteFileNames(fileNames);
+        assertEquals(fileNames, playerCharacter1.getSpriteFileNames());
 
     }
 

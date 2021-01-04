@@ -58,8 +58,6 @@ public class WaitNextTurnPhase extends AbstractPhase{
      */
     @Override
     public String[] getPhaseOptions() {
-        String[] s = new String[1];
-        s[0] = "No acton required";
-        return s;
+        return new String[]{"No action required"};
     }
 }

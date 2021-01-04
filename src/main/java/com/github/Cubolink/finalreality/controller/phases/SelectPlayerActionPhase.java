@@ -82,11 +82,4 @@ public class SelectPlayerActionPhase extends AbstractPhase {
 
     }
 
-
-    @Override
-    public void setCursorSpritePosition(CursorSprite cursorSprite) {
-        cursorSprite.setCx(0);
-        cursorSprite.setCy(0);
-    }
-
 }
