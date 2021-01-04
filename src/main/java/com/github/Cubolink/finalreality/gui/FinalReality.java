@@ -2,6 +2,8 @@ package com.github.Cubolink.finalreality.gui;
 
 import com.github.Cubolink.finalreality.controller.GameController;
 import com.github.Cubolink.finalreality.controller.IGameController;
+import com.github.Cubolink.finalreality.gui.spritegroups.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.spritegroups.CursorSprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -27,8 +29,8 @@ import java.io.IOException;
 
 /**
  * Main entry point for the application.
- * <p>
- * <Complete here with the details of the implemented application>
+ * The application displays a battle between the characters of the players and the enemies.
+ * Each character has its turn, in which they can equip weapons, attack or wait.
  *
  * @author Ignacio Slater Muñoz.
  * @author Joaquín Cruz Cancino.
@@ -44,6 +46,11 @@ public class FinalReality extends Application {
   private static final Label phaseInstructionsLabel = new Label();
   private static final Label[] userOptionLabels = new Label[controller.getMaxPlayerCharacterNum()+ controller.getMaxEnemyCharacterNum()];
 
+  /**
+   * Main method of the application.
+   * Launchs the application.
+   * @param args Arguments passed when launched.
+   */
   public static void main(String[] args) {
     launch(args);
   }
@@ -57,12 +64,12 @@ public class FinalReality extends Application {
     Group root = new Group();
 
     Group userOptionsGroup = makeUserOptionsGroup();
-    Group mainVisualDisplayGroup = makeMainVisualDisplayGroup();
+    Group playerCharacterInformationGroup = makePlayerCharacterInformationDisplayGroup();
     Group background = makeBackgroundLayer();
     Group spriteLayer = makeSpritesLayer();
     Group cursorLayer = makeCursorLayer();
     Group foreground = makeForegroundLayer();
-    root.getChildren().addAll(background, spriteLayer, cursorLayer, mainVisualDisplayGroup, userOptionsGroup, foreground);
+    root.getChildren().addAll(background, spriteLayer, cursorLayer, playerCharacterInformationGroup, userOptionsGroup, foreground);
 
     Scene scene = new Scene(root, width, height);
     setOnKeyLink(scene);
@@ -73,14 +80,24 @@ public class FinalReality extends Application {
     primaryStage.show();
   }
 
+  /**
+   * @return the width of the window's application.
+   */
   public static double getWidth() {
     return width;
   }
 
+  /**
+   * @return the height of the window's application.
+   */
   public static double getHeight() {
     return height;
   }
 
+  /**
+   * Links the Keyboard Keys events to actual actions.
+   * @param scene to link the keyboard.
+   */
   private void setOnKeyLink(Scene scene) {
     scene.setOnKeyPressed(event -> {
       switch (event.getCode()) {
@@ -142,6 +159,11 @@ public class FinalReality extends Application {
     return button;
   }
 
+  /**
+   * Makes the group of buttons
+   * @return the group made.
+   * @throws FileNotFoundException when the image files that the buttons use are not found.
+   */
   private @NotNull Group makeButtonsGroup() throws FileNotFoundException {
     Group bottomGroup = new Group();
 
@@ -162,6 +184,10 @@ public class FinalReality extends Application {
     return bottomGroup;
   }
 
+  /**
+   * Makes the group that shows the user's options on screen.
+   * @return the group made.
+   */
   private @NotNull Group makeUserOptionsGroup() {
     Group userOptionsGroup = new Group();
 
@@ -184,7 +210,11 @@ public class FinalReality extends Application {
     return userOptionsGroup;
   }
 
-  private @NotNull Group makeMainVisualDisplayGroup() {
+  /**
+   * Makes the group that shows the user's player characters information on the screen.
+   * @return the group made.
+   */
+  private @NotNull Group makePlayerCharacterInformationDisplayGroup() {
     Group mainVisualDisplayGroup = new Group();
 
     GridPane mainInformationGrid = new GridPane();
@@ -205,6 +235,11 @@ public class FinalReality extends Application {
     return mainVisualDisplayGroup;
   }
 
+  /**
+   * Makes the background layer, the group which shows the background.
+   * @return the group made.
+   * @throws FileNotFoundException if the background image to display is not found.
+   */
   private @NotNull Group makeBackgroundLayer() throws FileNotFoundException {
     ImageView imageView = new ImageView(new Image(new FileInputStream(RESOURCE_PATH + "Background.bmp")));
     imageView.setFitWidth(width);
@@ -215,12 +250,22 @@ public class FinalReality extends Application {
     return background;
   }
 
+  /**
+   * Makes the foreground layer, which shows the groups that are in the most front part of the screen.
+   * @return the group made.
+   * @throws FileNotFoundException if the image files needed are not found.
+   */
   private @NotNull Group makeForegroundLayer() throws FileNotFoundException {
     Group foreground = new Group();
     foreground.getChildren().add(makeButtonsGroup());
     return foreground;
   }
 
+  /**
+   * Makes the sprite layers with the sprites in this group.
+   * @return the group made.
+   * @throws FileNotFoundException if the image files needed to make the sprites are not found.
+   */
   private @NotNull Group makeSpritesLayer() throws FileNotFoundException {
     Group sprites = new Group();
 
@@ -235,12 +280,20 @@ public class FinalReality extends Application {
     return sprites;
   }
 
+  /**
+   * Makes the cursor layer with the sprite of the cursor.
+   * @return the group.
+   * @throws FileNotFoundException if the image file of the cursor is not found.
+   */
   private @NotNull Group makeCursorLayer() throws FileNotFoundException {
     cursorSprite = new CursorSprite(RESOURCE_PATH+"cursor.png");
     controller.linkCursorSprite(cursorSprite);
     return cursorSprite.getGroup();
   }
 
+  /**
+   * Sets which information will be updated constantly in the application.
+   */
   private void setupTimer() {
     AnimationTimer timer = new AnimationTimer() {
       @Override
@@ -271,6 +324,10 @@ public class FinalReality extends Application {
     timer.start();
   }
 
+  /**
+   * Plays a sound.
+   * @param event which triggers this action.
+   */
   private static void playSound(ActionEvent event) {
     String audioFilePath = RESOURCE_PATH + "sound.wav";
     try {
@@ -285,18 +342,37 @@ public class FinalReality extends Application {
     }
   }
 
+  /**
+   * Action that the button A makes.
+   * @param event triggered by the button.
+   */
   private static void buttonAAction(ActionEvent event) {
     playSound(event);
     controller.next();
   }
+
+  /**
+   * Action that the button B makes.
+   * @param event triggered by the button.
+   */
   private static void buttonBAction(ActionEvent event) {
     playSound(event);
     controller.prev();
   }
+
+  /**
+   * Action that the button C (left) makes.
+   * @param event triggered by the button.
+   */
   private static void buttonC_LeftAction(ActionEvent event) {
     playSound(event);
     controller.moveCursorLeft();
   }
+
+  /**
+   * Action that the button C (right) makes.
+   * @param event triggered by the button.
+   */
   private static void buttonC_RightAction(ActionEvent event) {
     playSound(event);
     controller.moveCursorRight();

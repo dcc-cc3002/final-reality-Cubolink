@@ -1,7 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
-import com.github.Cubolink.finalreality.gui.CursorSprite;
 
 /**
  * Select Player Action Phase. When the game is in this phase, the player has to choose what a player character will do.

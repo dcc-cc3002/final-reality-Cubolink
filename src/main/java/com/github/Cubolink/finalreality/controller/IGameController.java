@@ -1,8 +1,8 @@
 package com.github.Cubolink.finalreality.controller;
 
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
-import com.github.Cubolink.finalreality.gui.CharacterSpriteGroup;
-import com.github.Cubolink.finalreality.gui.CursorSprite;
+import com.github.Cubolink.finalreality.gui.spritegroups.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.spritegroups.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.items.IItem;
 import com.github.Cubolink.finalreality.model.character.ICharacter;

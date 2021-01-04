@@ -6,8 +6,8 @@ import com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHand
 import com.github.Cubolink.finalreality.controller.phases.EndGamePhase;
 import com.github.Cubolink.finalreality.controller.phases.IGamePhase;
 import com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase;
-import com.github.Cubolink.finalreality.gui.CharacterSpriteGroup;
-import com.github.Cubolink.finalreality.gui.CursorSprite;
+import com.github.Cubolink.finalreality.gui.spritegroups.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.spritegroups.CursorSprite;
 import com.github.Cubolink.finalreality.gui.FinalReality;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
 import com.github.Cubolink.finalreality.model.character.enemy.IEnemyFactory;
@@ -21,7 +21,6 @@ import com.github.Cubolink.finalreality.model.items.weapon.IWeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 import javafx.scene.image.Image;
-import javafx.util.Pair;
 
 import java.beans.PropertyChangeSupport;
 import java.io.FileInputStream;

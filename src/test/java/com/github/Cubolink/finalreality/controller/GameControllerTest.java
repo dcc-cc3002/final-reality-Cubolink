@@ -1,7 +1,7 @@
 package com.github.Cubolink.finalreality.controller;
 
-import com.github.Cubolink.finalreality.gui.CharacterSpriteGroup;
-import com.github.Cubolink.finalreality.gui.CursorSprite;
+import com.github.Cubolink.finalreality.gui.spritegroups.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.spritegroups.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
@@ -13,7 +13,6 @@ import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapo
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Knife;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword;
 import javafx.application.Application;
-import javafx.scene.Group;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;

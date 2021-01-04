@@ -2,7 +2,6 @@ package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.EnemyIA;
 import com.github.Cubolink.finalreality.controller.IGameController;
-import com.github.Cubolink.finalreality.gui.CursorSprite;
 
 /**
  * Enemy Action Phase. The controller being in this phase indicates that it's the enemy turn.

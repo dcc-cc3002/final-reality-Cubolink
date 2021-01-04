@@ -1,7 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
-import com.github.Cubolink.finalreality.gui.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 

@@ -3,6 +3,20 @@ ChangeLog
 
 Version 4.0 (Tarea 3)
 -----------
+
+- (B.14) Javadoc and markdowns update.
+- (B.13) Added more tests.
+- (B.12) Fixed cursor bug.
+- (B.11) Sprites animation support.
+- (B.10) GUI visual improvement.
+- (B.9) Balanced game and added tests.
+- (B.8) Refactor.
+- (B.7) Refactor and added more javadoc
+- (B.6) Added javadoc.
+- (B.5) Refactor and game structure working.
+- (B.4) Refactor and solved bugs.
+- (B.3) Connected controller with GUI.
+- (B.2) Implemented GUI architecture.
 - (B.1) The game uses phases to control the flow.
 
 Version 3.0 (Tarea 2)

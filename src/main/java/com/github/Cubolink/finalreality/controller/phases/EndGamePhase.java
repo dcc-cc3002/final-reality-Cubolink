@@ -8,16 +8,25 @@ public class EndGamePhase extends AbstractPhase{
         super(gameController, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void nextPhase() {
         // there's no next phase.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPhaseInfo() {
         return "Game Over";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getPhaseOptions() {
         return new String[]{gameController.getWinner()};

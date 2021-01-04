@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
-import com.github.Cubolink.finalreality.gui.CursorSprite;
+import com.github.Cubolink.finalreality.gui.spritegroups.CursorSprite;
 
 /**
  * Interface to define what represents a Game Phase.

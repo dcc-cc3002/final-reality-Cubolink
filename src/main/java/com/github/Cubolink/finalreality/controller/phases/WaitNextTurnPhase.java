@@ -1,7 +1,6 @@
 package com.github.Cubolink.finalreality.controller.phases;
 
 import com.github.Cubolink.finalreality.controller.IGameController;
-import com.github.Cubolink.finalreality.gui.CursorSprite;
 
 /**
  * Wait Next Turn Phase. When the controller is in this phase,
