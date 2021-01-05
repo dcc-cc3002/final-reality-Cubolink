@@ -3,6 +3,7 @@ ChangeLog
 
 Version 4.0 (Tarea 3)
 -----------
+- (RC.5) Pull Request
 - (B.16) UML Diagrams updated.
 - (B.15) Balanced game and fixed a bug of displayed hp in death characters.
 - (B.14) Javadoc and markdowns update.
