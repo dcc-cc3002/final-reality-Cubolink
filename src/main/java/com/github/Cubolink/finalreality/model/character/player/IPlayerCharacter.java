@@ -9,16 +9,16 @@ import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapo
  */
 public interface IPlayerCharacter extends ICharacter {
     /**
-     * Equips a weapon to the character.
-     * @param weapon the weapon to equip
-     */
-    void equip(IWeapon weapon);
-
-    /**
      * Heals a number of points to the current Hp
      * @param points to heal
      */
     void heal(int points);
+
+    /**
+     * Equips a weapon to the character.
+     * @param weapon the weapon to equip
+     */
+    void equip(IWeapon weapon);
 
     /**
      * @return this character's equipped weapon.

@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller.listeners;
 
-import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -10,9 +10,13 @@ import java.beans.PropertyChangeListener;
  * being ready to execute its next action.
  */
 public class CharacterReadyInQueueHandler implements PropertyChangeListener {
-    private final GameController controller;
+    private final IGameController controller;
 
-    public CharacterReadyInQueueHandler(GameController controller) {
+    /**
+     * Instantiates the handler.
+     * @param controller to which it is attached.
+     */
+    public CharacterReadyInQueueHandler(IGameController controller) {
         this.controller = controller;
     }
 

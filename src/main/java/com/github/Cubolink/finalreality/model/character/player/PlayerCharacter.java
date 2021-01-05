@@ -37,6 +37,9 @@ public class PlayerCharacter extends AbstractCharacter implements IPlayerCharact
         this.characterClass = characterClass;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayable() {
         return true;

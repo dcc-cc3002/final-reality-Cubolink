@@ -16,6 +16,4 @@ public interface IWeapon extends IWearableItem {
      */
     int getMagicalDamage();
 
-
-
 }

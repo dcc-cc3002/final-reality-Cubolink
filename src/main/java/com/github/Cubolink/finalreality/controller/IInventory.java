@@ -1,7 +1,9 @@
 package com.github.Cubolink.finalreality.controller;
 
 import com.github.Cubolink.finalreality.model.items.IItem;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +34,12 @@ public interface IInventory {
      * @param item to take from the inventory and drop
      */
     void dropItem(IItem item);
+
+    /**
+     * Searches the weapons in inventory.
+     * @return a list with those weapons.
+     */
+    List<IWeapon> getWeaponList();
 
     /**
      * @return true if the Inventory is empty. False otherwise.

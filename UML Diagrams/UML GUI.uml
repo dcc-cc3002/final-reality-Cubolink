@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.github.Cubolink.finalreality.gui</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">com.github.Cubolink.finalreality.gui.FinalReality</node>
+    <node x="0.0" y="671.0">com.github.Cubolink.finalreality.gui.spritegroups</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="0.7972222222222223" x="300.0" y="350.0" />
+  <SelectedNodes>
+    <node>com.github.Cubolink.finalreality.gui.FinalReality</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

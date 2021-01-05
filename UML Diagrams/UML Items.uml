@@ -17,6 +17,10 @@
       <point x="192.25" y="122.0" />
       <point x="-40.0" y="48.5" />
     </edge>
+    <edge source="com.github.Cubolink.finalreality.model.items.AbstractWearableItem" target="com.github.Cubolink.finalreality.model.items.AbstractItem">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
     <edge source="com.github.Cubolink.finalreality.model.items.weapon" target="com.github.Cubolink.finalreality.model.items.IWearableItem">
       <point x="36.0" y="-14.5" />
       <point x="268.25" y="418.0" />
@@ -35,12 +39,8 @@
       <point x="272.25" y="122.0" />
       <point x="40.0" y="48.5" />
     </edge>
-    <edge source="com.github.Cubolink.finalreality.model.items.AbstractWearableItem" target="com.github.Cubolink.finalreality.model.items.AbstractItem">
-      <point x="0.0" y="-38.0" />
-      <point x="0.0" y="60.0" />
-    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="174.0" y="205.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="216.0" y="236.0" />
   <SelectedNodes>
     <node>com.github.Cubolink.finalreality.model.items.AbstractWearableItem</node>
   </SelectedNodes>

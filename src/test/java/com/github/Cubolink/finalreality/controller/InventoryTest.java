@@ -3,8 +3,12 @@ package com.github.Cubolink.finalreality.controller;
 import com.github.Cubolink.finalreality.model.items.weapon.IWeaponFactory;
 import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
 import com.github.Cubolink.finalreality.model.items.IItem;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -218,5 +222,41 @@ class InventoryTest {
 
         assertTrue(inventoryTest.getItemSet().isEmpty());
         assertTrue(inventoryTest.isEmpty());
+    }
+
+    @Test
+    void testGetWeaponList() {
+        inventoryTest.storeItem(itemTest1);
+        assertEquals(inventoryTest.getWeaponList().size(), 1);
+        inventoryTest.storeItem(itemTest2);
+        assertEquals(inventoryTest.getWeaponList().size(), 2);
+        inventoryTest.storeItem(itemTest3);
+        assertEquals(inventoryTest.getWeaponList().size(), 3);
+        inventoryTest.storeItem(itemTest4);
+        assertEquals(inventoryTest.getWeaponList().size(), 4);
+
+        // store multiple times a weapon shouldn't alter our weapon list
+        inventoryTest.storeItem(itemTest3);
+        inventoryTest.storeItem(itemTest4);
+        inventoryTest.storeItem(itemTest4);
+        inventoryTest.storeItem(itemTest1);
+        inventoryTest.storeItem(itemTest1);
+        inventoryTest.storeItem(itemTest1);
+
+        assertEquals(inventoryTest.getWeaponList().size(), 4);
+
+        // as we've stored only weapons, the weaponList should be equals to the item set
+        Set<IItem> iSet = inventoryTest.getItemSet();
+        List<IWeapon> weaponList = inventoryTest.getWeaponList();
+        assertEquals(iSet.size(), weaponList.size());
+        for (IItem item: iSet) {
+            assertTrue(weaponList.contains(item));
+        }
+
+
+        // At last, all the weapons in the weaponList should be in the item set
+        for (IWeapon weapon: weaponList) {
+            assertTrue(iSet.contains(weapon));
+        }
     }
 }

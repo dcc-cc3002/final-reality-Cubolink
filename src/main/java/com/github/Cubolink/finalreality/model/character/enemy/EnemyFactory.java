@@ -11,6 +11,9 @@ public class EnemyFactory implements IEnemyFactory {
         this.turnsQueue = turnsQueue;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Enemy createEnemy(Random random){
         double randomValue = random.nextDouble();
@@ -27,20 +30,53 @@ public class EnemyFactory implements IEnemyFactory {
 
     }
 
+    /**
+     * @return a slime Enemy.
+     */
     private Enemy createSlime(){
-        return new Enemy(turnsQueue, "Slime", 30, 10, 5, 8);
+        Enemy enemy = new Enemy(turnsQueue, "Slime", 30, 2, 5, 8);
+        enemy.setSpriteFileNames(new String[]{"src/main/resources/slime1.png", "src/main/resources/slime2.png"});
+        return enemy;
+
     }
 
+    /**
+     * @return a skeleton Enemy.
+     */
     private Enemy createSkeleton(){
-        return new Enemy(turnsQueue, "Skeleton", 50, 6, 8, 10);
+        Enemy enemy = new Enemy(turnsQueue, "Skeleton", 50, 8, 8, 10);
+        enemy.setSpriteFileNames(
+                new String[]{
+                        "src/main/resources/skeleton1.png",
+                        "src/main/resources/skeleton2.png",
+                        "src/main/resources/skeleton3.png"});
+        return enemy;
     }
 
+    /**
+     * @return a dark knight Enemy.
+     */
     private Enemy createDarkKnight(){
-        return new Enemy(turnsQueue, "Dark Knight", 60, 12, 15, 15);
+        Enemy enemy = new Enemy(turnsQueue, "Dark Knight", 60, 10, 15, 15);
+        enemy.setSpriteFileNames(
+                new String[]{
+                        "src/main/resources/darkKnight1.png",
+                        "src/main/resources/darkKnight2.png",
+                        "src/main/resources/darkKnight3.png"});
+        return enemy;
     }
 
+    /**
+     * @return a dragon Enemy.
+     */
     private Enemy createDragon(){
-        return new Enemy(turnsQueue, "Dragon", 180, 25, 50, 30);
+        Enemy enemy = new Enemy(turnsQueue, "Dragon", 180, 10, 50, 30);
+        enemy.setSpriteFileNames(
+                new String[]{
+                        "src/main/resources/dragon1.png",
+                        "src/main/resources/dragon2.png",
+                        "src/main/resources/dragon3.png"});
+        return enemy;
     }
 
 }

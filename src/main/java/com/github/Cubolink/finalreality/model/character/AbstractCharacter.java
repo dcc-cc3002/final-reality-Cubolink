@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -17,6 +18,8 @@ import java.util.concurrent.ScheduledExecutorService;
  * @author Joaquín Cruz Cancino.
  */
 public abstract class AbstractCharacter implements ICharacter {
+
+    protected String[] spriteFileNames;
 
     protected ScheduledExecutorService scheduledExecutor;
     protected final BlockingQueue<ICharacter> turnsQueue;
@@ -54,6 +57,25 @@ public abstract class AbstractCharacter implements ICharacter {
         this.alive = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setSpriteFileNames(String[] fileNames) {
+        spriteFileNames = fileNames;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getSpriteFileNames() {
+        return Objects.requireNonNullElseGet(spriteFileNames, () -> new String[]{"src/main/resources/skeleton4.png"});
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract boolean isPlayable();
 
@@ -66,21 +88,6 @@ public abstract class AbstractCharacter implements ICharacter {
         characterReadyInQueueEvent.firePropertyChange(getName()+" ready. ", false, true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAttack_enabled() {
-        return attack_enabled;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setAttack_enabled(boolean attack_enabled) {
-        this.attack_enabled = attack_enabled;
-    }
 
     /**
      * {@inheritDoc}
@@ -135,54 +142,15 @@ public abstract class AbstractCharacter implements ICharacter {
 
     }
 
+
+
+
+
     /**
      * {@inheritDoc}
      */
     @Override
     abstract public void waitTurn();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getHp() {
-        return hp;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getMaxHp() {
-        return maxHp;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    abstract public double getWeight();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAlive() {
-        if (alive && hp<=0){
-            alive = false;
-            characterDefeatedEvent.firePropertyChange(getName()+" defeated.", true, false);
-        }
-
-        return alive;
-    }
 
     /**
      * {@inheritDoc}
@@ -222,6 +190,77 @@ public abstract class AbstractCharacter implements ICharacter {
             receiveDamage(magical_damage);
         }
     }
+
+
+
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAlive() {
+        if (alive && hp<=0){
+            alive = false;
+            characterDefeatedEvent.firePropertyChange(getName()+" defeated.", true, false);
+        }
+
+        return alive;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAttack_enabled() {
+        return attack_enabled;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setAttack_enabled(boolean attack_enabled) {
+        this.attack_enabled = attack_enabled;
+    }
+
+
+
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHp() {
+        return hp;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    abstract public double getWeight();
+
+
+
+
 
     /**
      * {@inheritDoc}

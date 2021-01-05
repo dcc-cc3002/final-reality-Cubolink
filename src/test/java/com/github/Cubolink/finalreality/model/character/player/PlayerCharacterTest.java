@@ -36,7 +36,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
         int maxHp = 30, defense = 10, resistance = 0, attack_damage=10;
         double weight = 10;
 
-        IPlayerCharacter playerCharacter2 = new PlayerCharacter(turns, name, maxHp, defense, attack_damage, new Knight());
+        IPlayerCharacter playerCharacter2 = new PlayerCharacter(turns, name, maxHp, defense, resistance, new Knight());
         assertTrue(playerCharacter2.isPlayable());
         assertEquals(name, playerCharacter2.getName());
         assertEquals(maxHp, playerCharacter2.getMaxHp());

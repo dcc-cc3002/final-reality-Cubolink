@@ -19,11 +19,17 @@ public class Axe extends AbstractWeapon {
         super(name, physical_damage, weight);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isWearableByEngineer() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isWearableByKnight() {
         return true;

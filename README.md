@@ -17,7 +17,20 @@ enemies controlled by the computer.
 ---
 
 ### Execution Instructions
-As there's no graphic interface nor nothing, there's no execution implemented.
+Execute de game compiling normally, the execution doesn't require additional parameters.
+The game starts with determined player characters and random enemies.
+The user can do actions when is the turn of a player character. The user can equip, wait or attack with a character.
+The player characters starts with no weapon equipped, but the inventory have some weapons the player can choose to equip.
+The player can choose attack other player characters if wanted.
+
+Once the game starts, the user can use the arrow buttons displayed on the screen to move the cursor among the options
+the application display. The user can use the keyboard left/right arrows to control the cursor too. The user can move the cursor
+when it's the turn of a player character.
+
+The user selects an option pressing the A-Button that is on the screen, or simply pressing SPACE or ENTER keys on the keyboard.
+The user can go to the previous option menu in some phases, via pressing the B-Button on the screen, or the keys X or BACKSPACE on the keyboard.
+
+
 
 ### Suppositions and Explanation
 #### Model
@@ -94,7 +107,15 @@ The controller can take a weapon from the inventory and equip it, for example, t
 Then the amount of weapons of that kind decreased, because it was taken from the inventory.
 
 The controller has Event Handlers, which listens to certain events for avoiding busy waiting.
-Those handlers are in the package listeners
+Those handlers are in the package listeners.
+
+The game has multiple phases which the controller uses to manage the game.
+There's a waiting phase to wait a new character turn. This phase can change to an enemy phase, where the enemy attacks,
+or a player phase, where the player decides what action to do. From this phase, the player can go to a weapon selection phase
+if they want the character to equip something, a selection of the target to attack if they want the character to attack,
+or simply ends the character's turn making the character wait. In a target to attack selection phase, the player decides
+to which character the player character will attack. Once the character attacks or wait, the character ends its turn and
+the game phase goes to the waiting phase again, until other character is ready to start its turn.
 
 #### Listeners
 This package has the Event Handlers that the controller uses to listen to certain events.
@@ -105,3 +126,14 @@ When a character is defeated, a listener FallenCharacterHandler listens that eve
 The controller then checks if there are remaining characters to know if the battle is over.
 When that is the case, other event is fired, and the EndGameHandler listens to it.
 Then it lets the controller know that the game is over.
+
+### GUI
+The graphic interface shows the enemies displayed in a row at the top of the screen, while the player characters are
+displayed in a row at the middle of the screen. There's a background image where these characters are shown, and below 
+this background image is displayed the text information of the player characters. At the bottom of the window, the player
+sees the information of the current game phase and its options/actions to choose. There's a cursor to help the user
+know which option is he choosing.
+
+The characters and the cursor are groups which have animations and image files. Characters also have text information
+where their name and hp is displayed to give more information to the player. These groups are organized as sprites in their
+own package "spritegroups".

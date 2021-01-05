@@ -1,5 +1,7 @@
 package com.github.Cubolink.finalreality.controller;
 
+import com.github.Cubolink.finalreality.gui.spritegroups.CharacterSpriteGroup;
+import com.github.Cubolink.finalreality.gui.spritegroups.CursorSprite;
 import com.github.Cubolink.finalreality.model.character.ICharacter;
 import com.github.Cubolink.finalreality.model.character.enemy.Enemy;
 import com.github.Cubolink.finalreality.model.character.enemy.EnemyFactory;
@@ -7,12 +9,16 @@ import com.github.Cubolink.finalreality.model.character.player.IPlayerCharacter;
 import com.github.Cubolink.finalreality.model.character.player.PlayerCharacterFactory;
 import com.github.Cubolink.finalreality.model.items.IItem;
 import com.github.Cubolink.finalreality.model.items.weapon.WeaponFactory;
+import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.IWeapon;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Knife;
 import com.github.Cubolink.finalreality.model.items.weapon.concreteweapon.Sword;
+import javafx.application.Application;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -51,15 +57,49 @@ class GameControllerTest {
     }
 
     @Test
+    void testControllerSetUp() throws InterruptedException {
+        controller.setUp();
+        Thread.sleep(6000);
+        assertTrue(controller.thereAreCharactersWaiting());
+        System.out.println(controller.getPhaseInfo());
+    }
+
+    // Controller user methods
+    @Test
+    void cursorTest() {
+        short c;
+        assertEquals(controller.getIndexPointedByCursor(), 0);
+
+        short i = 0;
+        while (i < 10) {
+            c = controller.getIndexPointedByCursor();
+            controller.moveCursorRight();
+            assertEquals(controller.getIndexPointedByCursor(), c+1);
+            i++;
+        }
+        assertEquals(controller.getIndexPointedByCursor(), i);
+        while (i > -10) {
+            c = controller.getIndexPointedByCursor();
+            controller.moveCursorLeft();
+            assertEquals(controller.getIndexPointedByCursor(), c-1);
+            i--;
+        }
+        assertEquals(controller.getIndexPointedByCursor(), i);
+
+        controller.resetIndexPointedByCursor();
+        assertEquals(controller.getIndexPointedByCursor(), 0);
+    }
+
+    @Test
     void testStart() throws InterruptedException {
         // Check the game doesn't start when we don't have neither enemies nor player characters
         controller.start();
-        assertTrue(controller.getTurnsQueue().isEmpty());
+        assertFalse(controller.thereAreCharactersWaiting());
 
         // Check the game doesn't start when we don't have player characters
         controller.createEnemy();
         controller.start();
-        assertTrue(controller.getTurnsQueue().isEmpty());
+        assertFalse(controller.thereAreCharactersWaiting());
 
         // Check the game does start when our player characters and enemies are ready
         controller.createKnightPlayer();
@@ -67,7 +107,7 @@ class GameControllerTest {
         controller.equipWeaponToCharacter(weaponFactory.createIronSword(), controller.getCharacterPlayerList().get(0));
         controller.start();
         Thread.sleep(6000);
-        assertFalse(controller.getTurnsQueue().isEmpty());
+        assertTrue(controller.thereAreCharactersWaiting());
 
     }
 
@@ -82,7 +122,6 @@ class GameControllerTest {
 
         controller.start();
         Thread.sleep(10);
-        controller.nextCharacterInQueue();
         ICharacter character = controller.getCurrentCharacter();
         if (!character.isPlayable()) {
             Thread.sleep(100);
@@ -114,51 +153,17 @@ class GameControllerTest {
         controller.getCharacterPlayerList().get(0).receiveDamage(99999);  // Defeat all player characters
     }
 
-    @Test
-    void testGetCharacterInfo() throws InterruptedException {
-        GameController.random = new Random(0);
-        controller.createEnemy();
-        controller.createEnemy();
-        controller.createKnightPlayer();
-        controller.start();
-
-        Thread.sleep(100);
-        controller.nextCharacterInQueue();
-        controller.getCharacterInfo();
-        Thread.sleep(1000);
-
-        controller.waitCharacter();
-        controller.nextCharacterInQueue();
-        controller.getCharacterInfo();
-    }
+    // Information tests
 
     @Test
-    void testPlayerAttackCharacter() throws InterruptedException {
-        GameController.random = new Random(0);
+    void testCharacterNumbers() {
+        assertTrue(controller.getTotalNumberOfCharacters() <= controller.getMaxPlayerCharacterNum()
+                + controller.getMaxEnemyCharacterNum());
 
-        controller.createKnightPlayer();
-        controller.createEnemy();
-        controller.start();
-
-        ICharacter character;
-
-        Thread.sleep(1000);
-        controller.nextCharacterInQueue();
-        character = controller.getCurrentCharacter();
-        if (!character.isPlayable()) {
-            Thread.sleep(100);
-            controller.waitCharacter();
-            controller.nextCharacterInQueue();
-            character = controller.getCurrentCharacter();
-        }
-
-        assertTrue(character.isPlayable());
-        controller.createSilverSword();
-        controller.equipWeaponToCharacter(weaponFactory.createSilverSword(), (IPlayerCharacter) character);
-        assertEquals(controller.getEnemyList().get(0).getHp(), controller.getEnemyList().get(0).getMaxHp());
-        controller.playerAttackCharacter(controller.getEnemyList().get(0));
-        assertTrue(controller.getEnemyList().get(0).getHp() < controller.getEnemyList().get(0).getMaxHp());
     }
+
+
+    // Character Actions test
 
     @Test
     void testWaitCharacter() throws InterruptedException {
@@ -172,23 +177,56 @@ class GameControllerTest {
         // Start, get the current character, assert that is a player character because we created it first
         controller.start();
         Thread.sleep(10);
-        controller.nextCharacterInQueue();
         currentCharacter = controller.getCurrentCharacter();
         assertTrue(currentCharacter.isPlayable());
 
-        // Make sure that when we make him wait, he will be ready before the enemy
+        // Make sure when we wait, the current character is now null
         controller.waitCharacter();
-        Thread.sleep(10);  // Wait a little bit the character, because even if his weight is 0, it uses a thread, so there should be some delay
-        controller.nextCharacterInQueue();
+        assertNull(controller.getCurrentCharacter());
+        // Make sure after a while, the current character is not null
+        Thread.sleep(2000);
+        assertNotNull(controller.getCurrentCharacter());
+
+        // Make sure this player without weapon is ready before the enemy
+
         currentCharacter = controller.getCurrentCharacter();
         assertTrue(currentCharacter.isPlayable());
 
-        // Make sure that if we wait after some time, the next character should be an enemy because we let him be ready
+        // Make sure that if we stay some time and then wait, the enemy will be ready before.
         Thread.sleep(2000);
         controller.waitCharacter();
+        Thread.sleep(1000);
+        assertNull(controller.getCurrentCharacter());  // We have to take the character manually
         controller.nextCharacterInQueue();
-        currentCharacter = controller.getCurrentCharacter();
+        currentCharacter = controller.getCurrentCharacter();  //
         assertFalse(currentCharacter.isPlayable());
+    }
+
+    @Test
+    void testPlayerAttackCharacter() throws InterruptedException {
+        GameController.random = new Random(0);
+
+        controller.createKnightPlayer();
+        controller.createEnemy();
+        controller.start();
+
+        ICharacter character;
+
+        Thread.sleep(1000);
+        character = controller.getCurrentCharacter();
+        if (!character.isPlayable()) {
+            Thread.sleep(100);
+            controller.waitCharacter();
+            Thread.sleep(10);
+            character = controller.getCurrentCharacter();
+        }
+
+        assertTrue(character.isPlayable());
+        controller.createSilverSword();
+        controller.equipWeaponToCharacter(weaponFactory.createSilverSword(), (IPlayerCharacter) character);
+        assertEquals(controller.getEnemyList().get(0).getHp(), controller.getEnemyList().get(0).getMaxHp());
+        controller.attackCharacter(controller.getEnemyList().get(0));
+        assertTrue(controller.getEnemyList().get(0).getHp() < controller.getEnemyList().get(0).getMaxHp());
     }
 
     @Test
@@ -231,6 +269,8 @@ class GameControllerTest {
         assertTrue(controller.getItemSet().contains(weaponFactory.createSilverSword()));
         assertEquals(weaponFactory.createSilverSword(), controller.getCharacterPlayerList().get(0).getEquippedWeapon());
     }
+
+//  Inventory management tests
 
     @Test
     void testStoreItem() {
@@ -383,6 +423,29 @@ class GameControllerTest {
     }
 
     @Test
+    void testGetWeaponList() {
+        controller.createIronSword();
+        controller.createIronSword();
+        controller.createNormalStaff();
+        controller.createBronzeBow();
+        controller.createBronzeBow();
+        controller.createBronzeBow();
+
+        // check if the weaponList contains all the weapons we have stored
+        // without duplicating the ones that are muliple times in the inventory
+        List<IWeapon> weaponList = controller.getWeaponList();
+        assertEquals(weaponList.size(), 3);
+
+        // check if the inventory at least contains all the elements in the weaponList
+        Set<IItem> inventorySet = controller.getItemSet();
+        for (IWeapon weapon: weaponList) {
+            assertTrue(inventorySet.contains(weapon));
+        }
+    }
+
+//  Character Creation tests
+
+    @Test
     void createEnemyWhenFullEnemyParty() {
         assertTrue(controller.getEnemyList().isEmpty());
 
@@ -407,7 +470,7 @@ class GameControllerTest {
 
     }
 
-    void checkEmptyParty() {
+    private void checkEmptyParty() {
         assertFalse(controller.getCharacterPlayerList().contains(playerCharacterFactory.createWhiteMageCharacter("Rhys")));
         assertFalse(controller.getCharacterPlayerList().contains(playerCharacterFactory.createBlackMageCharacter("Soren")));
         assertFalse(controller.getCharacterPlayerList().contains(playerCharacterFactory.createEngineerCharacter("Jill")));
@@ -533,6 +596,47 @@ class GameControllerTest {
         controller.createThiefPlayer();
         assertTrue(controller.getCharacterPlayerList().contains(playerCharacterFactory.createThiefCharacter("Sothe")));
     }
+
+    // Link sprite methods
+
+    @Test
+    void linkCursorSpriteTest() throws FileNotFoundException, InterruptedException {
+        controller.createKnightPlayer();
+        controller.createEnemy();
+        controller.start();
+
+        Thread.sleep(3000);
+        assertTrue(controller.getCurrentCharacter().isPlayable());
+        controller.next();
+        Thread.sleep(100);
+
+        // link cursor sprite
+        Application.launch();  // we need to call this static method in order to instantiate characterSpriteGroups, because of the labels.
+        CursorSprite cursorSprite = new CursorSprite("src/main/resources/cursor.png");
+        CharacterSpriteGroup characterSpriteGroup = new CharacterSpriteGroup();
+        controller.linkCursorSprite(cursorSprite);
+
+        controller.updateCursorSpritePosition();
+        double prevX = cursorSprite.getGroup().getChildren().get(0).getLayoutX();
+        double prevY = cursorSprite.getGroup().getChildren().get(0).getLayoutY();
+
+        // check cursor sprite's position is consistent
+        controller.updateCursorSpritePosition();
+        assertEquals(prevX, cursorSprite.getGroup().getChildren().get(0).getLayoutX());
+        assertEquals(prevY, cursorSprite.getGroup().getChildren().get(0).getLayoutY());
+
+        // check cursor sprite's position changes when we move the controller's cursor
+
+        controller.moveCursorRight();
+        assertNotEquals(prevX, cursorSprite.getGroup().getChildren().get(0).getLayoutX());
+        assertNotEquals(prevY, cursorSprite.getGroup().getChildren().get(0).getLayoutY());
+        // as there are only two characters, after moving the cursor twice we should get back the positions we stored.
+        controller.moveCursorRight();
+        assertEquals(prevX, cursorSprite.getGroup().getChildren().get(0).getLayoutX());
+        assertEquals(prevY, cursorSprite.getGroup().getChildren().get(0).getLayoutY());
+    }
+
+//  Weapon Creation tests
 
     @Test
     void createBronzeAxe() {

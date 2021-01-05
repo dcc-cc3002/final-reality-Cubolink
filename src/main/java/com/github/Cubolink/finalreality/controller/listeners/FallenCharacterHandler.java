@@ -1,6 +1,6 @@
 package com.github.Cubolink.finalreality.controller.listeners;
 
-import com.github.Cubolink.finalreality.controller.GameController;
+import com.github.Cubolink.finalreality.controller.IGameController;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -10,10 +10,15 @@ import java.beans.PropertyChangeSupport;
  * Event Handler for the controller. Handles the event of a character being defeated.
  */
 public class FallenCharacterHandler implements PropertyChangeListener {
-    private final GameController controller;
+    private final IGameController controller;
     private final PropertyChangeSupport characterDefeatedEvent = new PropertyChangeSupport(this);
 
-    public FallenCharacterHandler(GameController controller, PropertyChangeListener endGameListener) {
+    /**
+     * Instantiates the handler.
+     * @param controller to which it is attached.
+     * @param endGameListener which listens the events this handler manages.
+     */
+    public FallenCharacterHandler(IGameController controller, PropertyChangeListener endGameListener) {
         this.controller = controller;
         characterDefeatedEvent.addPropertyChangeListener(endGameListener);
     }
@@ -28,5 +33,6 @@ public class FallenCharacterHandler implements PropertyChangeListener {
         if (controller.isTheGameFinished()) {
             characterDefeatedEvent.firePropertyChange("Game Over", false, true);
         }
+        controller.updateAliveCharacters();
     }
 }

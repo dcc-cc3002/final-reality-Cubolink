@@ -1,8 +1,29 @@
 ChangeLog
 =========
 
+Version 4.0 (Tarea 3)
+-----------
+- (RC.5) Pull Request
+- (B.16) UML Diagrams updated.
+- (B.15) Balanced game and fixed a bug of displayed hp in death characters.
+- (B.14) Javadoc and markdowns update.
+- (B.13) Added more tests.
+- (B.12) Fixed cursor bug.
+- (B.11) Sprites animation support.
+- (B.10) GUI visual improvement.
+- (B.9) Balanced game and added tests.
+- (B.8) Refactor.
+- (B.7) Refactor and added more javadoc
+- (B.6) Added javadoc.
+- (B.5) Refactor and game structure working.
+- (B.4) Refactor and solved bugs.
+- (B.3) Connected controller with GUI.
+- (B.2) Implemented GUI architecture.
+- (B.1) The game uses phases to control the flow.
+
 Version 3.0 (Tarea 2)
 -----------
+- (RC.4) Pull Request
 - (B.14) Completed the few missing javadoc. Ready to pull request.
 - (B.13) Documentation and UML diagrams updated.
 - (B.12) Controller package testing. 100% coverage and branches achieved.

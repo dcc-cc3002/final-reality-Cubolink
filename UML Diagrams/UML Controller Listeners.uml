@@ -4,13 +4,13 @@
   <OriginalElement>com.github.Cubolink.finalreality.controller.listeners</OriginalElement>
   <nodes>
     <node x="0.0" y="0.0">com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler</node>
-    <node x="0.0" y="310.0">com.github.Cubolink.finalreality.controller.listeners.EndGameHandler</node>
     <node x="0.0" y="166.0">com.github.Cubolink.finalreality.controller.listeners.CharacterReadyInQueueHandler</node>
+    <node x="0.0" y="310.0">com.github.Cubolink.finalreality.controller.listeners.EndGameHandler</node>
     <node x="0.0" y="454.0">com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandlerTest</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="136.0" y="125.5" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="202.0" y="265.0" />
   <SelectedNodes>
     <node>com.github.Cubolink.finalreality.controller.listeners.FallenCharacterHandler</node>
   </SelectedNodes>
