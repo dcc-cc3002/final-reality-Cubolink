@@ -50,7 +50,7 @@
       <point x="57.5" y="82.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="274.0" y="954.0" />
+  <settings layout="Hierarchic Group" zoom="0.4678076609616952" x="409.0" y="603.5" />
   <SelectedNodes>
     <node>com.github.Cubolink.finalreality.model.character.AbstractCharacterTest</node>
   </SelectedNodes>

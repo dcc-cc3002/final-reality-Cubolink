@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.github.Cubolink.finalreality.controller.phases</OriginalElement>
+  <nodes>
+    <node x="0.0" y="572.0">com.github.Cubolink.finalreality.controller.phases.SelectPlayerActionPhase</node>
+    <node x="889.0" y="583.5">com.github.Cubolink.finalreality.controller.phases.SelectAttackedTargetPhase</node>
+    <node x="0.0" y="948.0">com.github.Cubolink.finalreality.controller.phases.PhaseTransitionTest</node>
+    <node x="634.0" y="783.0">com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhaseTest</node>
+    <node x="901.0" y="783.0">com.github.Cubolink.finalreality.controller.phases.EnemyActionPhaseTest</node>
+    <node x="325.0" y="783.0">com.github.Cubolink.finalreality.controller.phases.SelectPlayerActionPhaseTest</node>
+    <node x="1269.0" y="583.5">com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase</node>
+    <node x="640.0" y="594.5">com.github.Cubolink.finalreality.controller.phases.EndGamePhase</node>
+    <node x="765.25" y="236.0">com.github.Cubolink.finalreality.controller.phases.AbstractPhase</node>
+    <node x="267.0" y="948.0">com.github.Cubolink.finalreality.controller.phases.PhaseTest</node>
+    <node x="808.25" y="0.0">com.github.Cubolink.finalreality.controller.phases.IGamePhase</node>
+    <node x="296.0" y="594.5">com.github.Cubolink.finalreality.controller.phases.SelectWeaponPhase</node>
+    <node x="1168.0" y="783.0">com.github.Cubolink.finalreality.controller.phases.SelectWeaponPhaseTest</node>
+    <node x="1540.0" y="572.0">com.github.Cubolink.finalreality.controller.phases.EnemyActionPhase</node>
+    <node x="1435.0" y="783.0">com.github.Cubolink.finalreality.controller.phases.EndGamePhaseTest</node>
+    <node x="0.0" y="783.0">com.github.Cubolink.finalreality.controller.phases.SelectAttackedTargetPhaseTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.github.Cubolink.finalreality.controller.phases.SelectWeaponPhase" target="com.github.Cubolink.finalreality.controller.phases.AbstractPhase">
+      <point x="0.0" y="-60.5" />
+      <point x="458.0" y="542.0" />
+      <point x="838.5" y="542.0" />
+      <point x="-73.25" y="138.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.controller.phases.EnemyActionPhase" target="com.github.Cubolink.finalreality.controller.phases.AbstractPhase">
+      <point x="0.0" y="-83.0" />
+      <point x="1664.5" y="532.0" />
+      <point x="1033.8333333333335" y="532.0" />
+      <point x="122.08333333333337" y="138.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.controller.phases.SelectPlayerActionPhase" target="com.github.Cubolink.finalreality.controller.phases.AbstractPhase">
+      <point x="0.0" y="-83.0" />
+      <point x="138.0" y="532.0" />
+      <point x="789.6666666666666" y="532.0" />
+      <point x="-122.08333333333337" y="138.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.controller.phases.AbstractPhase" target="com.github.Cubolink.finalreality.controller.phases.IGamePhase">
+      <point x="0.0" y="-138.0" />
+      <point x="0.0" y="93.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.controller.phases.WaitNextTurnPhase" target="com.github.Cubolink.finalreality.controller.phases.AbstractPhase">
+      <point x="0.0" y="-71.5" />
+      <point x="1394.5" y="542.0" />
+      <point x="985.0" y="542.0" />
+      <point x="73.25" y="138.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.controller.phases.SelectAttackedTargetPhase" target="com.github.Cubolink.finalreality.controller.phases.AbstractPhase">
+      <point x="0.0" y="-71.5" />
+      <point x="1069.0" y="552.0" />
+      <point x="936.1666666666667" y="552.0" />
+      <point x="24.416666666666742" y="138.0" />
+    </edge>
+    <edge source="com.github.Cubolink.finalreality.controller.phases.EndGamePhase" target="com.github.Cubolink.finalreality.controller.phases.AbstractPhase">
+      <point x="0.0" y="-60.5" />
+      <point x="754.5" y="552.0" />
+      <point x="887.3333333333334" y="552.0" />
+      <point x="-24.41666666666663" y="138.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5185185185185185" x="894.5" y="523.0" />
+  <SelectedNodes>
+    <node>com.github.Cubolink.finalreality.controller.phases.EnemyActionPhase</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

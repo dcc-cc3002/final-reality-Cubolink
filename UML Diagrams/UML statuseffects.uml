@@ -48,20 +48,20 @@
       <point x="359.625" y="211.0" />
       <point x="26.125" y="93.0" />
     </edge>
-    <edge source="com.github.Cubolink.finalreality.model.statuseffects.Paralyzed" target="com.github.Cubolink.finalreality.model.statuseffects.AbstractStatus">
-      <point x="52.25" y="-116.0" />
-      <point x="156.75" y="452.0" />
-      <point x="206.33333333333331" y="452.0" />
-      <point x="-69.66666666666669" y="93.0" />
-    </edge>
     <edge source="com.github.Cubolink.finalreality.model.statuseffects.AbstractStatus" target="com.github.Cubolink.finalreality.model.statuseffects.IStatus">
       <point x="0.0" y="-93.0" />
       <point x="276.0" y="211.0" />
       <point x="307.375" y="211.0" />
       <point x="-26.125" y="93.0" />
     </edge>
+    <edge source="com.github.Cubolink.finalreality.model.statuseffects.Paralyzed" target="com.github.Cubolink.finalreality.model.statuseffects.AbstractStatus">
+      <point x="52.25" y="-116.0" />
+      <point x="156.75" y="452.0" />
+      <point x="206.33333333333331" y="452.0" />
+      <point x="-69.66666666666669" y="93.0" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="432.0" y="168.0" />
+  <settings layout="Hierarchic Group" zoom="0.5875127942681678" x="471.0" y="478.50000000000006" />
   <SelectedNodes>
     <node>com.github.Cubolink.finalreality.model.statuseffects.Paralyzed</node>
   </SelectedNodes>
